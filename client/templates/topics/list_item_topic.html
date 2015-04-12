@@ -1,0 +1,10 @@
+<template name="listItemTopic">
+  <div class="list-item-topic">
+    <div class="topic-content">
+      <h3><a href="{{pathFor 'detailTopic'}}">{{title}}</a></h3>
+      <p>
+        {{#if ownTopic}}<a href="{{pathFor 'editTopic'}}">Edit</a>{{/if}}
+      </p>
+    </div>
+  </div>
+</template>

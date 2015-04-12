@@ -1,0 +1,19 @@
+ Packages:
+ # audit-argument-checks package:
+ This package lets you check any JavaScript object against a predefined pattern. 
+
+Meteor Notes:
+# Methods
+- It's better to keep our event handlers simple and, if we are doing more than the most basic inserts or updates to collections, use a Method. A Meteor Method is a server-side function that is called client side.
+- The Meteor.call function calls a Method named by its first argument.
+- Meteor methods bypass allow / deny logic.
+
+- use Meteor's deny() callback to ensure users can only edit specific fields when updating from client. Also need to add allow for update and remove item from client.
+
+- Because we needed to do auxiliary tasks like decorating the post with extra properties and taking special action when the post's URL had already been posted, using a specific post Method made a lot of sense when creating a post. On the other hand, we didn't really need to create new Methods for updating and deleting posts. We just needed to check if the user had permission to do these actions, and this was made easy by allow and deny callbacks. Using these callbacks lets us be more declarative about database modifications, and say what kind of updates can be used. The fact that they integrate with the accounts system is an added bonus.
+
+- Allows - We can define as many allow callbacks as required. We just need at least one of them to return true for the given change that is happening.
+- Denys - Similarly, we can define one or more deny callbacks. If any of those callbacks return true, the change will be cancelled and a 403 will be returned. 
+
+Possible Packages:
+- If you want to run some code before every insert, update, or remove even on the server, we suggest checking out the collection-hooks package.

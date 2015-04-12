@@ -1,0 +1,38 @@
+  .sidebar {
+    position: fixed;
+    top: 45px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #fff;
+    border-right: 1px solid #dadde2;
+    display:none;
+  }
+
+  .sidebar.sidebar-right{
+    right:0px;
+    left:auto;
+    border-left:1px solid #dadde2;
+  }
+
+.sidebar .nav-sidebar i{
+  font-size:22px;
+}
+
+.sidebar .nav-sidebar li,
+.sidebar .nav-sidebar li:first-child{
+  display:inline-block;
+  float:left;
+  padding-right:5px;
+  padding-left:5px;
+  border:none;
+}
+
+.blog-sidebar{
+  max-width: 210px;
+  margin-right: 30px;
+}
