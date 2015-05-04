@@ -17,3 +17,13 @@ Meteor Notes:
 
 Possible Packages:
 - If you want to run some code before every insert, update, or remove even on the server, we suggest checking out the collection-hooks package.
+
+
+TODO:
+- Article Detail page looking better
+- Add sidebar template for article detail page
+- Create Topic process working as it will
+- view topic to list the articles
+- Gather list of topics and build default hierarchy
+- Build basic browse template for looks only
+- build in the interactive review processes for each component

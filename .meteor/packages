@@ -16,3 +16,4 @@ nemo64:bootstrap
 aldeed:simple-schema
 aldeed:collection2
 alanning:roles
+djedi:sanitize-html
