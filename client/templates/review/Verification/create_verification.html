@@ -1,0 +1,22 @@
+<!-- <template name="createVerification">
+  <form class="form create-verification main-content">
+    <div class="form-group {{errorClass 'text'}}">
+      <label class="control-label" for="text">Text</label>
+      <div class="controls">
+          <input name="text" id="text" type="text" value="" placeholder="What's the text" class="form-control"/>
+          <span class="help-block">{{errorMessage 'text'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'whyVerify'}}">
+      <label class="control-label" for="whyVerify">Why</label>
+      <div class="controls">
+          <input name="whyVerify" id="whyVerify" type="text" value="" placeholder="Who is the whyVerify" class="form-control"/>
+          <span class="help-block">{{errorMessage 'whyVerify'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template> -->
+<template name="createVerification">
+  {{> quickForm collection="Verifications" id="createVerification" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="text, whyVerify, comments" }}
+</template>

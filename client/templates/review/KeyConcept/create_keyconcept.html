@@ -1,0 +1,23 @@
+<!-- <template name="createConcept">
+  <form class="form create-concept main-content">
+    <div class="form-group {{errorClass 'concept'}}">
+      <label class="control-label" for="concept">Concept</label>
+      <div class="controls">
+          <input name="concept" id="concept" type="text" value="" placeholder="What's the concept" class="form-control"/>
+          <span class="help-block">{{errorMessage 'concept'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'source'}}">
+      <label class="control-label" for="source">Additional Info</label>
+      <div class="controls">
+          <input name="source" id="source" type="text" value="" placeholder="Any Additional Information" class="form-control"/>
+          <span class="help-block">{{errorMessage 'source'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template> -->
+
+<template name="createConcept">
+  {{> quickForm collection="KeyConcepts" id="createConcept" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="concept, additionalInfo, comments" }}
+</template>

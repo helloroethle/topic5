@@ -1,0 +1,30 @@
+<!-- <template name="createTimeline">
+  <form class="form create-timeline main-content">
+    <div class="form-group {{errorClass 'title'}}">
+      <label class="control-label" for="title">Fact</label>
+      <div class="controls">
+          <input name="title" id="title" type="text" value="" placeholder="What's the title" class="form-control"/>
+          <span class="help-block">{{errorMessage 'title'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'event_date'}}">
+      <label class="control-label" for="event_date">Date</label>
+      <div class="controls">
+          <input name="event_date" id="event_date" type="text" value="" placeholder="Who is the event_date" class="form-control"/>
+          <span class="help-block">{{errorMessage 'event_date'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'comments'}}">
+      <label class="control-label" for="comments">Comments</label>
+      <div class="controls">
+          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
+          <span class="help-block">{{errorMessage 'comments'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template> --> 
+
+<template name="createTimeline">
+  {{> quickForm collection="Timelines" id="createTimeline" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="title, event_date, comments" }}
+</template>

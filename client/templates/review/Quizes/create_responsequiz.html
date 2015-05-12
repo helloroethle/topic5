@@ -1,0 +1,48 @@
+<!-- <template name="createResponseQuiz">
+  <form class="form create-response-quiz main-content">
+    <div class="form-group {{errorClass 'question'}}">
+      <label class="control-label" for="question">Question</label>
+      <div class="controls">
+          <input name="question" id="question" type="text" value="" placeholder="What's the question" class="form-control"/>
+          <span class="help-block">{{errorMessage 'question'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'answer'}}">
+      <label class="control-label" for="answer">Answer</label>
+      <div class="controls">
+          <textarea name="answer" id="answer" type="text" value="" placeholder="Who is the answer" class="form-control"></textarea>
+          <span class="help-block">{{errorMessage 'answer'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'minLength'}}">
+      <label class="control-label" for="minLength">Minimum Length</label>
+      <div class="controls">
+          <input name="minLength" id="minLength" type="text" value="" placeholder="Any minLength?" class="form-control"/>
+          <span class="help-block">{{errorMessage 'minLength'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template> -->
+<template name="createQuiz">
+  <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#responsequiz" aria-controls="responsequiz" role="tab" data-toggle="tab">Response</a></li>
+      <li role="presentation"><a href="#mcquiz" aria-controls="mcquiz" role="tab" data-toggle="tab">Multiple Choice</a></li>
+      <li role="presentation"><a href="#tfquiz" aria-controls="tfquiz" role="tab" data-toggle="tab">True/False</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="responsequiz">
+        {{> quickForm collection="ResponseQuizes" id="createResponseQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question, answer, comments, minLength" }}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="mcquiz">
+        {{> quickForm collection="MCQuizes" id="createMCQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question,choices,comments" }}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="tfquiz">
+        {{> quickForm collection="TFQuizes" id="createTFQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question, answer, comments" }}
+      </div>
+    </div>
+  </div>
+</template>

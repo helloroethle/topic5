@@ -1,0 +1,17 @@
+<template name="createCategory">
+  {{> quickForm collection="Categories" id="createCategory" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="title" }}
+</template>
+
+<!-- <template name="createCategory">
+  <form class="form create-category main-content">
+    <div class="form-group {{errorClass 'title'}}">
+      <label class="control-label" for="title">Category</label>
+      <div class="controls">
+          <input name="title" id="title" type="text" value="" placeholder="Category" class="form-control"/>
+          <span class="help-block">{{errorMessage 'title'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template>
+ -->

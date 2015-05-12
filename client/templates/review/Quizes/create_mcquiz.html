@@ -1,0 +1,23 @@
+<!-- <template name="createMCQuiz">
+  <form class="form create-mc-quiz main-content">
+    <div class="form-group {{errorClass 'question'}}">
+      <label class="control-label" for="question">Question</label>
+      <div class="controls">
+          <input name="question" id="question" type="text" value="" placeholder="What's the question" class="form-control"/>
+          <span class="help-block">{{errorMessage 'question'}}</span>
+      </div>
+    </div>
+    // need to change this to similar to angular repeat and have a checkbox next to each choice to mark answer
+    <div class="form-group {{errorClass 'choice'}}">
+      <label class="control-label" for="choice">Choices</label>
+      <div class="controls">
+          <input name="choice" id="choice" type="text" value="" placeholder="Who are the choices" class="form-control"/>
+          <span class="help-block">{{errorMessage 'choice'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template> -->
+<template name="createMCQuiz">
+  {{> quickForm collection="MCQuizes" id="createMCQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question,choices,comments" }}
+</template>

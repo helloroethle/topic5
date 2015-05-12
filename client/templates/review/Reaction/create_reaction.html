@@ -1,0 +1,30 @@
+<!-- <template name="createReaction">
+  <form class="form create-reaction main-content">
+    <div class="form-group {{errorClass 'text'}}">
+      <label class="control-label" for="text">Text</label>
+      <div class="controls">
+          <input name="text" id="text" type="text" value="" placeholder="What's the text" class="form-control"/>
+          <span class="help-block">{{errorMessage 'text'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'reaction'}}">
+      <label class="control-label" for="reaction">Reaction</label>
+      <div class="controls">
+          <input name="reaction" id="reaction" type="text" value="" placeholder="Who is the reaction" class="form-control"/>
+          <span class="help-block">{{errorMessage 'reaction'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'agreement_score'}}">
+      <label class="control-label" for="agreement_score">Agreement</label>
+      <div class="controls">
+          <input name="agreement_score" id="agreement_score" type="text" value="" placeholder="Any agreement_score?" class="form-control"/>
+          <span class="help-block">{{errorMessage 'agreement_score'}}</span>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+</template>
+ -->
+<template name="createReaction">
+  {{> quickForm collection="Reactions" id="createReaction" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="text, reaction, agreement_score" }}
+</template>
