@@ -3,9 +3,14 @@ Template.articleLayout.events({
         e.preventDefault();
         var text = "";
         var selectionObject = {};
-        if (window.getSelection) {
+        var templateName = $(e.currentTarget).find('i').attr('data-template');
+        if (window.getSelection() && window.getSelection().rangeCount) {
             selectionObject = window.getSelection();
             text = window.getSelection().toString();
+            highlightSelection(templateName);
+            var index = Session.get('highlight_index');
+            index += 1;
+            Session.set('highlight_index', index);
         }
         // } else if (document.selection && document.selection.type != "Control") {
         //     selectionObject = document.selection;
@@ -19,16 +24,18 @@ Template.articleLayout.events({
       //   $('#sidebar-content').empty();
       // }
       // else{
-        highlightSelection();
         $('#wrapper').addClass('toggled');
         $('#sidebar-content').empty();
-        var templateName = $(e.currentTarget).find('i').attr('data-template');
         Blaze.render(Template[templateName], $('#sidebar-content').get(0));
       // }
     },
     'click .close':function(e){
       $('#wrapper').removeClass('toggled');
       $('#sidebar-content').empty();
+    },
+    'click .highlight-section':function(e){
+        var templateName = $(e.currentTarget).attr('data-template');
+        Blaze.render(Template[templateName], $('#sidebar-content').get(0));
     },
     // 'click a.toggle-nav': function(e){
     //   e.preventDefault();
@@ -55,20 +62,24 @@ Template.articleLayout.events({
     }
 });
 
-function highlightSelection() {
+function highlightSelection(templateName) {
     var userSelection = window.getSelection().getRangeAt(0);
     var safeRanges = getSafeRanges(userSelection);
     for (var i = 0; i < safeRanges.length; i++) {
-        highlightRange(safeRanges[i]);
+        highlightRange(safeRanges[i], templateName);
     }
 }
 
-function highlightRange(range) {
+function highlightRange(range, templateName) {
+    var index = Session.get('highlight_index');
     var newNode = document.createElement("div");
-    newNode.setAttribute(
-       "style",
-       "background-color: yellow; display: inline;"
-    );
+    var detailsTemplateName = templateName.replace('create', 'detail');
+    var classNames = 'highlight-section highlight-section-' + index;
+    newNode.setAttribute( "class", classNames );
+    newNode.setAttribute('data-template', detailsTemplateName);
+    // newNode.setAttribute('data-toggle', 'tooltip');
+    // newNode.setAttribute('data-placement', 'top');
+    // newNode.setAttribute('title', 'hello');
     range.surroundContents(newNode);
 }
 

@@ -1,6 +1,5 @@
 Template.detailArticle.rendered = function() {
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
+  $('[data-toggle="tooltip"]').tooltip();
+  Session.set('highlight_index', 1);
 };
 
