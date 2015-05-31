@@ -1,3 +1,13 @@
+Template.articleLayout.helpers({
+  whichOne: function () {
+    // note that we return a string - per http://docs.meteor.com/#template_dynamic
+    return Session.get('templateName');
+  },
+  whichData: function(){
+    return Session.get('currentDoc');
+  },
+});
+
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
@@ -25,17 +35,26 @@ Template.articleLayout.events({
       // }
       // else{
         $('#wrapper').addClass('toggled');
-        $('#sidebar-content').empty();
-        Blaze.render(Template[templateName], $('#sidebar-content').get(0));
+        // $('#sidebar-content').empty();
+        Session.set('templateName', templateName);
+        // Blaze.render(Template[templateName], $('#sidebar-content').get(0));
       // }
     },
     'click .close':function(e){
-      $('#wrapper').removeClass('toggled');
-      $('#sidebar-content').empty();
+      $('#wrapper').removeClass('toggled').removeClass('full');
+      Session.set('templateName', '');
+    },
+    'click .expand':function(e){
+        $('#wrapper').toggleClass('full');
     },
     'click .highlight-section':function(e){
+        $('#wrapper').addClass('toggled');
         var templateName = $(e.currentTarget).attr('data-template');
-        Blaze.render(Template[templateName], $('#sidebar-content').get(0));
+        // var resourceId = $(e.currentTarget).data('resource-id');
+        // var docData = Session.get('currentDoc');
+        // $('#sidebar-content').empty();
+        Session.set('templateName', templateName);
+        // Blaze.renderWithData(Template[templateName], {data:docData}, $('#sidebar-content').get(0));
     },
     // 'click a.toggle-nav': function(e){
     //   e.preventDefault();

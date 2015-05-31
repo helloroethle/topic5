@@ -4,9 +4,10 @@
     <div id="wrapper" class='tk-proxima-nova'>
       <div id="sidebar-wrapper">
         <div id="sidebar-content">
-          
+          {{> Template.dynamic template=whichOne data=whichData}}
         </div>
         <ul id="sidebar-nav">
+          <li><a data-toggle="tooltip" data-placement="right" data-container="body" title="Note" href="#"><i data-template="createNote" class="fa fa-file-text-o"></i></a></li>
           <li><a data-toggle="tooltip" data-placement="right" data-container="body" title="Quote" href="#"><i data-template="createQuote" class="fa fa-quote-left"></i></a></li>
           <li><a data-toggle="tooltip" data-placement="right" data-container="body" title="Interesting Fact" href="#"><i data-template="createFact" class="fa fa-exclamation"></i></a></li>
           <li><a data-toggle="tooltip" data-placement="right" data-container="body" title="Quiz Question" href="#"><i data-template="createQuiz" class="fa fa-question"></i> </a></li>
@@ -24,16 +25,16 @@
         </ul>  
         <!-- <a href="" class="toggle-nav"> <i class="fa fa-angle-right"></i> </a> -->
         <button class="close"><i class="fa fa-times-circle-o"></i></button>
+        <button class='expand'><i class="fa fa-arrow-right"></i></button>
       </div>        
 
 <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-8 col-md-offset-2">
+  <div class="article-post-container">
+                  <div class="article-post">
                     {{> yield}}
-                  </div>
                 </div>
-        </div>
+  </div>
+
       </div>
     </div>
 </template>
