@@ -1,23 +1,7 @@
-<!-- <template name="createInspiration">
-  <form class="form create-inspiration main-content">
-    <div class="form-group {{errorClass 'inspiration'}}">
-      <label class="control-label" for="inspiration">Inspiration</label>
-      <div class="controls">
-          <input name="inspiration" id="inspiration" type="text" value="" placeholder="My New Inspiration" class="form-control"/>
-          <span class="help-block">{{errorMessage 'inspiration'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'comments'}}">
-      <label class="control-label" for="comments">Comments</label>
-      <div class="controls">
-          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
-          <span class="help-block">{{errorMessage 'comments'}}</span>
-      </div>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-  </form>
-</template> -->
-
 <template name="createInspiration">
+  <h5>New Inspiration</h5>
   {{> quickForm collection="Inspirations" id="createInspiration" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="inspiration, comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>

@@ -1,3 +1,7 @@
 <template name="detailConcept">
+  <h5>Update Key Concept</h5>
   {{> quickForm collection="KeyConcepts" id="detailConcept" type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="concept, additionalInfo, comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Delete</button>
+  </div>
 </template>

@@ -12,6 +12,17 @@
 //   }
 // });
 
+Template.createReaction.helpers({
+  reaction_type: function () {
+    if(Session.get('disagree')){
+      return 'Disagreement';
+    }
+    else{
+      return 'Agreement';
+    }
+  }
+});
+
 Template.createReaction.rendered = function(){
   // capture the highlighted text and set as quote
   if (!this.rendered){

@@ -244,17 +244,29 @@
 //   }
 // }
 
-.btn-template-save{
+.btn-template-save,
+.btn-template-close{
   background-color: #fff;
   border: 2px solid;
   width: 300px;
-  margin:0px auto;
+  margin:25px auto;
   text-align: center;
   height:40px;
   clear:both;
-  margin-top:25px;
+  outline:none;
+  display:inherit;
 }
 
-.btn-template-save:hover{
+.btn-template-save:hover,
+.btn-template-save:active,
+.btn-template-save:visited{
   border-color:#47AE73; 
+  outline:none;
+}
+
+.btn-template-close:hover,
+.btn-template-close:active,
+.btn-template-close:visited{
+  border-color:red; 
+  outline:none;
 }

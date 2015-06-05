@@ -1,0 +1,198 @@
+#article-interaction-grid{
+
+  overflow-y:auto;
+
+  /* Sidebar */
+  #overlay-sidebar {
+    text-align: center;
+    background: #F5F5F5;
+    z-index: 1000;
+    position: fixed;
+    width: 300px;
+    max-width: 100%;
+    height: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    padding: 2em 1em;
+
+/*SEARCH SIDEBAR*/
+.field {
+  color: #7F868F;
+  padding:9px 0;
+  margin: 0 15px;
+  font-size:11px; 
+  border-bottom: 1px solid #E4E4E4;   
+}
+
+.last-group {
+  position:relative;
+}
+
+input[type="checkbox"] {
+  display:none;
+}
+
+input[type="checkbox"] + label span.chbx {
+  display:inline-block;
+  float:right;
+  margin:4px 0;
+  width:12px;
+  height:12px;
+  background-color:#ddd;
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.10);
+  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.10);  
+}
+
+input[type="checkbox"]:checked + label span.chbx {
+  width:12px;
+  height:12px;
+  border:1px solid #ddd; 
+  background-color:#25b981;
+}
+
+ input[type="checkbox"]:checked + label {
+  color: #25b981;
+}
+
+  }
+
+/*Interaction Item Cards*/
+.card {
+  overflow: hidden;
+  margin: 20px 10px;
+  border-radius: 2px;
+  background-color: #fff;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  height:250px;
+}
+
+.item-body {
+  overflow: hidden;
+  padding: 16px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  height:225px;
+}
+
+.item-body p{
+  text-overflow:ellipsis;
+}
+
+.image-placeholder {
+  height: 100px;
+  width: 150px;
+  background-color: #c4c4c4;
+  color: #ffffff;
+  margin: 0px auto 20px;
+}
+
+
+
+
+  .grid{
+    margin-left:300px;
+    position:relative;
+    padding-top:40px;
+  }
+
+  .col-md-3{
+    height:300px;
+  }
+
+}
+
+/* Overlay style */
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 50;
+  left: 0;
+  background: #F5F5F5;
+}
+
+/* Overlay closing cross */
+.overlay .overlay-close {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  overflow: hidden;
+  border: none;
+  background: url(/img/cross.png) no-repeat center center;
+  text-indent: 200%;
+  color: transparent;
+  outline: none;
+  z-index: 100;
+}
+
+/* Effects */
+html, body {
+  overflow-x: hidden;
+}
+
+#wrapper {
+  overflow-x: hidden;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s; 
+}
+
+#wrapper.overlay-open {
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+#wrapper::after {
+  content: '';
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
+  transition: opacity 0.5s, visibility 0s 0.5s;
+}
+
+#wrapper.overlay-open::after {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.overlay-contentpush {
+  background: #F5F5F5;
+  visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+  transition: transform 0.5s, visibility 0s 0.5s;
+}
+
+.overlay-contentpush.open {
+  visibility: visible;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+
+@media screen and (max-height: 30.5em) {
+  .overlay nav {
+    height: 70%;
+    font-size: 34px;
+  }
+  .overlay ul li {
+    min-height: 34px;
+  }
+}

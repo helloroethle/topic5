@@ -1,30 +1,7 @@
-<!-- <template name="createIdea">
-  <form class="form create-idea main-content">
-    <div class="form-group {{errorClass 'idea'}}">
-      <label class="control-label" for="idea">Idea</label>
-      <div class="controls">
-          <input name="idea" id="idea" type="text" value="" placeholder="What's the new idea" class="form-control"/>
-          <span class="help-block">{{errorMessage 'idea'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'sources_to_explore'}}">
-      <label class="control-label" for="sources_to_explore">Sources to Explore</label>
-      <div class="controls">
-          <input name="sources_to_explore" id="sources_to_explore" type="text" value="" placeholder="Who is the sources_to_explore" class="form-control"/>
-          <span class="help-block">{{errorMessage 'sources_to_explore'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'comments'}}">
-      <label class="control-label" for="comments">Comments</label>
-      <div class="controls">
-          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
-          <span class="help-block">{{errorMessage 'comments'}}</span>
-      </div>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-  </form>
-</template> -->
-
 <template name="createIdea">
+  <h5>New Idea</h5>
   {{> quickForm collection="NewIdeas" id="createIdea" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="idea,sources_to_explore,comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>

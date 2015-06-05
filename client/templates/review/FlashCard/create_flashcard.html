@@ -1,30 +1,3 @@
-<!-- <template name="createFlashCard">
-  <form class="form create-flashcard main-content">
-    <div class="form-group {{errorClass 'front_text'}}">
-      <label class="control-label" for="front_text">Front</label>
-      <div class="controls">
-          <input name="front_text" id="front_text" type="text" value="" placeholder="What is the Flashcard front" class="form-control"/>
-          <span class="help-block">{{errorMessage 'front_text'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'back_text'}}">
-      <label class="control-label" for="back_text">Back</label>
-      <div class="controls">
-          <input name="back_text" id="back_text" type="text" value="" placeholder="What is the Flashcard Back" class="form-control"/>
-          <span class="help-block">{{errorMessage 'back_text'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'comments'}}">
-      <label class="control-label" for="comments">Comments</label>
-      <div class="controls">
-          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
-          <span class="help-block">{{errorMessage 'comments'}}</span>
-      </div>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-  </form>
-</template> -->
-
 <template name="createFlashCard">
 <!--     <div class="card">
       <div class="front">
@@ -34,5 +7,9 @@
           Back: Dolor scelerisque ridiculus! Mus? Augue, montes, montes proin rhoncus vel a parturient dapibus eros? Penatibus nascetur. In turpis nisi elementum nascetur habitasse augue egestas, in ac rhoncus odio porttitor turpis.
       </div> 
     </div> -->
+<h5>New Flash Card</h5>
   {{> quickForm collection="FlashCards" id="createFlashCard" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="front_text,back_text,comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>

@@ -1,22 +1,7 @@
-<!-- <template name="createQuote">
-      <section class="content">
-        <span class="input input--hoshi">
-          <input class="input__field input__field--hoshi" type="text" id="quote" />
-          <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="quote">
-            <span class="input__label-content input__label-content--hoshi">Quote</span>
-          </label>
-        </span>
-        <span class="input input--hoshi">
-          <input class="input__field input__field--hoshi" type="text" id="source" />
-          <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="source">
-            <span class="input__label-content input__label-content--hoshi">Source</span>
-          </label>
-        </span>
-      </section>
-
-  <input type="submit" value="Save" class="btn btn-template-save"/>
-</template> -->
-
 <template name="createQuote">
+  <h5>New Quote</h5>
   {{> quickForm collection="Quotes" id="createQuote" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="quote,source,comments" }}
+    <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>

@@ -1,32 +1,7 @@
 <template name="createFact">
-  {{> quickForm collection="Facts" id="createFact" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="fact,sources,comments" }}
+<h5>New Fact</h5>
+  {{> quickForm collection="Facts" id="createFact" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="fact,source,comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>
-
-
-
-<!-- <template name="createFact">
-  <form class="form create-fact main-content">
-    <div class="form-group {{errorClass 'fact'}}">
-      <label class="control-label" for="fact">Fact</label>
-      <div class="controls">
-          <input name="fact" id="fact" type="text" value="" placeholder="What's the fact" class="form-control"/>
-          <span class="help-block">{{errorMessage 'fact'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'source'}}">
-      <label class="control-label" for="source">Sources</label>
-      <div class="controls">
-          <input name="source" id="source" type="text" value="" placeholder="Who is the source" class="form-control"/>
-          <span class="help-block">{{errorMessage 'source'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'comments'}}">
-      <label class="control-label" for="comments">Comments</label>
-      <div class="controls">
-          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
-          <span class="help-block">{{errorMessage 'comments'}}</span>
-      </div>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-  </form>
-</template> -->

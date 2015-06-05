@@ -1,30 +1,7 @@
-<!-- <template name="createDefinition">
-  <form class="form create-definition main-content">
-    <div class="form-group {{errorClass 'term'}}">
-      <label class="control-label" for="term">Term</label>
-      <div class="controls">
-          <input name="term" id="term" type="text" value="" placeholder="Who is the term" class="form-control"/>
-          <span class="help-block">{{errorMessage 'term'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'definition'}}">
-      <label class="control-label" for="definition">Definition</label>
-      <div class="controls">
-          <input name="definition" id="definition" type="text" value="" placeholder="What's the definition" class="form-control"/>
-          <span class="help-block">{{errorMessage 'definition'}}</span>
-      </div>
-    </div>
-    <div class="form-group {{errorClass 'comments'}}">
-      <label class="control-label" for="comments">Comments</label>
-      <div class="controls">
-          <input name="comments" id="comments" type="text" value="" placeholder="Any comments?" class="form-control"/>
-          <span class="help-block">{{errorMessage 'comments'}}</span>
-      </div>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-  </form>
-</template> -->
-
 <template name="createDefinition">
+  <h5>New Definition</h5>
   {{> quickForm collection="Definitions" id="createDefinition" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="term,definition,comments" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
 </template>

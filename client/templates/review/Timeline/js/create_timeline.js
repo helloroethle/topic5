@@ -16,7 +16,7 @@ Template.createTimeline.rendered = function(){
   if (!this.rendered){
     if (Session.get("highlighted_text")) {
       var text = Session.get('highlighted_text');
-      $("[name='title']").val(text);
+      $("[name='details']").val(text);
     }
     this.rendered = true;
   }
