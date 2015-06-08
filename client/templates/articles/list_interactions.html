@@ -2,63 +2,189 @@
 <div id="article-interaction-grid" class="overlay overlay-contentpush">
     <button type="button" class="overlay-close">Close</button>
     <div id="overlay-sidebar" class="sidebar">
+
         <section id="sidebar-search">
-            <div class="clearfix">
-                <strong>BLOG</strong> <span id="objN8">(14)</span>
-              <input type="checkbox" id="cb8" name="blog" value="1"> <label for="cb8" class="checkbox field">
-                
-              </label>
-            </div>
-            <div class="clearfix">
-                <input type="checkbox" id="cb23" name="design" value="1">
-                <label for="cb23" class="checkbox field">
-                    <strong>DESIGN <span class="hidden-tablet">PROJECT </span>FILES</strong> <span id="objN22">(6)</span><span class="chbx"></span>
+<!--             <div class="clearfix">
+                <strong>Filter</strong> <span class="interaction-total">(#)</span>
+            </div> -->
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-note" name="note" value="1">
+                <label for="interaction-note" class="checkbox field">
+                    <strong>Note </strong> <span class="chbx"></span>
                 </label>
-            </div> 
-            <div class="clearfix">
-                <input type="checkbox" id="cb82" name="blog" value="1"> 
-                <label for="cb8" class="checkbox field">
-                  <strong>BLOG</strong> <span id="objN82">(14)</span><span class="chbx"></span></label>
             </div>
             <div class="clearfix">
-                <input type="checkbox" id="cb83" name="blog" value="1"> <label for="cb8" class="checkbox field"><strong>BLOG</strong> <span id="objN83">(14)</span><span class="chbx"></span></label>
+                <input type="checkbox" id="interaction-quote" name="quote" value="1">
+                <label for="interaction-quote" class="checkbox field">
+                    <strong>Quote </strong> <span class="chbx"></span>
+                </label>
+            </div>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-fact" name="fact" value="1">
+                <label for="interaction-fact" class="checkbox field">
+                    <strong>Fact </strong> <span class="chbx"></span>
+                </label>
+            </div>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-response-quiz" name="response_quiz" value="1">
+                <label for="interaction-response-quiz" class="checkbox field">
+                    <strong>Response Quiz </strong>  <span class="chbx"></span>
+                </label>
             </div>
             <div class="clearfix">
-                <input type="checkbox" id="cb84" name="blog" value="1"> <label for="cb8" class="checkbox field"><strong>BLOG</strong> <span id="objN84">(14)</span><span class="chbx"></span></label>
+                <input type="checkbox" id="interaction-mc-quiz" name="mc_quiz" value="1">
+                <label for="interaction-mc-quiz" class="checkbox field">
+                    <strong>Multiple Choice Quiz </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb9" name="news" value="1"> <label for="cb9" class="checkbox field"><strong>NEWS/MAGAZINE</strong> <span id="objN9">(0)</span><span class="chbx"></span></label>
+            <div class="clearfix">
+                <input type="checkbox" id="interaction-tf-quiz" name="tf_quiz" value="1">
+                <label for="interaction-tf-quiz" class="checkbox field">
+                    <strong>True False Quiz </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb10" name="portfolio" value="1"> <label for="cb10" class="checkbox field"><strong>PORTFOLIO<span class="hidden-tablet">/PERSONAL</span></strong> <span id="objN10">(3)</span><span class="chbx"></span></label>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-flashcard" name="flashcard" value="1">
+                <label for="interaction-flashcard" class="checkbox field">
+                    <strong>Flashcard </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb11" name="photo" value="1"> <label for="cb11" class="checkbox field"><strong>PHOTOGRAPHY</strong> <span id="objN11">(0)</span><span class="chbx"></span></label>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-idea" name="idea" value="1">
+                <label for="interaction-idea" class="checkbox field">
+                    <strong>New Idea </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb12" name="ecommerce" value="1"> <label for="cb12" class="checkbox field"><strong>ECOMMERCE</strong> <span id="objN12">(0)</span><span class="chbx"></span></label>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-concept" name="concept" value="1">
+                <label for="interaction-concept" class="checkbox field">
+                    <strong>Key Concept </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb13" name="community" value="1"> <label for="cb13" class="checkbox field"><strong>COMMUNITY</strong> <span id="objN13">(0)</span><span class="chbx"></span></label>
+            <div class="clearfix">
+                <input type="checkbox" id="interaction-definition" name="definition" value="1">
+                <label for="interaction-definition" class="checkbox field">
+                    <strong>Definition </strong>  <span class="chbx"></span>
+                </label>
             </div>
-            <div class=" clearfix">
-                <input type="checkbox" id="cb14" name="forum" value="1"> <label for="cb14" class="checkbox field"><strong>FORUM</strong> <span id="objN14">(0)</span><span class="chbx"></span></label>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-agreement" name="agree" value="1">
+                <label for="interaction-agreement" class="checkbox field">
+                    <strong>Agreement </strong>  <span class="chbx"></span>
+                </label>
             </div>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-disagreement" name="disagree" value="1">
+                <label for="interaction-disagreement" class="checkbox field">
+                    <strong>Disagree </strong>  <span class="chbx"></span>
+                </label>
+            </div>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-timeline" name="timeline" value="1">
+                <label for="interaction-timeline" class="checkbox field">
+                    <strong>Timeline </strong>  <span class="chbx"></span>
+                </label>
+            </div>
+            <div class="clearfix">
+                <input type="checkbox" id="interaction-verify" name="verify" value="1">
+                <label for="interaction-verify" class="checkbox field">
+                    <strong>Double Check </strong>  <span class="chbx"></span>
+                </label>
+            </div>
+          <div class="clearfix">
+                <input type="checkbox" id="interaction-inspiration" name="inspiration" value="1">
+                <label for="interaction-inspiration" class="checkbox field">
+                    <strong>Inspiration </strong>  <span class="chbx"></span>
+                </label>
+            </div>
+
+
         </section>
     </div>
     <div id="theGrid" class="main">
         <section class="grid">
+            <div class="container-fluid">
             <div class="row">
+                {{#if interactions.count}}
+                {{#each interactions}}
+                    {{> itemInteraction}}
+                {{/each}}
+                {{else}}
+                    <h2>You haven't created any interaction elements yet</h2>
+                {{/if}}
+
+<!--                 <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"><i class="fa fa-exclamation"></i></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                            </p>
+      
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="item item-body">
                             <div class="image-placeholder"></div>
-                            <p>
+                            <p class="description">
                                 This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
                             </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="item item-body">
+                            <div class="image-placeholder"></div>
+                            <p class="description">
+                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
                             </p>
                         </div>
                     </div>
@@ -67,104 +193,14 @@
                     <div class="card">
                         <div class="item item-body">
                             <div class="image-placeholder"></div>
-                            <p>
+                            <p class="description">
                                 This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p>
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                            <p>
-                                <a href="#" class="subdued">Edit</a> 
-                                <a href="#" class="subdued">Delete</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
             </div>
-            <footer class="page-meta">
-                <span>Load more...</span>
-            </footer>
+            </div>
         </section>
     </div>
 </div></template>

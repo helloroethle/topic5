@@ -59,48 +59,63 @@ input[type="checkbox"]:checked + label span.chbx {
   }
 
 /*Interaction Item Cards*/
-.card {
-  overflow: hidden;
-  margin: 20px 10px;
-  border-radius: 2px;
-  background-color: #fff;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  height:250px;
+  .card {
+    overflow: hidden;
+    margin: 15px 10px;
+    border-radius: 2px;
+    background-color: #fff;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    height:215px;
+    width:200px;
+  }
+
+  .item-body {
+    overflow: hidden;
+    padding: 16px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    height:200px;
+  }
+
+  .item-body p.description{
+    text-overflow:ellipsis;
+    height:80px;
+    overflow:hidden;
+  }
+
+  .image-placeholder {
+    height: 80px;
+    width: 170px;
+    background-color: purple;
+    color: #ffffff;
+    margin: 0px auto 15px;    
+    text-align:center;
+  }
+
+  .image-placeholder i{
+    font-size:50px;
+    margin-top:16px;
+  }
+
+  .circle
+  {
+    line-height:80px;
+    text-align:center;
+    margin:0px auto 0px;
+    background-color:purple;
+    color:#fff;
+    width:80px;
+    height:80px;
+    border-radius:40px;
+    display:inline-block;
 }
-
-.item-body {
-  overflow: hidden;
-  padding: 16px;
-  text-overflow: ellipsis;
-  white-space: normal;
-  height:225px;
-}
-
-.item-body p{
-  text-overflow:ellipsis;
-}
-
-.image-placeholder {
-  height: 100px;
-  width: 150px;
-  background-color: #c4c4c4;
-  color: #ffffff;
-  margin: 0px auto 20px;
-}
-
-
-
 
   .grid{
     margin-left:300px;
     position:relative;
     padding-top:40px;
-  }
-
-  .col-md-3{
-    height:300px;
   }
 
 }
@@ -117,10 +132,10 @@ input[type="checkbox"]:checked + label span.chbx {
 
 /* Overlay closing cross */
 .overlay .overlay-close {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   position: absolute;
-  right: 10px;
+  right: 20px;
   top: 10px;
   overflow: hidden;
   border: none;

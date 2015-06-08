@@ -9,8 +9,21 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         else {
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
-          console.log('doc id - ' + this.docId);
           this.insertDoc._id = this.docId;
+          var interactionKey = this.formId.replace('create', '').toLowerCase();
+          var interactionMeta = getInteractionMeta(interactionKey);
+          console.log(Interactions.insert({
+            'resourceId' : this.docId, 
+            'data' : this.insertDoc,
+            'key' : interactionKey,
+            'meta': interactionMeta,
+          }, function(){
+            console.log('inspiration has been inserted');
+          }));
+          console.log('interation meta');
+          console.log(getInteractionMeta(this.formId.replace('create', '')));
+          console.log('this is before the insert document gets printed');
+          console.log(this);
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           $(classSelector).data('resource', this.docId).data('template', detailsTemplateName);

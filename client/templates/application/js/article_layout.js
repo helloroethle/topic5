@@ -71,8 +71,9 @@ Template.articleLayout.events({
     'click .expand':function(e){
         $('#wrapper').toggleClass('full');
     },
-    'click button.overlay-close, click .show-all':function(e){
+    'click button.overlay-close, click .show-resources':function(e){
       toggleOverlay();
+      console.log('article layout called');
     },
     'click .add-highlight':function(e){
       $('.article-post').toggleClass('add-highlights');
