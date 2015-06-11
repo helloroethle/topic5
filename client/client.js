@@ -12,24 +12,23 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           this.insertDoc._id = this.docId;
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
-          console.log(Interactions.insert({
+          console.log(this.docId);
+          Interactions.insert({
             'resourceId' : this.docId, 
             'data' : this.insertDoc,
             'key' : interactionKey,
             'meta': interactionMeta,
+            'detailTemplate' : this.formId.replace('create', 'detail')
           }, function(){
-            console.log('inspiration has been inserted');
-          }));
-          console.log('interation meta');
-          console.log(getInteractionMeta(this.formId.replace('create', '')));
-          console.log('this is before the insert document gets printed');
-          console.log(this);
+            // success
+          });
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           $(classSelector).data('resource', this.docId).data('template', detailsTemplateName);
           $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
+          Session.set('iteraction_items', Session.get('interaction_items') + 1);
         }
       }
     },

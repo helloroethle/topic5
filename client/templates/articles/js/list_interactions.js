@@ -1,23 +1,15 @@
-// Template.listInteractions.helpers({
-//   interactions: function() {
-//     // sort in submitted decending order
-//     var resourceIds = [];
-//     $('.highlight-section').each(function(){
-//       var resourceId = $(this).data('resource');
-//       if(resourceIds.indexOf(resourceId) > -1){
-//         resourceIds.push(resourceId); 
-//       }
-//     });
-//     var interactions = [];
-//     for (i = 0; i < resourceIds.length; i++) { 
-//       interactions.push(Session.get(resourceIds[i]));
-//     }
-//     return interactions;
-//   }
-// });
+Template.listInteractions.rendered = function(){
+  this.CBPGridGallery = new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+  // first initialization
+  Tracker.autorun(_.bind(function(){
+    interactions().count();
+    Tracker.afterFlush(_.bind(function(){
+      this.CBPGridGallery._init();
+    },this));
+  },this));
+}
 
-Template.listInteractions.helpers({
-  interactions: function() {
+function interactions(){
     var currentFilters = Session.get('interactionFilterKeys');
     var queryOptions = {};
     if(currentFilters && currentFilters.length > 0){
@@ -25,8 +17,15 @@ Template.listInteractions.helpers({
          key: { $in: [ currentFilters.split(',') ] }
       };
     }
-    return Interactions.find(queryOptions);
-    // return Interactions.find();
+    all_interactions = Interactions.find(queryOptions);
+    // console.log('rerun this interactions');
+    return all_interactions;
+}
+
+Template.listInteractions.helpers({
+  interactions: interactions,
+  empty_interaction_items: function(){
+    return interactions().count() == 0;
   }
 });
 
@@ -38,14 +37,16 @@ Template.listInteractions.events({
       filters = key;
     }
     else if(filters.indexOf(key) > -1){
+      filters = filters.replace((key + ','), '');
       filters = filters.replace(key, '');
-      filters = filters.replace(',,', ',');
     }
     else{
       filters = filters + ',' + key;
     }
-    console.log(filters);
     Session.set('interactionFilterKeys', filters);
-}
+},
+  'click .btn-template-delete': function(e, tpl) {
+       tpl.CBPGridGallery._closeSlideshow();
+  }
 })
 

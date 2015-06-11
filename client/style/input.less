@@ -50,21 +50,34 @@
 
 .list-group-item{
   display: block;
-  padding: 5px 0px;
+  padding: 0px 0px;
   margin-bottom: -1px;
   background-color: inherit;
   border:none;
 }
 
+#sidebar-wrapper .autoform-remove-item{
+  background-color:#ccc;
+  margin-top:5px;
+  margin-right:5px;
+  &:hover{
+    background-color:red;
+  }
+}
+
+#sidebar-wrapper .panel-heading{
+  font-weight:bold;
+}
+
 .list-group-item.autoform-array-item .autoform-remove-item {
   vertical-align: top;
-  margin-right: 15px;
+  margin-right: 5px;
 }
 
 .btn{
   padding: 3px 6px;
   font-size: 8px;
-  background-color:#555;
+  background-color:#ccc;
   border:none;
 }
 
@@ -72,6 +85,7 @@
 .btn:focus,
 .btn:active{
   background-color:#47AE73;
+  outline:none;
 }
 
 
@@ -244,6 +258,7 @@
 //   }
 // }
 
+.btn-template-delete,
 .btn-template-save,
 .btn-template-close{
   background-color: #fff;
@@ -266,7 +281,10 @@
 
 .btn-template-close:hover,
 .btn-template-close:active,
-.btn-template-close:visited{
+.btn-template-close:visited,
+.btn-template-delete:hover,
+.btn-template-delete:active,
+.btn-template-delete:visited{
   border-color:red; 
   outline:none;
 }

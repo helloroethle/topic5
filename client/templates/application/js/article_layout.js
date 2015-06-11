@@ -68,12 +68,23 @@ Template.articleLayout.events({
       clearActiveHighlight(Session.get('templateName'));
       $('.article-post').removeClass('add-highlights');
     },
+    'click .btn-template-delete':function(e){
+      console.log('article layout template has been called');
+      $('#wrapper').removeClass('toggled').removeClass('full');
+       Session.set('templateName', '');
+       Session.set('highlighted_text', '');
+       var currentHighlightSelector = Session.get('currentResourceHighlightClass');
+      $(currentHighlightSelector).each(function(index){
+         var text = $(this).text();//get span content
+         $(this).replaceWith(text);//replace all span with just content
+      });
+      Interactions.remove(Interactions.findOne({resourceId:this._id}));
+    },
     'click .expand':function(e){
         $('#wrapper').toggleClass('full');
     },
     'click button.overlay-close, click .show-resources':function(e){
       toggleOverlay();
-      console.log('article layout called');
     },
     'click .add-highlight':function(e){
       $('.article-post').toggleClass('add-highlights');
@@ -87,6 +98,11 @@ Template.articleLayout.events({
     'click .highlight-section':function(e){
         $('#wrapper').addClass('toggled');
         var resourceId = $(e.currentTarget).data('resource');
+        var classes = $(e.currentTarget).attr("class");
+        var currentHighlightSelector = $.grep(classes.split(" "), function(v, i){
+               return v.indexOf('highlight-section-') === 0;
+           }).join();
+        Session.set('currentResourceHighlightClass', '.' + currentHighlightSelector);
         if(resourceId){
            // check to make sure it isn't the current open document
            var index = Session.get('highlight_index');

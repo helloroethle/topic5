@@ -101,107 +101,49 @@
 
         </section>
     </div>
-    <div id="theGrid" class="main">
-        <section class="grid">
-            <div class="container-fluid">
-            <div class="row">
-                {{#if interactions.count}}
-                {{#each interactions}}
-                    {{> itemInteraction}}
-                {{/each}}
-                {{else}}
-                    <h2>You haven't created any interaction elements yet</h2>
-                {{/if}}
+    <div id="grid-gallery" class="grid-gallery">
 
-<!--                 <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"><i class="fa fa-exclamation"></i></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-      
-                        </div>
+<section class="grid-wrap">
+    <ul class="grid">
+        {{#if interactions.count}}
+            {{#each interactions}}
+                {{> itemInteraction}}
+            {{/each}}
+        {{/if}}
+                
+    </ul>
+    {{#if empty_interaction_items}}
+        <h2>You haven't created any interaction elements yet</h2>
+    {{/if}}
+</section>
+<section class="slideshow">
+                    <ul>
+                        {{#each interactions}}
+  <li>
+      <figure>
+        {{> Template.dynamic template=detailTemplate data=data}}
+      </figure>
+  </li>
+                        {{/each}}
+                
+                    </ul>
+                    <nav>
+                        <span class="icon nav-prev">
+                            <i class="fa fa-chevron-left"></i>
+                        </span>
+                        <span class="icon nav-next">
+                            <i class="fa fa-chevron-right"></i>
+                        </span>
+                        <span class="icon nav-close">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </nav>
+                    <div class="info-keys icon">Navigate with arrow keys
+                        <i class="fa fa-chevron-left left"></i>
+                        <i class="fa fa-chevron-right right"></i>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="item item-body">
-                            <div class="image-placeholder"></div>
-                            <p class="description">
-                                This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
-                            </p>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-            </div>
-        </section>
-    </div>
-</div></template>
+    </section>
+</div>
+</div>
+</template>
 

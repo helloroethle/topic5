@@ -25,24 +25,24 @@ interactionMeta = {
     'display_fields' : [],
     'summary_field' : 'fact'
   },
-  'response_quiz' : {
+  'responsequiz' : {
     'label' : 'Response Quiz',
-    'icon' : 'fa-question',
-    'template' : 'Quiz',
+    'icon' : 'fa-bullhorn',
+    'template' : 'ResponseQuiz',
     'display_fields' : [],
     'summary_field' : 'question'
   },
-  'mc_quiz' : {
+  'mcquiz' : {
     'label' : 'Multiple Choice Quiz',
-    'icon' : 'fa-question',
-    'template' : 'Quiz',
+    'icon' : 'fa-list-ol',
+    'template' : 'MCQuiz',
     'display_fields' : [],
     'summary_field' : 'question'
   },
-  'tf_quiz' : {
+  'tfquiz' : {
     'label' : 'True False Quiz',
-    'icon' : 'fa-question',
-    'template' : 'Quiz',
+    'icon' : 'fa-toggle-on',
+    'template' : 'TFQuiz',
     'display_fields' : [],
     'summary_field' : 'question'
   },
@@ -134,12 +134,10 @@ getInteractionMeta = function(key){
 
 
 function arrayify(obj){
-    console.log(obj);
     result = [];
     for (var key in obj) result.push({name:key,value:obj[key]});
     return result;  
 }
-
 
 Template.registerHelper('arrayify',function(obj){
   arrayify(obj);
