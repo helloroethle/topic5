@@ -39,6 +39,12 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           doc.highlight_start = Session.get('highlight_start'); 
           doc.highlight_length = Session.get('highlighted_text').length;         
         }
+        if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
+          doc.answer = Session.get('mc_answer')
+        }
+        if($('.tags-input').val() != ''){
+          doc.tags = $('.tags-input').val();
+        }
         return doc; 
       }
     }

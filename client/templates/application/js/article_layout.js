@@ -9,6 +9,9 @@ Template.articleLayout.helpers({
   },
 });
 
+
+
+
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
@@ -67,6 +70,9 @@ Template.articleLayout.events({
     'click .close, click .btn-template-close':function(e){
       clearActiveHighlight(Session.get('templateName'));
       $('.article-post').removeClass('add-highlights');
+    },
+    'click .tag-trigger':function(e){
+      $('.tag-container').toggleClass('hide');
     },
     'click .btn-template-delete':function(e){
       console.log('article layout template has been called');

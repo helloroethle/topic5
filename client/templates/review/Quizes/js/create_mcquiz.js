@@ -22,3 +22,17 @@
 //     this.rendered = true;
 //   }
 // }
+
+Template.createMCQuiz.events({
+  'click .mc-answer-choice':function(e){
+    Session.set('mc_answer', ($(e.currentTarget).parents('li').index() + 1));
+  },
+  'click .autoform-remove-item':function(e){
+    var deleteIndex = $(e.currentTarget).parents('li').index() + 1;
+    var answerIndex = Session.get('mc_answer');
+    if(deleteIndex == answerIndex){
+      console.log('answer deleted');
+      Session.set('mc_answer', null);
+    }
+  }
+})
