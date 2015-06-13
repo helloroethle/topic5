@@ -87,10 +87,31 @@ Template.articleLayout.events({
         $('#wrapper').toggleClass('full');
     },
     'click button.overlay-close, click .show-resources':function(e){
+      $('div.overlay-slide-timeline, div.overlay-slide-outline').removeClass('open');
       toggleOverlay();
+      $('#wrapper').toggleClass('noscroll');
     },
-    'click button.overlay-slide-close, click .show-outline':function(e){
-      toggleOverlaySlide();
+    'click button.overlay-slide-outline-close, click .show-outline':function(e){
+      $overlayTimeline = $('div.overlay-slide-timeline');
+      if($overlayTimeline.hasClass('open')){
+        $overlayTimeline.removeClass('open');
+        setTimeout($('div.overlay-slide-outline').addClass('open'), 1000);
+      }
+      else{
+        $('div.overlay-slide-outline').toggleClass('open');
+        $('#wrapper').toggleClass('noscroll');
+      }      
+    },
+    'click button.overlay-slide-timeline-close, click .show-timeline':function(e){
+      $overlayOutline = $('div.overlay-slide-outline');
+      if($overlayOutline.hasClass('open')){
+        $overlayOutline.removeClass('open');
+        setTimeout($('div.overlay-slide-timeline').addClass('open'), 1000);
+      }
+      else{
+        $('div.overlay-slide-timeline').toggleClass('open');
+        $('#wrapper').toggleClass('noscroll');
+      } 
     },
     'click .add-highlight':function(e){
       $('.article-post').toggleClass('add-highlights');
@@ -266,7 +287,3 @@ function toggleOverlay() {
    }
 }
 
-
-function toggleOverlaySlide() {
-  $('div.overlay-slide').toggleClass('open');
-}

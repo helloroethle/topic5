@@ -12,7 +12,6 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           this.insertDoc._id = this.docId;
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
-          console.log(this.docId);
           Interactions.insert({
             'resourceId' : this.docId, 
             'data' : this.insertDoc,
@@ -41,6 +40,9 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         }
         if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
           doc.answer = Session.get('mc_answer')
+        }
+        if(Session.get('templateName') == 'createTimeline'){
+          Session.set('timelineCount', (Session.get('timelineCount') + 1) );
         }
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();
