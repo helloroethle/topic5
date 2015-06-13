@@ -10,6 +10,26 @@ Template.timelineArticle.rendered = function(){
 }
 
 
+function interactions(){
+    var currentFilters = Session.get('interactionFilterKeys');
+    var queryOptions = {};
+    if(currentFilters && currentFilters.length > 0){
+      var queryOptions = {
+         key: { $in: [ currentFilters.split(',') ] }
+      };
+    }
+    all_interactions = Interactions.find(queryOptions);
+    // console.log('rerun this interactions');
+    return all_interactions;
+}
+
+Template.timelineArticle.helpers({
+  timelines: function(){
+    return Interactions.find({key:'timeline'});
+  }
+});
+
+
 function timelineInit(){
     console.log('timeline is being initialized');
     // var $timeline_block = $('.cd-timeline-block');
