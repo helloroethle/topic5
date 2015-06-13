@@ -3,3 +3,7 @@ Template.detailTimeline.events({
       Timelines.remove(this._id);
   }
 })
+
+Template.detailTimeline.rendered = function(){
+  $('.tags-input').tagsinput();
+}

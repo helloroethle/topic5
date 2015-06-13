@@ -3,3 +3,7 @@ Template.detailResponseQuiz.events({
       ResponseQuizes.remove(this._id);
   }
 })
+
+Template.detailResponseQuiz.rendered = function(){
+  $('.tags-input').tagsinput();
+}

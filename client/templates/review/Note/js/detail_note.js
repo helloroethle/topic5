@@ -3,3 +3,7 @@ Template.detailNote.events({
       Notes.remove(this._id);
   }
 })
+
+Template.detailNote.rendered = function(){
+  $('.tags-input').tagsinput();
+}

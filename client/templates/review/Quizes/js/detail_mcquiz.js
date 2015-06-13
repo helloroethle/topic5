@@ -3,3 +3,7 @@ Template.detailMCQuiz.events({
       MCQuizes.remove(this._id);
   }
 })
+
+Template.detailMCQuiz.rendered = function(){
+  $('.tags-input').tagsinput();
+}

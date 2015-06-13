@@ -3,3 +3,7 @@ Template.detailVerification.events({
       Verifications.remove(this._id);
   }
 })
+
+Template.detailVerification.rendered = function(){
+  $('.tags-input').tagsinput();
+}

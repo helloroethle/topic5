@@ -3,3 +3,7 @@ Template.detailConfusion.events({
       Confusions.remove(this._id);
   }
 })
+
+Template.detailConfusion.rendered = function(){
+  $('.tags-input').tagsinput();
+}

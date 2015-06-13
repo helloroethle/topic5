@@ -3,3 +3,7 @@ Template.detailFutureTopic.events({
       Notes.remove(this._id);
   }
 })
+
+Template.detailFutureTopic.rendered = function(){
+  $('.tags-input').tagsinput();
+}

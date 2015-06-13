@@ -3,3 +3,7 @@ Template.detailQuote.events({
       Quotes.remove(this._id);
   }
 })
+
+Template.detailQuote.rendered = function(){
+  $('.tags-input').tagsinput();
+}

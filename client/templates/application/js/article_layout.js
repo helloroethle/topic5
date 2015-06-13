@@ -9,9 +9,6 @@ Template.articleLayout.helpers({
   },
 });
 
-
-
-
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
@@ -91,6 +88,9 @@ Template.articleLayout.events({
     },
     'click button.overlay-close, click .show-resources':function(e){
       toggleOverlay();
+    },
+    'click button.overlay-slide-close, click .show-outline':function(e){
+      toggleOverlaySlide();
     },
     'click .add-highlight':function(e){
       $('.article-post').toggleClass('add-highlights');
@@ -264,4 +264,9 @@ function toggleOverlay() {
       $overlay.addClass('open');
       $container.addClass('overlay-open');
    }
+}
+
+
+function toggleOverlaySlide() {
+  $('div.overlay-slide').toggleClass('open');
 }

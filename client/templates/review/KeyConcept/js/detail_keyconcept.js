@@ -3,3 +3,7 @@ Template.detailConcept.events({
       KeyConcepts.remove(this._id);
   }
 })
+
+Template.detailConcept.rendered = function(){
+  $('.tags-input').tagsinput();
+}

@@ -3,3 +3,7 @@ Template.detailReaction.events({
       Reactions.remove(this._id);
   }
 })
+
+Template.detailReaction.rendered = function(){
+  $('.tags-input').tagsinput();
+}

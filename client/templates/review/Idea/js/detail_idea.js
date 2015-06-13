@@ -3,3 +3,7 @@ Template.detailIdea.events({
       Ideas.remove(this._id);
   }
 })
+
+Template.detailIdea.rendered = function(){
+  $('.tags-input').tagsinput();
+}

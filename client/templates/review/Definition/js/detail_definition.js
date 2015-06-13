@@ -3,3 +3,7 @@ Template.detailDefinition.events({
       Definitions.remove(this._id);
   }
 })
+
+Template.detailDefinition.rendered = function(){
+  $('.tags-input').tagsinput();
+}

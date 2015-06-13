@@ -3,3 +3,7 @@ Template.detailFact.events({
       Facts.remove(this._id);
   }
 })
+
+Template.detailFact.rendered = function(){
+  $('.tags-input').tagsinput();
+}

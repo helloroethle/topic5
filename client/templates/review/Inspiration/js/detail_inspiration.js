@@ -3,3 +3,7 @@ Template.detailInspiration.events({
       Inspirations.remove(this._id);
   }
 })
+
+Template.detailInspiration.rendered = function(){
+  $('.tags-input').tagsinput();
+}

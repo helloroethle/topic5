@@ -6,7 +6,7 @@
 interactionMeta = {
   'note' : {
     'label' : 'Note',
-    'icon' : 'fa-file-text-o',
+    'icon' : 'fa-pencil-square-o',
     'template' : 'Note',
     'display_fields' : [],
     'summary_field' : 'note'
@@ -76,7 +76,7 @@ interactionMeta = {
   },
   'definition' : {
     'label' : 'Definition',
-    'icon' : 'fa-pencil-square-o',
+    'icon' : 'fa-book',
     'template' : 'Definition',
     'display_fields' : [],
     'summary_field' : 'term'
@@ -84,6 +84,7 @@ interactionMeta = {
   'agree' : {
     'label' : 'Agreement',
     'icon' : 'fa-plus',
+    // 'icon' : 'fa-sliders',
     'template' : 'Reaction',
     'display_fields' : [],
     'summary_field' : 'text'
@@ -91,6 +92,7 @@ interactionMeta = {
   'disagree' : {
     'label' : 'Disagreement',
     'icon' : 'fa-minus',
+    // 'icon' : 'fa-sliders',
     'template' : 'Reaction',
     'display_fields' : [],
     'summary_field' : 'text'
@@ -109,13 +111,13 @@ interactionMeta = {
     'display_fields' : [],
     'summary_field' : 'text'
   },
-  'mneumonic' : {
-    'label' : 'Mneumonics',
-    'icon' : 'fa-graduation-cap',
-    'template' : 'Mneumonic',
-    'display_fields' : [],
-    'summary_field' : ''
-  },
+  // 'mneumonic' : {
+  //   'label' : 'Mneumonics',
+  //   'icon' : 'fa-graduation-cap',
+  //   'template' : 'Mneumonic',
+  //   'display_fields' : [],
+  //   'summary_field' : ''
+  // },
   'inspiration' : {
     'label' : 'Inspiration',
     'icon' : 'fa-lightbulb-o',

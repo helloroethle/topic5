@@ -3,3 +3,7 @@ Template.detailTFQuiz.events({
       TFQuizes.remove(this._id);
   }
 })
+
+Template.detailTFQuiz.rendered = function(){
+  $('.tags-input').tagsinput();
+}
