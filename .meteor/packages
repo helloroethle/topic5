@@ -19,3 +19,7 @@ alanning:roles
 djedi:sanitize-html
 aldeed:autoform
 cwaring:modernizr
+rubaxa:sortable
+momentjs:moment
+reactive-var
+reactive-dict

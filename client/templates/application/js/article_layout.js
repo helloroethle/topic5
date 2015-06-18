@@ -7,6 +7,14 @@ Template.articleLayout.helpers({
     var resourceId = Session.get('currentResourceId');
     return Session.get(resourceId);
   },
+  indexedArray: function(context) {
+    if (context) {
+      return context.map(function(item, index) {
+        item._index = index;
+        return item;
+      });
+    }
+  });
 });
 
 Template.articleLayout.events({
@@ -66,7 +74,7 @@ Template.articleLayout.events({
     },
     'click .close, click .btn-template-close':function(e){
       clearActiveHighlight(Session.get('templateName'));
-      $('.article-post').removeClass('add-highlights');
+      $('.article-post').removeClass('add-highlights').removeClass('add-icons');;
     },
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
@@ -121,6 +129,15 @@ Template.articleLayout.events({
       if(text && text.length > 0){
          highlightSelection('hello', true);
       }
+    },
+    'click .add-icon':function(e){
+      $('.article-post').toggleClass('add-icons');
+    },
+    'click .article-post.add-icons p':function(e){
+      var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+      var interactionMeta = getInteractionMeta(interactionKey);
+      $(e.currentTarget).append(' <i class="fa ' + interactionMeta.icon + '"></i> ');
+      $('.article-post').removeClass('add-icons');
     },
     'click .highlight-section':function(e){
         $('#wrapper').addClass('toggled');

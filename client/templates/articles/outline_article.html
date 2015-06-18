@@ -1,6 +1,9 @@
 <template name="outlineArticle">
     <div class="overlay-slide-outline overlay-slide-outline-slideup">
       <button type="button" class="overlay-slide-outline-close">Close</button>
-      <h2 style='text-align:center;'>You don't have any key concept items yet...</h2>
+      <!-- <h2 style='text-align:center;'>You don't have any key concept items yet...</h2> -->
+      {{#each concepts}}
+        {{> conceptItem }}
+      {{/each}}
     </div>
 </template>

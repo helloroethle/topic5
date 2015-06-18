@@ -10,6 +10,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
           this.insertDoc._id = this.docId;
+          console.log(this.insertDoc);
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
           Interactions.insert({
@@ -17,6 +18,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'data' : this.insertDoc,
             'key' : interactionKey,
             'meta': interactionMeta,
+            'order': (index - 1),
             'detailTemplate' : this.formId.replace('create', 'detail')
           }, function(){
             // success
@@ -25,18 +27,18 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           $(classSelector).data('resource', this.docId).data('template', detailsTemplateName);
           $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+          $('.article-post').removeClass('add-highlights').removeClass('add-icon');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
-          Session.set('iteraction_items', Session.get('interaction_items') + 1);
         }
       }
     },
     before: {
       insert: function(doc){
         if(Session.get('highlighted_text')){
-          doc.paragraph_start = Session.get('paragraph_start');
-          doc.highlight_start = Session.get('highlight_start'); 
-          doc.highlight_length = Session.get('highlighted_text').length;         
+          // doc.paragraph_start = Session.get('paragraph_start');
+          // doc.highlight_start = Session.get('highlight_start'); 
+          // doc.highlight_length = Session.get('highlighted_text').length;         
         }
         if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
           doc.answer = Session.get('mc_answer')

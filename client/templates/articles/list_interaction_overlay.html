@@ -1,0 +1,13 @@
+<template name="listInteractionOverlay">
+  
+  <ul>
+    {{#each interactions}}
+      <li>
+        <figure>
+          {{> Template.dynamic template=detailTemplate data=data}}
+        </figure>
+      </li>
+    {{/each}}
+  </ul>
+
+</template>

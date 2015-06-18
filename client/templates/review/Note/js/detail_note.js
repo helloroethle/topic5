@@ -4,6 +4,13 @@ Template.detailNote.events({
   }
 })
 
+Template.detailNote.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});
+
+
 Template.detailNote.rendered = function(){
   $('.tags-input').tagsinput();
 }
