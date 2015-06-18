@@ -30,6 +30,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           $('.article-post').removeClass('add-highlights').removeClass('add-icon');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
+          Session.set('interactionFilterKeys','hello');
         }
       }
     },

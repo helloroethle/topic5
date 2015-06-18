@@ -6,15 +6,7 @@ Template.articleLayout.helpers({
   whichData: function(){
     var resourceId = Session.get('currentResourceId');
     return Session.get(resourceId);
-  },
-  indexedArray: function(context) {
-    if (context) {
-      return context.map(function(item, index) {
-        item._index = index;
-        return item;
-      });
-    }
-  });
+  }
 });
 
 Template.articleLayout.events({
