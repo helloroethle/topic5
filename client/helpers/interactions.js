@@ -1,4 +1,4 @@
-Interactions = new Mongo.Collection(null);
+// Interactions = new Mongo.Collection('interactions');
 
 // insert = function(message) {
 //   Ineratctions.insert({message: message});

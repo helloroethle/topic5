@@ -7,3 +7,9 @@ Template.detailMCQuiz.events({
 Template.detailMCQuiz.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailMCQuiz.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

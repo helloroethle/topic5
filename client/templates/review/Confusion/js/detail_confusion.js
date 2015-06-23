@@ -7,3 +7,9 @@ Template.detailConfusion.events({
 Template.detailConfusion.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailConfusion.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

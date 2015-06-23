@@ -4,7 +4,7 @@
     <label for='tags'>Tags</label>
   <input name='tags' class='tags-input' value="{{tags}}" placeholder='+' type="text" />
   </div>
-  {{> quickForm collection="Notes" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="note,comments" }}
+  {{> quickForm collection="Notes" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Update" doc=this fields="note,comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>
   </div>

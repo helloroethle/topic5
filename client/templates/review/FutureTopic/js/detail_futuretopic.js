@@ -7,3 +7,9 @@ Template.detailFutureTopic.events({
 Template.detailFutureTopic.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailFutureTopic.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

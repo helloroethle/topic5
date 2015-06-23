@@ -1,6 +1,6 @@
 <template name="detailTimeline">
   <h5>Update Timeline Event</h5>
-  {{> quickForm collection="Timelines" id="detailTimeline" type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="title, event_date, comments" }}
+  {{> quickForm collection="Timelines" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="title, details, event_date, comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>
   </div>

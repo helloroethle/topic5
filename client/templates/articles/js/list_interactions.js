@@ -6,7 +6,6 @@ Template.listInteractions.rendered = function(){
     Tracker.afterFlush(_.bind(function(){
       if(Session.get('interactionFilterKeys') == 'hello'){
         Session.set('interactionFilterKeys', '');
-        console.log('interaction filter keys filter reset');
       }
       else{
         console.log('gallery reinitialized');
@@ -25,9 +24,7 @@ function interactions(){
          key: { $in: currentFilters.split(',') }
       };
     }
-    console.log('interaction objects have been called');
     all_interactions = Interactions.find(queryOptions);
-    console.log(all_interactions.count());
     // console.log('rerun this interactions');
     return all_interactions;
 }

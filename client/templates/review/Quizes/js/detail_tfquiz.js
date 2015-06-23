@@ -7,3 +7,9 @@ Template.detailTFQuiz.events({
 Template.detailTFQuiz.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailTFQuiz.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

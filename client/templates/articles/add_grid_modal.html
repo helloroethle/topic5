@@ -1,0 +1,13 @@
+<template name="addGrid">
+  <ul class='add-interaction-list clearfix'>
+    {{#each interactionList }}
+      {{#if value.outline}}
+      <li data-toggle="tooltip" data-placement="top" title="{{value.label}}">
+        <a data-template="create{{value.template}}" href="#">
+          <div class="image-placeholder"><i class="fa {{value.icon}}"></i></div>
+        </a>
+      </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</template>

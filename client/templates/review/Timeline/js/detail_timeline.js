@@ -7,3 +7,9 @@ Template.detailTimeline.events({
 Template.detailTimeline.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailTimeline.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

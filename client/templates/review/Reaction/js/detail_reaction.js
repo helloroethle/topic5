@@ -7,3 +7,9 @@ Template.detailReaction.events({
 Template.detailReaction.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailReaction.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

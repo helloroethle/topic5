@@ -1,9 +1,33 @@
 <template name="outlineArticle">
     <div class="overlay-slide-outline overlay-slide-outline-slideup">
+      <a href="#" class="add">+</a>
       <button type="button" class="overlay-slide-outline-close">Close</button>
       <!-- <h2 style='text-align:center;'>You don't have any key concept items yet...</h2> -->
-      {{#each concepts}}
-        {{> conceptItem }}
-      {{/each}}
+      <h2>Article Outline</h2>
+      <div class="container">
+      <div class="row">
+<!--       <div class="col-md-3">
+        <ul class='sortable-add'>
+          {{#sortable items=interactionList options=interactionOptions}}
+            <li class="well well-sm">
+                <i class="fa {{value.icon}}"></i> 
+                <span>{{value.label}}</span>
+            </li>          
+          {{/sortable}}
+        </ul>
+      </div> -->
+
+      <!-- <div class='col-md-9'> -->
+        <ul class='sortable-outline'>
+        {{#sortable items=interactions}}
+          <!-- <li class="list-group-item">{{summary}}</li> -->
+          {{> outlineItem }}
+          <!-- {{> conceptItem }} -->
+        {{/sortable}}
+        </ul>
+      <!-- </div> -->
+
+      </div>
+    </div>
     </div>
 </template>

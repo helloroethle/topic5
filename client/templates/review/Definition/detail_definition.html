@@ -1,6 +1,6 @@
 <template name="detailDefinition">
   <h5>Update Note</h5>
-  {{> quickForm collection="Definitions" id="detailDefinition" type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="term,definition,comments" }}
+  {{> quickForm collection="Definitions" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Update" doc=this fields="term,definition,comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>
   </div>

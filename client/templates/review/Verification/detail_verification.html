@@ -1,6 +1,6 @@
 <template name="detailVerification">
   <h5>Update Double Check</h5>
-  {{> quickForm collection="Verifications" id="detailVerification" type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="text, whyVerify, comments" }}
+  {{> quickForm collection="Verifications" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="text, whyVerify, comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>
   </div>

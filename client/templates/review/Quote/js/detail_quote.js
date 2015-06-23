@@ -7,3 +7,9 @@ Template.detailQuote.events({
 Template.detailQuote.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailQuote.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

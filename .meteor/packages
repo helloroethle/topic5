@@ -23,3 +23,6 @@ rubaxa:sortable
 momentjs:moment
 reactive-var
 reactive-dict
+dburles:mongo-collection-instances
+rajit:bootstrap3-datepicker
+aldeed:autoform-bs-datepicker

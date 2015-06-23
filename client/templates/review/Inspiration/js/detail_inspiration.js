@@ -7,3 +7,9 @@ Template.detailInspiration.events({
 Template.detailInspiration.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailInspiration.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

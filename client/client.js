@@ -7,10 +7,11 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         console.log("Insert Error:", error);
         } 
         else {
+          $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+          $('.article-post').removeClass('add-highlights').removeClass('add-icon');
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
           this.insertDoc._id = this.docId;
-          console.log(this.insertDoc);
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
           Interactions.insert({
@@ -19,18 +20,34 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'key' : interactionKey,
             'meta': interactionMeta,
             'order': (index - 1),
+            'outline': true,
+            'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail')
           }, function(){
             // success
           });
+          // if(Session.get('interactions2_id')){
+          //   var myId = Session.get('interactions2_id');
+          //   Interactions2.update(
+          //      { _id: myId },
+          //      { $push: { interactions: {resourceId: this.docId, order: (index - 1), key: interactionKey } } }
+          //   );
+          // }
+          // else{
+          //   var insertedId = Interactions2.insert({
+          //     'articleId': 4,
+          //     'interactions': {resourceId: this.docId, order: (index - 1), key: interactionKey } 
+          //   });
+          //   Session.set('interactions2_id', insertedId);
+          // }
+
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           $(classSelector).data('resource', this.docId).data('template', detailsTemplateName);
-          $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-          $('.article-post').removeClass('add-highlights').removeClass('add-icon');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
           Session.set('interactionFilterKeys','hello');
+          console.log('hello is this being called');
         }
       }
     },
@@ -53,12 +70,6 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         return doc; 
       }
     }
-    // onSuccess: function(operation, result, template) {
-    //   console.log(operation);
-    //   console.log(result);
-    //   console.log(template);
-    //   console.log(this);
-    // }
 });
 
 
@@ -74,6 +85,7 @@ AutoForm.addHooks(['detailQuote', 'detailCategory', 'detailDefinition', 'detailF
           Session.set(this.docId, this.updateDoc);
           $('#wrapper').removeClass('toggled');
           Session.set('templateName', '');
+          console.log('client.js - update central!!');
         }
       }
     }

@@ -71,8 +71,15 @@ Template.articleLayout.events({
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
     },
+    'click .save-tags' : function(event, template){
+        if($('.article-tags-input').val() != ''){
+          allTags = $('.article-tags-input').val();
+          this.tags = allTags;
+          Articles.update(this._id, { $set: {'tags': allTags}});
+        }
+        $('#tagModal').modal();
+    },
     'click .btn-template-delete':function(e){
-      console.log('article layout template has been called');
       $('#wrapper').removeClass('toggled').removeClass('full');
        Session.set('templateName', '');
        Session.set('highlighted_text', '');
@@ -81,7 +88,10 @@ Template.articleLayout.events({
          var text = $(this).text();//get span content
          $(this).replaceWith(text);//replace all span with just content
       });
-      Interactions.remove(Interactions.findOne({resourceId:this._id}));
+      Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
+    },
+    'click .tag-modal-trigger':function(e){
+      $('#tagModal').modal();
     },
     'click .expand':function(e){
         $('#wrapper').toggleClass('full');
@@ -89,7 +99,6 @@ Template.articleLayout.events({
     'click button.overlay-close, click .show-resources':function(e){
       $('div.overlay-slide-timeline, div.overlay-slide-outline').removeClass('open');
       toggleOverlay();
-      $('#wrapper').toggleClass('noscroll');
     },
     'click button.overlay-slide-outline-close, click .show-outline':function(e){
       $overlayTimeline = $('div.overlay-slide-timeline');
@@ -289,10 +298,14 @@ function toggleOverlay() {
    if($overlay.hasClass('open')){
       $overlay.removeClass('open');
       $container.removeClass('overlay-open');
+      $container.removeClass('noscroll');
    }
    else{
       $overlay.addClass('open');
       $container.addClass('overlay-open');
+      if($container.hasClass('noscroll') == false){
+        $container.addClass('noscroll');
+      }
    }
 }
 

@@ -7,3 +7,9 @@ Template.detailFlashCard.events({
 Template.detailFlashCard.rendered = function(){
   $('.tags-input').tagsinput();
 }
+
+Template.detailFlashCard.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

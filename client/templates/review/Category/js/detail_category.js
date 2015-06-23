@@ -3,3 +3,9 @@ Template.detailCategory.events({
       Categories.remove(this._id);
   }
 })
+
+Template.detailCategory.helpers({
+    makeUniqueID: function () {
+      return "form-" + this._id;
+    }
+});

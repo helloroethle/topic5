@@ -1,6 +1,6 @@
 <template name="detailFlashCard">
   <h5>Update Note</h5>
-  {{> quickForm collection="FlashCards" id="detailFlashCard" type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="front_text,back_text,comments" }}
+  {{> quickForm collection="FlashCards" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Update" doc=this fields="front_text,back_text,comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>
   </div>

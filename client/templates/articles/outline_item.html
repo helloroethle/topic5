@@ -1,3 +1,8 @@
 <template name="outlineItem">
-  {{data.concept}}
+  <!-- <li class="list-group-item">{{summary}}</li> -->
+  <li class="well well-sm outline-item {{indent}}" >
+    <div class="circle"><i class="fa {{meta.icon}}"></i></div>
+    <span class="name">{{summary}}</span>
+    <span class="remove-outline"><i class="fa fa-times"></i></span>
+  </li>
 </template>
