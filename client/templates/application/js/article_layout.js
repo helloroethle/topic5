@@ -77,7 +77,7 @@ Template.articleLayout.events({
           this.tags = allTags;
           Articles.update(this._id, { $set: {'tags': allTags}});
         }
-        $('#tagModal').modal();
+        $('#tagModal').modal('hide');
     },
     'click .btn-template-delete':function(e){
       $('#wrapper').removeClass('toggled').removeClass('full');
