@@ -7,6 +7,8 @@
   <section id="cd-timeline" class="cd-container">
     {{#each timelines}}
       {{> timelineItem }}
+      {{else}}
+      <h2 class='no-timelines'>You haven't created any timeline elements yet</h2>
     {{/each}}
   </section> <!-- cd-timeline -->
 

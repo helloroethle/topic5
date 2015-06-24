@@ -12,11 +12,15 @@ Template.articleLayout.helpers({
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
+
+        // initialize variables
         var text = "";
         var selectionObject = {};
         var index = Session.get('highlight_index');
         var className = '.highlight-section-' + index;
         var templateName = $(e.currentTarget).find('i').attr('data-template');
+
+        // UGLY - fix so don't have to do  this
         var buttonTitle = $(e.currentTarget).data('original-title');
         if(buttonTitle.indexOf('Disagree') > -1){
             Session.set('disagree', true);
@@ -31,6 +35,7 @@ Template.articleLayout.events({
             Session.set('disagree', false);
         }
 
+
         if (window.getSelection() && window.getSelection().toString()) {
             selectionObject = window.getSelection();
             Session.set('highlight_start', selectionObject.anchorOffset);
@@ -38,6 +43,8 @@ Template.articleLayout.events({
             var oldSelectionText = Session.get('highlighted_text');
             if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
                clearActiveHighlight(templateName);
+               // set the new active highlighted text into the appropriate form input
+               // should instead store the kay in jQuery data and find the interaction object summary field in the meta object
                if(templateName.indexOf('timeline') > -1){
                   $('#sidebar-content form .form-control').eq(1).val(text);
                }
@@ -71,6 +78,7 @@ Template.articleLayout.events({
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
     },
+    // move to tag_modal template
     'click .save-tags' : function(event, template){
         if($('.article-tags-input').val() != ''){
           allTags = $('.article-tags-input').val();
@@ -126,6 +134,7 @@ Template.articleLayout.events({
       $('.article-post').toggleClass('add-highlights');
     },
     'mouseup .article-post.add-highlights': function(e){
+      clearActiveHighlight(Session.get('templateName'));
       var text = window.getSelection().toString();
       if(text && text.length > 0){
          highlightSelection('hello', true);

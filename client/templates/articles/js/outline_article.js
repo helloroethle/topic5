@@ -8,6 +8,12 @@ Template.outlineArticle.helpers({
   interactions: function(){
     return Interactions.find();
   },
+  noOutlines: function(){
+    if(Interactions.find().count() == 0){
+      return true;
+    }
+    return false;
+  }
 });
 
 Template.outlineArticle.created = function () {
