@@ -1,0 +1,33 @@
+<template name="detailSettings">
+  <div class="detail-settings main-content">
+
+
+
+
+  <div class="container" style="height: 520px">
+    <div data-force="30" class="layer block" style="left: 14.5%; top: 0; width: 37%">
+      <div class="layer title">List A</div>
+      <ul id="foo" class="block__list block__list_words">
+        {{#each colors}}
+          <li style="background-color: {{this}};" class="swatch" draggable="true"></li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div data-force="18" class="layer block" style="left: 58%; top: 143px; width: 40%;">
+  <ul class='add-interaction-list clearfix'>
+    {{#each interactionList }}
+      {{#if value.outline}}
+      <li data-toggle="tooltip" data-placement="top" title="{{value.label}}">
+        <a data-template="create{{value.template}}" href="#">
+          <div class="image-placeholder"><i class="fa {{value.icon}}"></i></div>
+        </a>
+      </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+    </div>
+  </div>
+<button class='btn btn-primary'>Get New Colors</button>
+  </div>
+</template>
