@@ -21,4 +21,5 @@ Template.createConfusion.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }

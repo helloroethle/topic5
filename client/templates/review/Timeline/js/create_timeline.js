@@ -20,4 +20,5 @@ Template.createTimeline.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }

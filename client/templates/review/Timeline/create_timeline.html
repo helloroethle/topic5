@@ -1,5 +1,9 @@
 <template name="createTimeline">
   <h5>New Timeline Event</h5>
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="Timelines" id="createTimeline" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="title, details, event_date, comments" }}
     <div class="form-group">
     <button class="btn-template-close">Cancel</button>

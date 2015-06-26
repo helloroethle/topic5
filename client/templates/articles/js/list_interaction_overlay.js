@@ -12,6 +12,12 @@ function interactions(){
 }
 
 Template.listInteractionOverlay.helpers({
-  interactions: interactions
+  interactions: interactions,
+  myData : function(){
+    var data = this;
+    data._id = data.resourceId;
+    return data;
+  }
 });
+
 

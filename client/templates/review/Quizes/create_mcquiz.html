@@ -20,7 +20,10 @@
 </template> -->
 <template name="createMCQuiz">
   <h5>New Multiple Choice Question</h5>
-
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
 {{#autoForm id="createMCQuiz" type="insert" collection='MCQuizes'}}
   <div class="form-group {{#if afFieldIsInvalid name='question'}}has-error{{/if}}">
     <label class="control-label">{{afFieldLabelText name='question'}}</label>

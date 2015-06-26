@@ -118,13 +118,9 @@
 </section>
 <section class="slideshow">
                     <ul>
-                        {{#each interactions}}
-  <li>
-      <figure>
-        {{> Template.dynamic template=detailTemplate data=data}}
-      </figure>
-  </li>
-                        {{/each}}
+                    {{#each interactions}}
+                        {{> itemInteractionOverlay }}
+                    {{/each}}
                 
                     </ul>
                     <nav>

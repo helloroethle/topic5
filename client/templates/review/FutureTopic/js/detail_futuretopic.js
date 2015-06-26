@@ -10,6 +10,6 @@ Template.detailFutureTopic.rendered = function(){
 
 Template.detailFutureTopic.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });

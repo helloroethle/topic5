@@ -10,6 +10,6 @@ Template.detailReaction.rendered = function(){
 
 Template.detailReaction.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });

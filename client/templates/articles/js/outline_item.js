@@ -1,6 +1,6 @@
 Template.outlineItem.helpers({
   summary: function() {
-    return this.data[this.meta.summary_field];
+    return this[this.meta.summary_field];
   },
   indent: function(){
     if(this.key != 'concept'){
@@ -8,6 +8,7 @@ Template.outlineItem.helpers({
     }
     return 'concept';
   },
+
 });
 
 Template.outlineItem.events({
@@ -16,7 +17,9 @@ Template.outlineItem.events({
   },
   'click div.circle' : function() {
     Session.set('add_interaction_modal_template', this.detailTemplate);
-    Session.set('detailTemplateData', this.data);
+    var data = this;
+    data._id = data.resourceId;
+    Session.set('detailTemplateData', data);
     $('#addInteractionModal').modal();
   }
 });

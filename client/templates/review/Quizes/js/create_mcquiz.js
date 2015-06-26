@@ -12,16 +12,17 @@
 //   }
 // });
 
-// Template.createMCQuiz.rendered = function(){
-//   // capture the highlighted text and set as quote
-//   if (!this.rendered){
-//     if (Session.get("highlighted_text")) {
-//       var text = Session.get('highlighted_text')
-//       $("[name='question']").val(text);
-//     }
-//     this.rendered = true;
-//   }
-// }
+Template.createMCQuiz.rendered = function(){
+  // capture the highlighted text and set as quote
+  // if (!this.rendered){
+  //   if (Session.get("highlighted_text")) {
+  //     var text = Session.get('highlighted_text')
+  //     $("[name='question']").val(text);
+  //   }
+  //   this.rendered = true;
+  // }
+  $('.tags-input').tagsinput();
+}
 
 Template.createMCQuiz.events({
   'click .mc-answer-choice':function(e){

@@ -21,4 +21,5 @@ Template.createIdea.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }

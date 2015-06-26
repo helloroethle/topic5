@@ -10,6 +10,6 @@ Template.detailFact.rendered = function(){
 
 Template.detailFact.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });

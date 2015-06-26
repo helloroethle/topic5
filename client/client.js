@@ -14,18 +14,18 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           this.insertDoc._id = this.docId;
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
-          Interactions.insert({
+          var interactionObject = {
             'resourceId' : this.docId, 
-            'data' : this.insertDoc,
             'key' : interactionKey,
             'meta': interactionMeta,
             'order': (index - 1),
             'outline': true,
             'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail')
-          }, function(){
-            // success
-          });
+          }
+          interactionObject = _.extend(interactionObject, this.insertDoc);
+          delete interactionObject['_id'];
+          Interactions.insert( interactionObject );
           // if(Session.get('interactions2_id')){
           //   var myId = Session.get('interactions2_id');
           //   Interactions2.update(
@@ -73,20 +73,47 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
 });
 
 
-AutoForm.addHooks(['detailQuote', 'detailCategory', 'detailDefinition', 'detailFact', 'detailFlashCard', 'detailFutureTopic',
-  'detailIdea', 'detailInspiration', 'detailConcept', 'detailNote', 'detailResponseQuiz', 'detailMCQuiz', 'detailTFQuiz',
-  'detailReaction', 'detailTimeline', 'detailVerification'], {
+// AutoForm.addHooks(['detailQuote', 'detailCategory', 'detailDefinition', 'detailFact', 'detailFlashCard', 'detailFutureTopic',
+//   'detailIdea', 'detailInspiration', 'detailConcept', 'detailNote', 'detailResponseQuiz', 'detailMCQuiz', 'detailTFQuiz',
+//   'detailReaction', 'detailTimeline', 'detailVerification'], {
+  AutoForm.addHooks(null, {
     after: {
       update: function(error, result) {
-        if(error){
-          console.log("Update Error:", error);
+        if(this.formId.indexOf("detail") > -1){
+          if(error){
+            console.log("Update Error:", error);
+          }
+          else {
+            $('#wrapper').removeClass('toggled');
+            Session.set('templateName', '');
+            // var interaction = Interactions.findOne({resourceId: this.docId});
+            var interactionUpdate = this.updateDoc;
+            console.log(this.updateDoc);
+            delete interactionUpdate['_id'];
+            delete interactionUpdate['resourceId'];
+            var interactionObject = Interactions.findOne({'resourceId': this.docId});
+            if(interactionObject && interactionObject._id){
+              console.log(Interactions.update({'_id': interactionObject._id}, interactionUpdate ));
+            }
+            // console.log(Interactions.update({'resourceId': this.docId}, {$set: interactionUpdate}));
+            // Session.set(this.docId, this.updateDoc);
+          }
         }
-        else {
-          Session.set(this.docId, this.updateDoc);
-          $('#wrapper').removeClass('toggled');
-          Session.set('templateName', '');
-          console.log('client.js - update central!!');
+
+      }
+    },
+    before: {
+      insert: function(doc){
+        if($('.tags-input').val() != ''){
+          doc.tags = $('.tags-input').val();
         }
+        return doc; 
+      },
+      update: function(doc){
+        if($('.tags-input').val() != ''){
+          doc.tags = $('.tags-input').val();
+        }
+        return doc; 
       }
     }
   }

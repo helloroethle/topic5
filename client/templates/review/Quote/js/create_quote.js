@@ -12,6 +12,7 @@ Template.createQuote.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }
 
 // Template.createQuote.helpers({

@@ -10,6 +10,6 @@ Template.detailTimeline.rendered = function(){
 
 Template.detailTimeline.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });

@@ -1,5 +1,5 @@
 Template.itemInteraction.helpers({
   summary: function() {
-    return this.data[this.meta.summary_field];
+    return this[this.meta.summary_field];
   }
 });

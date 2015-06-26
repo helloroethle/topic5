@@ -5,7 +5,15 @@ Template.articleLayout.helpers({
   },
   whichData: function(){
     var resourceId = Session.get('currentResourceId');
-    return Session.get(resourceId);
+    var interactionObject = Interactions.findOne({'resourceId': resourceId});
+  
+    if(resourceId && interactionObject){
+      interactionObject._id = interactionObject.resourceId;
+      return interactionObject;
+    }
+    else{
+      return null;
+    }
   }
 });
 
@@ -107,6 +115,8 @@ Template.articleLayout.events({
     'click button.overlay-close, click .show-resources':function(e){
       $('div.overlay-slide-timeline, div.overlay-slide-outline').removeClass('open');
       toggleOverlay();
+      $('#sidebar-search input:checkbox').removeAttr('checked');
+      Session.set('interactionFilterKeys', '');
     },
     'click button.overlay-slide-outline-close, click .show-outline':function(e){
       $overlayTimeline = $('div.overlay-slide-timeline');

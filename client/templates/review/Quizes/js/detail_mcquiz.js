@@ -10,6 +10,6 @@ Template.detailMCQuiz.rendered = function(){
 
 Template.detailMCQuiz.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });

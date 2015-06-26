@@ -1,5 +1,9 @@
 <template name="createDefinition">
   <h5>New Definition</h5>
+    <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="Definitions" id="createDefinition" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="term,definition,comments" }}
   <div class="form-group">
     <button class="btn-template-close">Cancel</button>

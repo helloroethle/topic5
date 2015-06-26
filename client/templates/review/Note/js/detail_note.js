@@ -6,7 +6,7 @@ Template.detailNote.events({
 
 Template.detailNote.helpers({
     makeUniqueID: function () {
-      return "form-" + this._id;
+      return "detail-form-" + this._id;
     }
 });
 

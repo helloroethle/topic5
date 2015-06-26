@@ -1,5 +1,9 @@
 <template name="createVerification">
   <h5>New Double Check</h5>
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="Verifications" id="createVerification" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="text, whyVerify, comments" }}
     <div class="form-group">
     <button class="btn-template-close">Cancel</button>

@@ -1,5 +1,9 @@
 <template name="createIdea">
   <h5>New Idea</h5>
+    <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="NewIdeas" id="createIdea" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="idea,sources_to_explore,comments" }}
   <div class="form-group">
     <button class="btn-template-close">Cancel</button>

@@ -42,4 +42,5 @@ Template.createFlashCard.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }

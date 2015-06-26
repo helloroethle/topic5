@@ -32,4 +32,5 @@ Template.createReaction.rendered = function(){
     }
     this.rendered = true;
   }
+  $('.tags-input').tagsinput();
 }
