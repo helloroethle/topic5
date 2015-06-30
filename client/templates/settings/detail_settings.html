@@ -4,30 +4,42 @@
 
 
 
-  <div class="container" style="height: 520px">
-    <div data-force="30" class="layer block" style="left: 14.5%; top: 0; width: 37%">
-      <div class="layer title">List A</div>
-      <ul id="foo" class="block__list block__list_words">
+  <div class="container" style='position:relative;'>
+    <h3 >Choose Colors</h3>
+    <button style="position:absolute; top:0px; right:25px;" class='btn btn-primary'>Get New Colors</button>
+    <select style="position:absolute; top:0px; right:105px;" name="colorHue" id="colorHue">
+        <option value="random">Random</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="purple">Purple</option>
+        <option value="pink">Pink</option>
+        <option value="monochrome">Grey</option>
+    </select>
+    <hr>
+
+    <div style='max-height:500px; max-width:450px; float:left; '>
+      <ul>
         {{#each colors}}
           <li style="background-color: {{this}};" class="swatch" draggable="true"></li>
         {{/each}}
       </ul>
     </div>
 
-    <div data-force="18" class="layer block" style="left: 58%; top: 143px; width: 40%;">
-  <ul class='add-interaction-list clearfix'>
+    <div style='max-width:475px; float:right;'>
+  <ul class='add-interaction-list clearfix list-group'>
     {{#each interactionList }}
       {{#if value.outline}}
-      <li data-toggle="tooltip" data-placement="top" title="{{value.label}}">
-        <a data-template="create{{value.template}}" href="#">
-          <div class="image-placeholder"><i class="fa {{value.icon}}"></i></div>
-        </a>
+      <li >
+          <div style='display:inline-block' class="image-placeholder"><i class="fa {{value.icon}}"></i></div>
       </li>
       {{/if}}
     {{/each}}
   </ul>
     </div>
   </div>
-<button class='btn btn-primary'>Get New Colors</button>
+
   </div>
 </template>

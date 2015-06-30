@@ -25,17 +25,19 @@
   margin-top:20px;
 }
 
-ul.sortable-outline{
+.sortable-outline{
   list-style-type:none;
   margin-top:20px;
 
-  li{
+  .outline-item{
     cursor:move;
     margin-top:10px;
   }
-
-  li.indent{
+  .outline-item.indent{
     margin-left:30px;
+  }
+  .outline-item.comment{
+    margin-left:80px;
   }
 }
 
@@ -50,6 +52,9 @@ ul.sortable-outline{
     top:50%;
     margin-top:-20px;
     cursor:pointer;
+  }
+  .primary{
+    font-weight:bold;
   }
 }
 
@@ -81,7 +86,7 @@ ul.sortable-outline{
         width: 70px;
         background-color: #0087F7;
         color: #ffffff;
-        margin: 0px auto 15px;    
+        margin: 0px auto 0px;    
         text-align:center;
       }
 

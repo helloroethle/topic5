@@ -6,31 +6,15 @@
       <h2>Article Outline</h2>
       <div class="container">
       <div class="row">
-<!--       <div class="col-md-3">
-        <ul class='sortable-add'>
-          {{#sortable items=interactionList options=interactionOptions}}
-            <li class="well well-sm">
-                <i class="fa {{value.icon}}"></i> 
-                <span>{{value.label}}</span>
-            </li>          
-          {{/sortable}}
-        </ul>
-      </div> -->
-
-      <!-- <div class='col-md-9'> -->
-        <ul class='sortable-outline'>
+        <section class='sortable-outline'>
         {{#sortable items=interactions}}
-          <!-- <li class="list-group-item">{{summary}}</li> -->
           {{> outlineItem }}
-          <!-- {{> conceptItem }} -->
         {{/sortable}}
-        </ul>
         {{#if noOutlines}}
         <h2>You haven't created any elements yet</h2>
         {{/if}}
-      <!-- </div> -->
-
-      </div>
+      </section>
+    </div>
     </div>
     </div>
 </template>

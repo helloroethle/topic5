@@ -10,7 +10,9 @@ interactionMeta = {
     'template' : 'Note',
     'display_fields' : [],
     'summary_field' : 'note',
-    'outline' : true
+    'secondary_field' : '',
+    'outline' : true,
+    'collection' : ''
   },
   'quote' : {
     'label' : 'Quote',
@@ -18,7 +20,9 @@ interactionMeta = {
     'template' : 'Quote',
     'display_fields' : [],
     'summary_field' : 'quote',
-    'outline' : true
+    'secondary_field' : 'source',
+    'outline' : true,
+    'collection' : ''
   },
   'fact' : {
     'label' : 'Fact',
@@ -26,7 +30,9 @@ interactionMeta = {
     'template' : 'Fact',
     'display_fields' : [],
     'summary_field' : 'fact',
-    'outline' : true
+    'secondary_field' : 'source',
+    'outline' : true,
+    'collection' : ''
   },
   'responsequiz' : {
     'label' : 'Response Quiz',
@@ -34,7 +40,9 @@ interactionMeta = {
     'template' : 'ResponseQuiz',
     'display_fields' : [],
     'summary_field' : 'question',
-    'outline' : false
+    'secondary_field' : 'answer',
+    'outline' : true,
+    'collection' : ''
   },
   'mcquiz' : {
     'label' : 'Multiple Choice Quiz',
@@ -42,7 +50,9 @@ interactionMeta = {
     'template' : 'MCQuiz',
     'display_fields' : [],
     'summary_field' : 'question',
-    'outline' : false
+    'secondary_field' : 'choices',
+    'outline' : true,
+    'collection' : ''
   },
   'tfquiz' : {
     'label' : 'True False Quiz',
@@ -50,7 +60,9 @@ interactionMeta = {
     'template' : 'TFQuiz',
     'display_fields' : [],
     'summary_field' : 'question',
-    'outline' : false
+    'secondary_field' : '',
+    'outline' : true,
+    'collection' : ''
   },
   'flashcard' : {
     'label' : 'Flashcard',
@@ -58,7 +70,9 @@ interactionMeta = {
     'template' : 'FlashCard',
     'display_fields' : [],
     'summary_field' : 'front_text',
-    'outline' : true
+    'secondary_field' : 'back_text',
+    'outline' : true,
+    'collection' : ''
   },
   'idea' : {
     'label' : 'New Idea',
@@ -66,7 +80,9 @@ interactionMeta = {
     'template' : 'Idea',
     'display_fields' : [],
     'summary_field' : 'idea',
-    'outline' : true
+    'secondary_field' : '',
+    'outline' : true,
+    'collection' : ''
   },
   'topic' : {
     'label' : 'Future Topic',
@@ -74,7 +90,9 @@ interactionMeta = {
     'template' : 'FutureTopic',
     'display_fields' : [],
     'summary_field' : 'topic',
-    'outline' : true
+    'secondary_field' : '',
+    'outline' : true,
+    'collection' : ''
   },
   'concept' : {
     'label' : 'Key Concept',
@@ -82,7 +100,9 @@ interactionMeta = {
     'template' : 'Concept',
     'display_fields' : [],
     'summary_field' : 'concept',
-    'outline' : true
+    'secondary_field' : 'details',
+    'outline' : true,
+    'collection' : ''
   },
   'definition' : {
     'label' : 'Definition',
@@ -90,7 +110,9 @@ interactionMeta = {
     'template' : 'Definition',
     'display_fields' : [],
     'summary_field' : 'term',
-    'outline' : true
+    'secondary_field' : 'definition',
+    'outline' : true,
+    'collection' : ''
   },
   'agree' : {
     'label' : 'Agreement',
@@ -99,7 +121,9 @@ interactionMeta = {
     'template' : 'Reaction',
     'display_fields' : [],
     'summary_field' : 'text',
-    'outline' : true
+    'secondary_field' : 'reaction',
+    'outline' : true,
+    'collection' : ''
   },
   'disagree' : {
     'label' : 'Disagreement',
@@ -108,15 +132,19 @@ interactionMeta = {
     'template' : 'Reaction',
     'display_fields' : [],
     'summary_field' : 'text',
-    'outline' : true
+    'secondary_field' : 'reaction',
+    'outline' : true,
+    'collection' : ''
   },
   'timeline' : {
     'label' : 'Timeline',
     'icon' : 'fa-list',
     'template' : 'Timeline',
     'display_fields' : [],
-    'summary_field' : 'details',
-    'outline' : false
+    'summary_field' : 'title',
+    'secondary_field' : 'details',
+    'outline' : true,
+    'collection' : ''
   },
   'verify' : {
     'label' : 'Verification',
@@ -124,7 +152,9 @@ interactionMeta = {
     'template' : 'Verification',
     'display_fields' : [],
     'summary_field' : 'text',
-    'outline' : true
+    'secondary_field' : 'whyVerify',
+    'outline' : true,
+    'collection' : ''
   },
   // 'mneumonic' : {
   //   'label' : 'Mneumonics',
@@ -139,7 +169,8 @@ interactionMeta = {
     'template' : 'Inspiration',
     'display_fields' : [],
     'summary_field' : 'inspiration',
-    'outline' : true
+    'secondary_field' : '',
+    'outline' : false
   },  
 }
 

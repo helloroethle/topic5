@@ -8,9 +8,10 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         } 
         else {
           $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-          $('.article-post').removeClass('add-highlights').removeClass('add-icon');
+          $('.article-post').removeClass('add-highlights').removeClass('add-icons');
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
+          var iconSelector = '.icon-' + (index - 1);
           this.insertDoc._id = this.docId;
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
@@ -21,7 +22,12 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'order': (index - 1),
             'outline': true,
             'show' : true,
-            'detailTemplate' : this.formId.replace('create', 'detail')
+            'detailTemplate' : this.formId.replace('create', 'detail'),
+          }
+          if(Session.get('highlighted_text')){
+            interactionObject.paragraph_start = Session.get('paragraph_start');
+            interactionObject.highlight_start = Session.get('highlight_start'); 
+            interactionObject.highlight_length = Session.get('highlighted_text').length;         
           }
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
@@ -43,21 +49,16 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
 
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName);
+          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);
+          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).removeClass('current');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
           Session.set('interactionFilterKeys','hello');
-          console.log('hello is this being called');
         }
       }
     },
     before: {
       insert: function(doc){
-        if(Session.get('highlighted_text')){
-          // doc.paragraph_start = Session.get('paragraph_start');
-          // doc.highlight_start = Session.get('highlight_start'); 
-          // doc.highlight_length = Session.get('highlighted_text').length;         
-        }
         if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
           doc.answer = Session.get('mc_answer')
         }

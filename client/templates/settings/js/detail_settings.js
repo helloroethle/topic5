@@ -12,13 +12,21 @@ Template.detailSettings.rendered = function () {
 Template.detailSettings.helpers({
   colors: function () {
     Session.get('helloColors');
-    return randomColor({count: 15});
+    var colorHue = Session.get('color_hue');
+    if(!colorHue){
+      colorHue = 'random';
+    }
+    return randomColor({hue: colorHue, count: 28});
   }
 });
 
 Template.detailSettings.events({
   'click .btn-primary': function () {
     Session.set('helloColors', randomColor());
+  },
+  'change #colorHue':function(e){
+    var newValue = $(e.target).val();
+    Session.set("color_hue", newValue);
   },
   'dragstart .swatch':function(e){
     Session.set('currentColor', this.toString());

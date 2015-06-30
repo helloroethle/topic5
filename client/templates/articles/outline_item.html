@@ -1,8 +1,18 @@
 <template name="outlineItem">
   <!-- <li class="list-group-item">{{summary}}</li> -->
-  <li class="well well-sm outline-item {{indent}}" >
+  <div>
+  <div class="well well-sm outline-item {{indent}}">
     <div class="circle"><i class="fa {{meta.icon}}"></i></div>
-    <span class="name">{{summary}}</span>
+    <p class="primary">{{summary}}</p>
+    <p class="secondary">{{secondary}}</p>
     <span class="remove-outline"><i class="fa fa-times"></i></span>
-  </li>
+  </div>
+  {{#if comments}}
+  <div class="well well-sm outline-item comment">
+    <div class="circle"><i class="fa fa-comment-o"></i></div>
+    <span class="name">{{comments}}</span>
+  </div>
+  {{/if}}
+  
+  </div>
 </template>

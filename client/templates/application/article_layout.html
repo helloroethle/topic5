@@ -15,17 +15,18 @@
           </li>
           {{/each}}
         </ul>  
-        <button class="close"><i class="fa fa-times-circle-o"></i></button>
-        <button class='expand'><i class="fa fa-arrows-h"></i></button>
-        <button class="tags tag-trigger"> <i class="fa fa-tags"></i> </button>
+        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Close Sidebar" class="close"><i class="fa fa-times-circle-o"></i></button>
+        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Expand Sidebar" class='expand'><i class="fa fa-arrows-h"></i></button>
+        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Tags" class="tags tag-trigger"> <i class="fa fa-tags"></i> </button>
+        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Highlight" class='add-highlight'><i class="fa fa-pencil-square"></i></button>
+        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Icon" class='add-icon'><i class="fa fa-bookmark"></i></button>
       </div>        
 
 <div id="page-content-wrapper">
   <div class="article-post-container">
     <div class="article-post">
       {{> yield}}
-      <button class='add-highlight'><i class="fa fa-pencil-square"></i></button>
-      <button class='add-icon'><i class="fa fa-bookmark"></i></button>
+      
     </div>
   </div>
 

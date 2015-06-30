@@ -17,3 +17,12 @@
 //       $container.addClass('overlay-open');
 //    }
 // }
+
+Template.articleHeader.helpers({
+  favoriteIcon: function () {
+    if(this.favorite){
+      return 'fa-heart';
+    }
+    return 'fa-heart-o';
+  }
+});

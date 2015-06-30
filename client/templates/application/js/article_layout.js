@@ -17,10 +17,180 @@ Template.articleLayout.helpers({
   }
 });
 
+Template.articleLayout.rendered = function () {
+  renderHighlights();
+};
+
+
+function renderHighlights(){
+  var all_interactions = Interactions.find({highlight_length:{"$exists":true}}, {sort: {highlight_length: 1}}).fetch();
+  Session.set('highlight_index', all_interactions.length);
+  var paragraph_highlight_builder = [];
+  // var paragraph_highlight_builder_index = -1;
+  var paragraph_starts = [];
+  var paragraph_length_aggregate = 0;
+  $('.article-post p').each(function( index ) {
+    paragraph_starts.push(paragraph_length_aggregate);
+    paragraph_length_aggregate += $(this).text().length;
+  });
+  _.each(all_interactions, function(interaction, index){
+    if(interaction && interaction.highlight_length > 0){
+      var start_paragraph = interaction.paragraph_start;
+      var start_highlight = interaction.highlight_start + paragraph_starts[start_paragraph];
+      var end_highlight = interaction.highlight_length + start_highlight;
+      if(paragraph_highlight_builder.length > 0){
+        // get list of start overlap. current -> [5,10], item -> [3,7],
+        // start of current in range of another and end is not
+        // result should be [7,10]
+        var start_overlap = _.filter(paragraph_highlight_builder,function(item){
+          return (start_highlight >= item.start_highlight && start_highlight < item.end_highlight)
+        });
+        // get list of end overlap. current -> [5,10], item -> [7,14],
+        // end of current in range of another and start is not
+        // result should be [5,7]
+        var end_overlap = _.filter(paragraph_highlight_builder,function(item){
+          return (end_highlight > item.start_highlight && end_highlight <= item.end_highlight)
+        });
+
+        if(start_overlap.length > 0){
+          var max_start_overlap = _.max(start_overlap, function(overlap){ return overlap.end_highlight; });
+          if(max_start_overlap.end_highlight > 0){
+            start_highlight = max_start_overlap.end_highlight;
+          }
+        }
+        if(end_overlap.length > 0){
+          var min_end_overlap = _.min(end_overlap, function(overlap){ return overlap.start_highlight; });
+          if(min_end_overlap.start_highlight > 0){
+            end_highlight = min_end_overlap.start_highlight;
+          }
+        }
+        // get list of overlap with new acceptable range. current -> [5,10], item -> [4, 11]
+        // result should be [4,5] & [10,11]
+        // this will need to be refactored for multiple range breaks
+        var total_overlap = _.filter(paragraph_highlight_builder, function(item){
+          return (start_highlight <= item.start_highlight && end_highlight >= item.end_highlight);
+        });
+        if(total_overlap.length > 0){
+          var min_start_overlap = _.min(total_overlap, function(overlap){ return overlap.start_highlight; });
+          var max_end_overlap = _.max(total_overlap, function(overlap){ return overlap.end_highlight; });
+          if(min_start_overlap.start_highlight == start_highlight && max_end_overlap.end_highlight == end_highlight){
+            // range is already taken
+            return;
+          }
+          // break start range first
+          if(start_highlight < min_start_overlap.start_highlight){
+            paragraph_highlight_builder.push({
+              'start_highlight': start_highlight,
+              'end_highlight': min_start_overlap.start_highlight,
+              'index': index,
+              'resource': interaction.resourceId,
+              'template': interaction.detailTemplate
+            }); 
+            return;
+          }
+          if(end_highlight > max_end_overlap.end_highlight){
+            paragraph_highlight_builder.push({
+              'start_highlight': max_end_overlap.end_highlight,
+              'end_highlight': end_highlight,
+              'index': index,
+              'resource': interaction.resourceId,
+              'template': interaction.detailTemplate
+            }); 
+            return;
+          }
+        }
+        if(start_highlight < end_highlight){
+          paragraph_highlight_builder.push({
+            'start_highlight': start_highlight,
+            'end_highlight': end_highlight,
+            'index': index,
+            'resource': interaction.resourceId,
+            'template': interaction.detailTemplate
+          });    
+          return;   
+        }
+      }
+      else{
+        paragraph_highlight_builder.push({
+          'start_highlight': start_highlight,
+          'end_highlight': end_highlight,
+          'index': index,
+          'resource': interaction.resourceId,
+          'template': interaction.detailTemplate
+        });
+      }
+    }
+  });
+  paragraph_highlight_builder = _.sortBy(paragraph_highlight_builder, function(item){ return -item.end_highlight; });
+  _.each(paragraph_highlight_builder, function(item){
+    renderHighlight(item, paragraph_starts);
+    console.log('[' + item.start_highlight + ', ' + item.end_highlight + ',' + (item.end_highlight - item.start_highlight).toString() + ']');
+  });
+}
+
+function renderHighlight(interaction, paragraph_starts){
+  if(interaction && paragraph_starts){
+    // find paragraph start
+    var highlight_start_total = interaction.start_highlight;
+    var highlight_end_total = interaction.end_highlight;
+    var index = 0;
+    // get starting paragraph index
+    for (i = 0; i <= paragraph_starts.length; i++) { 
+      if(highlight_start_total < paragraph_starts[i]){
+        index = i - 1;
+        break;
+      }
+      if(i == paragraph_starts.length ){
+        index = i - 1;
+      }
+    }
+
+    var highlight_length = interaction.end_highlight - interaction.start_highlight;
+    var highlight_start = highlight_start_total - paragraph_starts[index];
+    var iteration = 0;
+    while(highlight_length > 0 || iteration == 1000){
+      var $paragraph = $('.article-post p:eq(' + index + ')');
+      var paragraph_length = $paragraph.text().length;
+      var start = 0; 
+      var end = paragraph_length;
+      if(iteration == 0){
+        start = highlight_start;
+        if( (paragraph_length - highlight_start) > highlight_length){
+          end = highlight_start + highlight_length;
+        }
+      }
+      else if(paragraph_length > highlight_length){
+        end = highlight_length;
+      }
+      renderParagraph($paragraph, start, end, interaction.index);
+      iteration++;
+      index++;
+      highlight_length -= paragraph_length;
+    }
+  }
+  return false;
+}
+
+function renderParagraph(paragraph, start, end, index){
+    var html = paragraph.html();
+    html = html.substring(0, start) + // 10 = length of "Posted by "
+           "<span class='highlight-section highlight-section-" + index + "'>" +
+           html.substring(start, end) +
+           "</span>" +
+           html.substring(end);
+    paragraph.html(html);
+}
+
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
-
+        var alreadyOpen = Session.get('activeCreate');
+        $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+        $('.add-highlight, .add-icon').removeClass('active');
+        if(!alreadyOpen){
+          Session.set('activeCreate', true);
+        }
+        
         // initialize variables
         var text = "";
         var selectionObject = {};
@@ -43,14 +213,13 @@ Template.articleLayout.events({
             Session.set('disagree', false);
         }
 
-
         if (window.getSelection() && window.getSelection().toString()) {
             selectionObject = window.getSelection();
             Session.set('highlight_start', selectionObject.anchorOffset);
             text = selectionObject.toString();
             var oldSelectionText = Session.get('highlighted_text');
             if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
-               clearActiveHighlight(templateName);
+               clearActiveHighlight(templateName, false);
                // set the new active highlighted text into the appropriate form input
                // should instead store the kay in jQuery data and find the interaction object summary field in the meta object
                if(templateName.indexOf('timeline') > -1){
@@ -78,10 +247,15 @@ Template.articleLayout.events({
         }
         $('#wrapper').addClass('toggled').addClass('create');
         Session.set('templateName', templateName);
+        if(alreadyOpen){
+          updateBookmarkIcon();
+        }
     },
     'click .close, click .btn-template-close':function(e){
-      clearActiveHighlight(Session.get('templateName'));
-      $('.article-post').removeClass('add-highlights').removeClass('add-icons');;
+      clearActiveHighlight(Session.get('templateName'),true);
+      $('.interaction-icon.current').remove();
+      $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+      Session.set('activeCreate', false);
     },
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
@@ -95,15 +269,27 @@ Template.articleLayout.events({
         }
         $('#tagModal').modal('hide');
     },
+    'click .show-love' : function(event, template){
+      if(this.favorite){
+        $('.show-love i').removeClass('fa-heart').addClass('fa-heart-o');
+      }
+      else{
+        $('.show-love i').removeClass('fa-heart-o').addClass('fa-heart');
+      }
+      Articles.update(this._id, { $set: {'favorite': !this.favorite}});
+    },
     'click .btn-template-delete':function(e){
       $('#wrapper').removeClass('toggled').removeClass('full');
+        Session.set('activeCreate', false);
        Session.set('templateName', '');
        Session.set('highlighted_text', '');
-       var currentHighlightSelector = Session.get('currentResourceHighlightClass');
-      $(currentHighlightSelector).each(function(index){
+       var index = Session.get('currentIndex');
+       var currentHighlightSelector = '.highlight-section-' + index;
+      $(currentHighlightSelector).each(function(){
          var text = $(this).text();//get span content
          $(this).replaceWith(text);//replace all span with just content
       });
+      $('.icon-' + index).remove();
       Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
     },
     'click .tag-modal-trigger':function(e){
@@ -141,32 +327,66 @@ Template.articleLayout.events({
       } 
     },
     'click .add-highlight':function(e){
-      $('.article-post').toggleClass('add-highlights');
+      $('.article-post').toggleClass('add-highlights').removeClass('add-icons');
+      $('.add-icon').removeClass('active');
+      $('.add-highlight').toggleClass('active');
     },
     'mouseup .article-post.add-highlights': function(e){
-      clearActiveHighlight(Session.get('templateName'));
+      clearActiveHighlight(Session.get('templateName'), false);
       var text = window.getSelection().toString();
       if(text && text.length > 0){
          highlightSelection('hello', true);
       }
+      if (window.getSelection) {
+        if (window.getSelection().empty) {  // Chrome
+          window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) {  // Firefox
+          window.getSelection().removeAllRanges();
+        }
+      } else if (document.selection) {  // IE?
+        document.selection.empty();
+      }
+      $('.article-post').removeClass('add-highlights');
+      $('.add-highlight').toggleClass('active')
     },
     'click .add-icon':function(e){
-      $('.article-post').toggleClass('add-icons');
+      $('.article-post').toggleClass('add-icons').removeClass('add-highlights');
+      $('.add-highlight').removeClass('active');
+      $('.add-icon').toggleClass('active');
     },
     'click .article-post.add-icons p':function(e){
+      $('.interaction-icon.current').remove();
       var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
       var interactionMeta = getInteractionMeta(interactionKey);
-      $(e.currentTarget).append(' <i class="fa ' + interactionMeta.icon + '"></i> ');
+      var highlightIndex = Session.get('highlight_index');
+      var iconClass = 'icon-' + (highlightIndex - 1);
+      $(e.currentTarget).append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
       $('.article-post').removeClass('add-icons');
+      $('.add-icon').removeClass('active');
+    },
+    'click .interaction-icon':function(e){
+        var resourceId = $(e.currentTarget).data('resource');
+        var index = $(e.currentTarget).data('index');
+        var templateName = $(e.currentTarget).data('template');
+        // var currentIconSelector = $.grep(classes.split(" "), function(v, i){
+        //        return v.indexOf('icon-') === 0;
+        //    }).join();
+        Session.set('currentIndex', index);
+        if(resourceId){
+          Session.set('templateName', templateName);
+          Session.set('currentResourceId', resourceId);
+          $('#wrapper').addClass('toggled');
+        }
     },
     'click .highlight-section':function(e){
         $('#wrapper').addClass('toggled');
         var resourceId = $(e.currentTarget).data('resource');
-        var classes = $(e.currentTarget).attr("class");
-        var currentHighlightSelector = $.grep(classes.split(" "), function(v, i){
-               return v.indexOf('highlight-section-') === 0;
-           }).join();
-        Session.set('currentResourceHighlightClass', '.' + currentHighlightSelector);
+        // var classes = $(e.currentTarget).attr("class");
+        var index = $(e.currentTarget).data('index');
+        // var currentHighlightSelector = $.grep(classes.split(" "), function(v, i){
+        //        return v.indexOf('highlight-section-') === 0;
+        //    }).join();
+        Session.set('currentIndex', index);
         if(resourceId){
            // check to make sure it isn't the current open document
            var index = Session.get('highlight_index');
@@ -203,7 +423,18 @@ Template.articleLayout.events({
     }
 });
 
-function clearActiveHighlight(templateName){
+function updateBookmarkIcon(){
+  var $icon = $('.interaction-icon.current');
+  var $paragraph = $icon.parent('p');
+  $icon.remove();
+  var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+  var interactionMeta = getInteractionMeta(interactionKey);
+  var highlightIndex = Session.get('highlight_index');
+  var iconClass = 'icon-' + (highlightIndex - 1);
+  $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+}
+
+function clearActiveHighlight(templateName, closeSidebar){
    if(templateName && templateName.length > 0 && templateName.indexOf('create') > -1){
      var highlightIndex = Session.get('highlight_index');
      var classSelector = '.highlight-section-' + (highlightIndex - 1);
@@ -212,9 +443,11 @@ function clearActiveHighlight(templateName){
          $(this).replaceWith(text);//replace all span with just content
      });
    }
-   $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-   Session.set('templateName', '');
-   Session.set('highlighted_text', '');
+   if(closeSidebar){
+      $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+      Session.set('templateName', '');
+      Session.set('highlighted_text', '');
+   }
 }
 
 function highlightSelection(templateName, isActiveHighlight) {

@@ -11,6 +11,9 @@
   width:700px;
   margin:0px;
   position:relative;
+  &.add-icons p{
+    cursor: pointer;
+  }
 }
 
 .article-post-container{
@@ -81,41 +84,9 @@
   display:none;
 }
 
-.add-highlight{
-  position:absolute;
-  top:0px;
-  right:20px;
-  font-size:24px;
-  background-color:inherit;
-  outline:none;
-  border:none;
-  display:none;
-  &:hover, &:active, &:focus, &:visited{
-    outline:none;
-  }
+.interaction-icon{
+  cursor: pointer;
 }
 
-.add-icon{
-  position:absolute;
-  top:0px;
-  right:50px;
-  font-size:24px;
-  background-color:inherit;
-  outline:none;
-  border:none;
-  display:none;
-   &:hover, &:active, &:focus, &:visited{
-    outline:none;
-  } 
-}
 
-#wrapper.toggled.create .add-highlight,
-#wrapper.toggled .add-icon{
-  display:inline-block;
-}
-
-#wrapper.toggled .add-highlights .add-highlight,
-#wrapper.toggled .add-icons .add-icon{
-  color: green;
-}
 
