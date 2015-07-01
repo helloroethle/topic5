@@ -77,13 +77,23 @@ AutoForm.addHooks(['createArticle'], {
     before: {
       insert: function(doc){
         if(doc.html){
-          doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') + '</p></div>';
+          doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />').replace('<p></p>', '') + '</p></div>';
         }
 
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();
         }
         return doc; 
+      }
+    },
+    after: {
+      insert: function(error, result){
+        if (error) {
+        console.log("Insert Error:", error);
+        } 
+        else {
+          Router.go('detailArticle', {_id: this.docId}); 
+        }
       }
     }
 });
