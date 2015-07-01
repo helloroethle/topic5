@@ -1,9 +1,19 @@
 <template name="listArticle">
-  <div class="list-article main-content">
-    <div class="wrapper">
-      {{#each articles}}
-        {{> listItemArticle}}
-      {{/each}}
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-3 blog-sidebar">
+        {{> mainSidebar }}
+      </div>
+      <div class="col-md-8 list-article main-content">
+        <!-- href="{{pathFor 'createArticle'}}" -->
+        <a href="#" class="add importArticle">+</a>
+        <h2>My Articles</h2><hr>
+        <div class="topic-list">
+          {{#each articles}}
+            {{> listItemArticle}}
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
 </template>

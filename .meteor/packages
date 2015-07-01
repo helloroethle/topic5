@@ -26,3 +26,8 @@ reactive-dict
 dburles:mongo-collection-instances
 rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker
+http
+meteorhacks:npm
+
+
+npm-container

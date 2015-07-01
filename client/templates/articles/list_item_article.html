@@ -1,7 +1,16 @@
 <template name="listItemArticle">
-  <div class="list-item-article">
+  <div class="blog-post">
+    <h2 class="blog-post-title"><a href="{{pathFor 'detailArticle'}}">{{title}}</a></h2>
+    <p class="blog-post-meta">{{published_clean}} - <a href="#">{{author}}</a> - <a target="_blank" href="{{url}}">{{ source }}</a></p>
+    <p>{{summary}}</p>
+    <div class="icon-group">
+      <button class="delete"><i class="fa fa-trash-o"></i></button>
+    </div>
+  </div>
+  <hr>
+<!--   <div class="list-item-article">
     <div class="article-content">
       <h3><a href="{{pathFor 'detailArticle'}}">{{title}}</a></h3>
     </div>
-  </div>
+  </div> -->
 </template>

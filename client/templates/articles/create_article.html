@@ -1,0 +1,8 @@
+<template name="createArticle">
+<h2>New Article</h2>
+<!-- <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Tags" class="tags tag-trigger"> <i class="fa fa-tags"></i> </button> -->
+  {{> quickForm collection="Articles" id="createArticle" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="title, author, url, html, source, published, summary" }}
+  <div class="form-group">
+    <button class="btn-template-close">Cancel</button>
+  </div>
+</template>

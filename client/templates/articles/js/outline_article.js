@@ -1,12 +1,6 @@
 Template.outlineArticle.helpers({
-  concepts: function(){
-    return Interactions.find().fetch()[0].interactions;
-  },
-  topics: function() {
-    return Topics.find({});
-  },
   interactions: function(){
-    return Interactions.find();
+    return Interactions.find({}, {sort: {order:1}});
   },
   noOutlines: function(){
     if(Interactions.find().count() == 0){
@@ -15,10 +9,6 @@ Template.outlineArticle.helpers({
     return false;
   }
 });
-
-Template.outlineArticle.created = function () {
-  // var interactions2 = this.subscribe('interactions2');
-};
 
 Template.outlineArticle.events({
   'click .add': function () {

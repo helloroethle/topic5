@@ -24,16 +24,16 @@ Template.articleLayout.rendered = function () {
 
 function renderHighlights(){
   var all_interactions = Interactions.find({highlight_length:{"$exists":true}}, {sort: {highlight_length: 1}}).fetch();
-  Session.set('highlight_index', all_interactions.length);
   var paragraph_highlight_builder = [];
+  var myIndex = 0;
   // var paragraph_highlight_builder_index = -1;
   var paragraph_starts = [];
   var paragraph_length_aggregate = 0;
-  $('.article-post p').each(function( index ) {
+  $('.article-post p').each(function() {
     paragraph_starts.push(paragraph_length_aggregate);
     paragraph_length_aggregate += $(this).text().length;
   });
-  _.each(all_interactions, function(interaction, index){
+  _.each(all_interactions, function(interaction){
     if(interaction && interaction.highlight_length > 0){
       var start_paragraph = interaction.paragraph_start;
       var start_highlight = interaction.highlight_start + paragraph_starts[start_paragraph];
@@ -77,25 +77,32 @@ function renderHighlights(){
             // range is already taken
             return;
           }
+          var updated = false;
           // break start range first
           if(start_highlight < min_start_overlap.start_highlight){
             paragraph_highlight_builder.push({
               'start_highlight': start_highlight,
               'end_highlight': min_start_overlap.start_highlight,
-              'index': index,
+              'index': myIndex,
               'resource': interaction.resourceId,
-              'template': interaction.detailTemplate
+              'template': interaction.detailTemplate,
+              'label': interaction.meta.label
             }); 
-            return;
+            updated = true;
           }
           if(end_highlight > max_end_overlap.end_highlight){
             paragraph_highlight_builder.push({
               'start_highlight': max_end_overlap.end_highlight,
               'end_highlight': end_highlight,
-              'index': index,
+              'index': myIndex,
               'resource': interaction.resourceId,
-              'template': interaction.detailTemplate
+              'template': interaction.detailTemplate,
+              'label': interaction.meta.label
             }); 
+            updated = true;
+          }
+          if(updated){
+            myIndex+=1;
             return;
           }
         }
@@ -103,10 +110,12 @@ function renderHighlights(){
           paragraph_highlight_builder.push({
             'start_highlight': start_highlight,
             'end_highlight': end_highlight,
-            'index': index,
+            'index': myIndex,
             'resource': interaction.resourceId,
-            'template': interaction.detailTemplate
+            'template': interaction.detailTemplate,
+            'label': interaction.meta.label
           });    
+          myIndex+=1;
           return;   
         }
       }
@@ -114,19 +123,35 @@ function renderHighlights(){
         paragraph_highlight_builder.push({
           'start_highlight': start_highlight,
           'end_highlight': end_highlight,
-          'index': index,
+          'index': myIndex,
           'resource': interaction.resourceId,
-          'template': interaction.detailTemplate
+          'template': interaction.detailTemplate,
+          'label': interaction.meta.label
         });
+        myIndex+=1;
       }
     }
   });
   paragraph_highlight_builder = _.sortBy(paragraph_highlight_builder, function(item){ return -item.end_highlight; });
   _.each(paragraph_highlight_builder, function(item){
     renderHighlight(item, paragraph_starts);
-    console.log('[' + item.start_highlight + ', ' + item.end_highlight + ',' + (item.end_highlight - item.start_highlight).toString() + ']');
+    // console.log('[' + item.start_highlight + ', ' + item.end_highlight + ',' + (item.end_highlight - item.start_highlight).toString() + ']');
   });
+  for(i = 0; i < myIndex; i++){
+    var item = _.find(paragraph_highlight_builder, function(item){ return item.index == i; })
+    $('.highlight-section-' + item.index).data('resource', item.resource).data('template', item.template).data('index', item.index);
+  }
+  // $('body').tooltip({
+  //   selector: '.highlight-section'
+  // });
+
+  Session.set('highlight_index', myIndex);
+  // $(document).on('keyup', function (e) {
+  //   if (e.keyCode == 27) console.log('esc pressed');   // esc
+  // });
+  
 }
+
 
 function renderHighlight(interaction, paragraph_starts){
   if(interaction && paragraph_starts){
@@ -162,7 +187,7 @@ function renderHighlight(interaction, paragraph_starts){
       else if(paragraph_length > highlight_length){
         end = highlight_length;
       }
-      renderParagraph($paragraph, start, end, interaction.index);
+      renderParagraph($paragraph, start, end, interaction.index, interaction.label);
       iteration++;
       index++;
       highlight_length -= paragraph_length;
@@ -171,10 +196,10 @@ function renderHighlight(interaction, paragraph_starts){
   return false;
 }
 
-function renderParagraph(paragraph, start, end, index){
+function renderParagraph(paragraph, start, end, index, label){
     var html = paragraph.html();
     html = html.substring(0, start) + // 10 = length of "Posted by "
-           "<span class='highlight-section highlight-section-" + index + "'>" +
+           "<span title='" + label + "' class='highlight-section highlight-section-" + index + "'>" +
            html.substring(start, end) +
            "</span>" +
            html.substring(end);

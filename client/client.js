@@ -73,6 +73,20 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
     }
 });
 
+AutoForm.addHooks(['createArticle'], {
+    before: {
+      insert: function(doc){
+        if(doc.html){
+          doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') + '</p></div>';
+        }
+
+        if($('.tags-input').val() != ''){
+          doc.tags = $('.tags-input').val();
+        }
+        return doc; 
+      }
+    }
+});
 
 // AutoForm.addHooks(['detailQuote', 'detailCategory', 'detailDefinition', 'detailFact', 'detailFlashCard', 'detailFutureTopic',
 //   'detailIdea', 'detailInspiration', 'detailConcept', 'detailNote', 'detailResponseQuiz', 'detailMCQuiz', 'detailTFQuiz',
