@@ -5,9 +5,8 @@
         {{> mainSidebar }}
       </div>
       <div class="col-md-8 list-article main-content">
-        <!-- href="{{pathFor 'createArticle'}}" -->
-        <a href="#" class="add importArticle">+</a>
-        <h2>My Articles</h2><hr>
+        <a href="{{pathFor 'createArticle'}}" class="add">+</a>
+        <h2 class='title'>My Articles</h2>
         <div class="topic-list">
           {{#each articles}}
             {{> listItemArticle}}
