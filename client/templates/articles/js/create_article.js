@@ -6,6 +6,12 @@ Template.createArticle.rendered = function(){
     },
     buttonLabels: 'fontawesome' 
   });
+  // Session.set('popoverTemplate', 'createNote');
+  // Tracker.autorun(function () {
+  //   var popoverTemplate = Session.get('popoverTemplate');
+  //   $('.trigger-popup').popover('show');
+  //   Blaze.render(Template.createTopic, $('.popover-content').get(0));
+  // });
 }
 
 Template.createArticle.events({

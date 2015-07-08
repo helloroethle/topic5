@@ -1,0 +1,27 @@
+<template name="sidebarLayout">
+    {{> articleHeader }}
+    <div id="wrapper" class='tk-proxima-nova'>
+      <div id="sidebar-wrapper">
+        <div id="sidebar-content">
+          <ul id="sidebar-nav">
+            {{#each templateOptionsList }}
+            <li>
+              <a data-toggle="tooltip" data-placement="right" data-container="body" title="{{value.label}}" href="#">
+                <i data-template="create{{value.template}}" class="fa {{value.icon}}"></i>
+              </a>
+            </li>
+            {{/each}}
+          </ul>  
+        </div>
+      </div>        
+
+<div id="page-content-wrapper">
+  <div class="template-builder-container">
+    <div class="template-builder-entry">
+      {{> yield}}
+    </div>
+  </div>
+
+      </div>
+    </div>
+</template>

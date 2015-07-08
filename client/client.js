@@ -16,6 +16,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
           var interactionObject = {
+            'articleId' : Session.get('articleId'),
             'resourceId' : this.docId, 
             'key' : interactionKey,
             'meta': interactionMeta,
@@ -76,9 +77,11 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
 AutoForm.addHooks(['createArticle'], {
     before: {
       insert: function(doc){
-        if(doc.html){
-          doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />').replace('<p></p>', '') + '</p></div>';
-        }
+        // console.log(doc.html);
+        // if(doc.html){
+          // doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />').replace(/<p><\/p>/g, ""); + '</p></div>';
+          // doc.html = doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>')
+        // }
 
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();

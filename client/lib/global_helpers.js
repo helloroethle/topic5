@@ -3,6 +3,21 @@
 //     return Session.equals('color', parameter) ? 'blue' : 'red';
 // });
 
+tempalteOptionItems = {
+  'text' : {
+    'label' : 'Text',
+    'icon' : 'fa-font',
+    'display' : 'displayText',
+    'edit' : 'editText'
+  },
+  'paragraph' : {
+    'label' : 'Text Box',
+    'icon' : 'fa-paragraph',
+    'display' : 'displayParagraph',
+    'edit' : 'editParagraph'
+  }
+}
+
 interactionMeta = {
   'note' : {
     'label' : 'Note',
@@ -194,7 +209,11 @@ Template.registerHelper('arrayify',function(obj){
 
 Template.registerHelper('interactionList', function(){
   return arrayify(interactionMeta);
-})
+});
+
+Template.registerHelper('builderOptionList', function(){
+  return arrayify(tempalteOptionItems);
+});
 
 Template.registerHelper('templateIcon', function(key){
   if(key in interactionMeta){

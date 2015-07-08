@@ -1,9 +1,11 @@
 Template.outlineArticle.helpers({
   interactions: function(){
-    return Interactions.find({}, {sort: {order:1}});
+    var currentArticleId = Session.get('articleId');
+    return Interactions.find({articleId:currentArticleId}, {sort: {order:1}});
   },
   noOutlines: function(){
-    if(Interactions.find().count() == 0){
+    var currentArticleId = Session.get('articleId');
+    if(Interactions.find({articleId:currentArticleId}).count() == 0){
       return true;
     }
     return false;

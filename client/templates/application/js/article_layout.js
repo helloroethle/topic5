@@ -18,12 +18,13 @@ Template.articleLayout.helpers({
 });
 
 Template.articleLayout.rendered = function () {
-  renderHighlights();
+  renderHighlights(this.data._id);
+  Session.set('articleId', this.data._id);
 };
 
 
-function renderHighlights(){
-  var all_interactions = Interactions.find({highlight_length:{"$exists":true}}, {sort: {highlight_length: 1}}).fetch();
+function renderHighlights(articleId){
+  var all_interactions = Interactions.find({highlight_length:{"$exists":true}, articleId: articleId}, {sort: {highlight_length: 1}}).fetch();
   var paragraph_highlight_builder = [];
   var myIndex = 0;
   // var paragraph_highlight_builder_index = -1;

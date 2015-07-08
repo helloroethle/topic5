@@ -2,7 +2,8 @@ Template.listInteractions.rendered = function(){
   this.CBPGridGallery = new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
   // first initialization
   Tracker.autorun(_.bind(function(){
-    interactions().count();
+    // interactions().count();
+    Session.get('interactionFilterKeys');
     Tracker.afterFlush(_.bind(function(){
       if(Session.get('interactionFilterKeys') == 'hello'){
         Session.set('interactionFilterKeys', '');
@@ -18,14 +19,15 @@ Template.listInteractions.rendered = function(){
 
 function interactions(){
     var currentFilters = Session.get('interactionFilterKeys');
-    var queryOptions = {};
+    var currentArticleId = Session.get('articleId');
+    var queryOptions = {articleId:currentArticleId};
     if(currentFilters && currentFilters.length > 0){
       var queryOptions = {
-         key: { $in: currentFilters.split(',') }
+         key: { $in: [ currentFilters.split(',') ] },
+         articleId: currentArticleId
       };
     }
     all_interactions = Interactions.find(queryOptions);
-    // console.log('rerun this interactions');
     return all_interactions;
 }
 

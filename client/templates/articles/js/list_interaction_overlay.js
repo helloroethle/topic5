@@ -1,9 +1,11 @@
 function interactions(){
     var currentFilters = Session.get('interactionFilterKeys');
-    var queryOptions = {};
+    var currentArticleId = Session.get('articleId');
+    var queryOptions = {articleId:currentArticleId};
     if(currentFilters && currentFilters.length > 0){
       var queryOptions = {
-         key: { $in: [ currentFilters.split(',') ] }
+         key: { $in: [ currentFilters.split(',') ] },
+         articleId: currentArticleId
       };
     }
     all_interactions = Interactions.find(queryOptions);
