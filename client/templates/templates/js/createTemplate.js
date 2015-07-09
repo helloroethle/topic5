@@ -30,6 +30,30 @@ Template.createTemplate.rendered = function () {
 
 // });
 
-// Template.createTemplate.events({
-
-// });
+Template.createTemplate.events({
+  'click .builder-option-list li': function (e) {
+    $(e.currentTarget).clone().appendTo('.builder-question-list');
+  },
+  'click .btn-clear':function(e){
+    $('.builder-question-list').empty();
+  },
+  'click .builder-item-remove':function(e){
+    $(e.currentTarget).parents('li').remove();
+  },
+  // should move to the template
+  'click .item-add':function(e){
+    $appendToItem = $(e.currentTarget).parents('div.builder-checkbox').find('div.checkbox-list');
+    $itemToAppend = $(e.currentTarget).parents('div.builder-checkbox').find('div.checkbox-list div.checkbox-item').first();
+    $itemToAppend.clone().appendTo($appendToItem).find('.item-checkbox-text').val('');
+  },
+  'click .item-remove':function(e){
+    var checkboxCount = $(e.currentTarget).parents('div.checkbox-list').find('div.checkbox-item').length;
+    console.log(checkboxCount);
+    if(checkboxCount == 1){
+      $(e.currentTarget).parents('div.checkbox-item').find('.item-checkbox-text').val('');
+    }
+    else{
+      $(e.currentTarget).parents('div.checkbox-item').remove();  
+    }
+  }
+});

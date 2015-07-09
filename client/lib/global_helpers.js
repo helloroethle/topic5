@@ -15,6 +15,48 @@ tempalteOptionItems = {
     'icon' : 'fa-paragraph',
     'display' : 'displayParagraph',
     'edit' : 'editParagraph'
+  },
+  'checkbox' : {
+    'label' : 'Check Box',
+    'icon' : 'fa-square-o',
+    'display' : 'displayCheckbox',
+    'edit' : 'editCheckbox'
+  },
+  'multiple_choice' : {
+    'label' : 'Multiple Choice',
+    'icon' : 'fa-circle-o',
+    'display' : 'displayMultipleChoice',
+    'edit' : 'editMultipleChoice'
+  },
+  'select' : {
+    'label' : 'Dropdown',
+    'icon' : 'fa-caret-down',
+    'display' : 'displayDropdown',
+    'edit' : 'editDropdown'
+  },
+  'true_false' : {
+    'label' : 'True/False',
+    'icon' : 'fa-toggle-on',
+    'display' : 'displayTrueFalse',
+    'edit' : 'editTrueFalse'
+  },
+  'header' : {
+    'label' : 'Header',
+    'icon' : 'fa-header',
+    'display' : 'displayHeader',
+    'edit' : 'editHeader'
+  },
+  'section' : {
+    'label' : 'Section Break',
+    'icon' : 'fa-minus',
+    'display' : 'displaySection',
+    'edit' : 'editSection'
+  },
+  'info' : {
+    'label' : 'Info Section',
+    'icon' : 'fa-info',
+    'display' : 'displayInfo',
+    'edit' : 'editInfo'
   }
 }
 
@@ -227,7 +269,13 @@ Template.registerHelper('templateLabel', function(key){
     return interactionMeta[key].label;
   }
   return '';
-})
+});
+
+Template.registerHelper('addIndex', function (all) {
+    return _.map(all, function(val, index) {
+        return {index: index, value: val};
+    });
+});
 
 Template.registerHelper('templateCreate', function(key){
   if(key in interactionMeta){

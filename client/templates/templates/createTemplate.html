@@ -1,7 +1,7 @@
 <template name="createTemplate">
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3 builder-option-content">
       <ul class='builder-option-list'>
         {{#each builderOptionList}}
           <li>
@@ -14,8 +14,9 @@
           </li>
         {{/each}}
       </ul>
+      <button class='btn btn-clear'>Clear</button>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-9 builder-question-content">
       <h2><input type="text" placeholder="name your template..."></h2>
       <ul class='builder-question-list'>
       </ul>

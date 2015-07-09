@@ -1,14 +1,17 @@
-<template name="displayParagraph">
+<template name="displayDropdown">
   <h3 class="template-builder-question">{{question}}</h3>
-  <div class="text-placeholder"></div>
 </template>
 
-<template name="editParagraph">
-  <div class="builder-paragraph builder-item">
+<template name="editDropdown">
+  <div class="builder-dropdown builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
-    <div class="text-area-placeholder">
-      <input type="text" class='item-placeholder' placeholder="placeholder description" name='item-placeholder' />
+    <div class="dropdown-list">
+    <div class="dropdown-item">
+      <input type="text" class='item-dropdown-text' />
+      <span class='item-remove'><i class="fa fa-minus-square"></i></span>
     </div>
+    </div>
+    <div class='item-add'><i class="fa fa-plus-square"></i></div>
     <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
     <div class="required-container">
       <label for="required" class='small'>required</label>

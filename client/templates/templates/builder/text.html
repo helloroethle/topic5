@@ -4,8 +4,18 @@
 </template>
 
 <template name="editText">
-  <input type="text" name="question" class="template-builder-item-question" />
-  <input type="text" name="placeholder" class="template-builder-item-placehoder" /> 
-  <input type="checkbox" name="required" />
+  <div class="builder-text builder-item">
+    <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
+    <div class="text-placeholder">
+      <input type="text" class='item-placeholder' placeholder="placeholder description" name='item-placeholder' />
+    </div>
+    <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
+    <div class="required-container">
+      <label for="required" class='small'>required</label>
+      <input type="checkbox" class='item-required' name="required" />
+    </div>
+    <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
+    <!-- <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span> -->
+  </div>
 </template>
 
