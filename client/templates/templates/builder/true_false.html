@@ -3,17 +3,14 @@
 </template>
 
 <template name="editTrueFalse">
-  <div class="builder-checkbox builder-item">
+  <div class="builder-true-false builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
-    <div class="checkbox-list">
-    <div class="checkbox-item">
-      <!-- <input type="checkbox" class='item-checkbox' /> -->
-      <span class='chbx'></span>
-      <input type="text" class='item-checkbox-text' />
-      <span class='item-remove'><i class="fa fa-minus-square"></i></span>
-    </div>
-    </div>
-    <div class='item-add'><i class="fa fa-plus-square"></i></div>
+      <div class="true-false-item">
+        <input type="radio" false onclick="javascript: return false;" />
+        <label> True</label> 
+        <input type="radio" false onclick="javascript: return false;"/>
+        <label> False</label> 
+      </div>
     <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
     <div class="required-container">
       <label for="required" class='small'>required</label>
@@ -22,3 +19,4 @@
     <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
   </div>
 </template>
+

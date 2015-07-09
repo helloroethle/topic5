@@ -34,7 +34,7 @@ Template.createTemplate.events({
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
   },
-  'click .btn-clear':function(e){
+  'click .btn-clear-template':function(e){
     $('.builder-question-list').empty();
   },
   'click .builder-item-remove':function(e){

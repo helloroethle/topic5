@@ -59,10 +59,21 @@
   }
 }
 
-// .builder-option-content{
-//   position:fixed;
-//   max-width:250px;
-// }
+.builder-option-content{
+  // position:fixed;
+  // max-width:250px;
+  .btn-clear-template{
+    display: inline-block;
+    background-color: #1abc9c;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    padding: 5px 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+}
 
 .builder-question-content {
 
@@ -138,6 +149,30 @@
       color: red;
     }
   }
+
+  .item-add{
+    border:2px dashed #ccc;
+    border-radius:4px;
+    text-align:center;
+    height:25px;
+    width:100%;
+    margin:10px auto 5px;
+    cursor:pointer;
+    &:hover{
+      color: #1abc9c;
+      border-color:#1abc9c;
+    }
+  }
+
+  .item-remove{
+    position:absolute;
+    left:0px;
+    top:1px;
+    font-size:18px;
+    &:hover{
+      color:red;
+    }
+  }
 }
 
 // checkbox item
@@ -160,15 +195,6 @@
         left:22px;
         top:2px;
       }
-      .item-remove{
-        position:absolute;
-        left:0px;
-        top:1px;
-        font-size:18px;
-        &:hover{
-          color:red;
-        }
-      }
       span.chbx {
         display:inline-block;
         position:absolute;
@@ -183,33 +209,52 @@
       }
     }
   }
-  .item-add{
-    border:2px dashed #ccc;
-    border-radius:4px;
-    text-align:center;
-    height:25px;
-    width:50%;
-    margin:10px auto 5px;
-    cursor:pointer;
-    &:hover{
-      color: #1abc9c;
-      border-color:#1abc9c;
-    }
-  }
+
 }
 
 // True / False
 .builder-true-false{
-
+  .true-false-item{
+    input{
+      width:auto;
+    }
+  }
 }
 
 // Dropdown
 .builder-dropdown{
-
+  .dropdown-item{
+    position:relative;
+    padding-left:45px;
+    padding-right:45px;
+    margin-top:5px;
+    margin-bottom:5px;
+    .item-dropdown-text{
+      display:inline-block;
+      background-color:#fff;
+    }
+  }
 }
 
 .builder-multiple-choice{
-
+  .multiple-choice-item{
+    position:relative;
+    padding-left:45px;
+    padding-right:45px;
+    margin-top:5px;
+    margin-bottom:5px;
+    .item-multiple-choice-text{
+      display:inline-block;
+      background-color:#fff;
+    }
+    .item-multiple-choice-radio{
+      display:inline-block;
+      width:auto;
+      position:absolute;
+      left:22px;
+      top:2px;
+    }
+  }
 }
 
 .builder-section-break{
