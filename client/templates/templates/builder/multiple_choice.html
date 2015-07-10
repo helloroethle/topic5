@@ -5,20 +5,23 @@
 <template name="editMultipleChoice">
   <div class="builder-multiple-choice builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
-    <div class="multiple-choice-list">
-      <div class="multiple-choice-item">
-        <input type="radio" false onclick="javascript: return false;" class='item-multiple-choice-radio' />
-        <input type="text" class='item-multiple-choice-text' />
-        <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+    <div class="option-full">
+      <div class="multiple-choice-list option-list">
+        <div class="multiple-choice-item option-item">
+          <input type="radio" false onclick="javascript: return false;" class='item-multiple-choice-radio' />
+          <input type="text" class='item-multiple-choice-text item-option-text' />
+          <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+        </div>
       </div>
+      <div class='item-add'><i class="fa fa-plus-square"></i></div>
+      <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
     </div>
-    <div class='item-add'><i class="fa fa-plus-square"></i></div>
-    <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
     <div class="required-container">
       <label for="required" class='small'>required</label>
       <input type="checkbox" class='item-required' name="required" />
     </div>
     <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
+    <span class='builder-item-expand'><i class="fa fa-caret-down"></i>e</span>
   </div>
 </template>
 

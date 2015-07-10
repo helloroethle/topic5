@@ -5,7 +5,7 @@
       <ul class='builder-option-list'>
         {{#each builderOptionList}}
           <li>
-            <div class='option-content'>
+            <div class='option-content' data-key="{{name}}">
             <i class="fa {{value.icon}}"></i> {{value.label}}
             </div>
             <div class="question-content">
@@ -14,10 +14,13 @@
           </li>
         {{/each}}
       </ul>
-      <button class='btn btn-clear-template{'>Clear</button>
+      <button class='btn btn-option-list-action btn-clear-template'>Clear</button>
+      <button class='btn btn-option-list-action btn-save-template'>Save</button>
+
+      
     </div>
     <div class="col-md-9 builder-question-content">
-      <h2><input type="text" placeholder="name your template..."></h2>
+      <h2><input type="text" class='template-title' placeholder="name your template..."></h2>
       <ul class='builder-question-list'>
       </ul>
     </div>
