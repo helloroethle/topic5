@@ -1,6 +1,5 @@
 Meteor.publish('singleTopic', function(topicId) {
   check(topicId, String);
-
   return Topics.find({_id: topicId});
 });
 
@@ -13,3 +12,10 @@ Meteor.publish('topics', function() {
 });
 
 
+Meteor.publish('allTopics', function() {
+  if (this.userId) {
+    return Topics.find({userId: this.userId}, {sort: {submitted: -1}});
+  } else {
+    this.ready();
+  }
+});

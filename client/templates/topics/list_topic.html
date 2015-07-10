@@ -1,9 +1,18 @@
 <template name="listTopic">
-  <div class="list-topic main-content">
-    <div class="wrapper">
-      {{#each topics}}
-        {{> listItemTopic}}
-      {{/each}}
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-3 blog-sidebar">
+        {{> mainSidebar }}
+      </div>
+      <div class="col-md-8 list-article main-content">
+        <a href="{{pathFor 'createTopic'}}" class="add">+</a>
+        <h2 class='topic-week vertical-align'>My Topics</h2>
+        <div class="topic-list">
+          {{#each topics}}
+            <h3><a href="{{pathFor 'detailTopic'}}">{{title}}</a><span class="number-badge">4</span></h3>
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -12,12 +12,6 @@
       </div>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav">
-          <li >
-            <a href="{{pathFor 'listTopic'}}">My Topics</a>
-          </li>
-          <li>
-            <a href="{{pathFor 'listArticle'}}">My Articles</a>
-          </li>
           {{#if currentUser}}
           <li><a href="{{pathFor 'createTopic'}}">Create Topic</a></li>
           {{/if}}

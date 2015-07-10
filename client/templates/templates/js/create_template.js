@@ -33,6 +33,14 @@ Template.createTemplate.events({
   'click .btn-clear-template':function(e){
     $('.builder-question-list').empty();
   },
+  'keypress .builder-checkbox input, keypress .builder-dropdown input, keypress .builder-multiple-choice input':function(e, template){
+    if(e.which === 13){
+      console.log('enter has been pressed');
+      $appendToItem = $(e.currentTarget).parents('div.builder-item').find('div.option-list');
+      $itemToAppend = $(e.currentTarget).parents('div.builder-item').find('div.option-list div.option-item').first();
+      $itemToAppend.clone().appendTo($appendToItem).find('.item-option-text').val('').focus();
+    }
+  },
   'click .btn-save-template':function(e){
     console.log('btn save template called');
     var $templateList = $('.builder-question-list li');
