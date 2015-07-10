@@ -1,0 +1,30 @@
+<template name="createTemplate">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 builder-option-content">
+      <ul class='builder-option-list'>
+        {{#each builderOptionList}}
+          <li>
+            <div class='option-content' data-key="{{name}}">
+            <i class="fa {{value.icon}}"></i> {{value.label}}
+            </div>
+            <div class="question-content">
+              {{> Template.dynamic template=value.edit}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+      <button class='btn btn-option-list-action btn-clear-template'>Clear</button>
+      <button class='btn btn-option-list-action btn-save-template'>Save</button>
+
+      
+    </div>
+    <div class="col-md-9 builder-question-content">
+      <h2><input type="text" class='template-title' placeholder="name your template..."></h2>
+      <textarea placeholder='enter brief description' class='template-description'></textarea>
+      <ul class='builder-question-list'>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>

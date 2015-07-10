@@ -4,23 +4,30 @@
 
 <template name="editDropdown">
   <div class="builder-dropdown builder-item">
-    <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
+    <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>
     <div class="option-full">
       <div class="dropdown-list option-list">
-        <div class="dropdown-item option-item">
-          <input type="text" class='item-dropdown-text item-option-text' />
-          <span class='item-remove'><i class="fa fa-minus-square"></i></span>
-        </div>
+        {{#each options}}
+          <div class="dropdown-item option-item">
+            <input type="text" value="{{this}}" class='item-dropdown-text item-option-text' />
+            <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
+        {{else}}
+          <div class="dropdown-item option-item">
+            <input type="text" class='item-dropdown-text item-option-text' />
+            <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
+        {{/each}}
       </div>
       <div class='item-add'><i class="fa fa-plus-square"></i></div>
-      <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
+      <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
     </div>
     <div class="required-container">
       <label for="required" class='small'>required</label>
-      <input type="checkbox" class='item-required' name="required" />
+      <input type="checkbox" class='item-required' checked="{{required}}"  name="required" />
     </div>
     <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
-    <span class='builder-item-expand'><i class="fa fa-caret-down"></i>e</span>
+    <span class='builder-item-expand'><i class="fa fa-caret-down"></i></span>
   </div>
 </template>
 

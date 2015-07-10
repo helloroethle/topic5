@@ -11,7 +11,7 @@ templateOptionHelpers = {
     'edit' : 'editText'
   },
   'paragraph' : {
-    'label' : 'Text Box',
+    'label' : 'Paragraph',
     'icon' : 'fa-paragraph',
     'display' : 'displayParagraph',
     'edit' : 'editParagraph'

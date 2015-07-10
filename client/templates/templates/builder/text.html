@@ -5,14 +5,14 @@
 
 <template name="editText">
   <div class="builder-text builder-item">
-    <h3><input type="text" name="question" placeholder="question" class="item-question" /></h3>
+    <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>
     <div class="text-placeholder">
-      <input type="text" class='item-placeholder' placeholder="placeholder description" name='item-placeholder' />
+      <input type="text" class='item-placeholder' placeholder="placeholder description" name='item-placeholder' value="{{placeholder}}" />
     </div>
-    <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" /> 
+    <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
     <div class="required-container">
       <label for="required" class='small'>required</label>
-      <input type="checkbox" class='item-required' name="required" />
+      <input type="checkbox" class='item-required' checked="{{required}}"  name="required" />
     </div>
     <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
     <!-- <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span> -->
