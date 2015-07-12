@@ -1,12 +1,12 @@
 <template name="mainSidebar">
           <div class="sidebar-module">
           <ul class="nav nav-sidebar">
-            <li><a href="#"><i class='fa fa-book'></i>Library</a></li>
+            <li><a href="{{pathFor 'listArticle'}}"><i class='fa fa-book'></i>Library</a></li>
             <li><a href="{{pathFor 'listArticle'}}"><i class="fa fa-search menu-icon"></i>Browse</a></li>
             <li><a href="#"><i class="fa fa-calendar"></i>This Week</a></li>
             <li><a href="{{pathFor 'listTopic'}}"><i class="fa fa-bars menu-icon"></i>Topics</a></li>
             <!-- <li><a href="#"><i class="fa fa-retweet"></i>Review</a></li> -->
-            <li><a href="#"><i class="fa fa-bolt"></i>Quiz</a></li>
+            <li><a href="{{pathFor 'listQuizes'}}"><i class="fa fa-bolt"></i>Quiz</a></li>
             <!-- <li><a href="#"><i class="fa fa-list-alt"></i>Flashcards </a></li> -->
             <li><a href="{{pathFor 'learnHome'}}"><i class="fa fa-graduation-cap menu-icon"></i>Learn</a></li>
             <li><a href="{{pathFor 'listTemplate'}}"><i class="fa fa-file-text-o"></i>Templates</a></li>

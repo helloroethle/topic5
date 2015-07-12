@@ -1,0 +1,40 @@
+<template name="quizLayout">
+  {{> quizHeader }}
+  <div id="wrapper" class='quiz-layout toggled tk-proxima-nova watch-keys'>
+    <div id="sidebar-wrapper">
+      <div id="sidebar-content">
+        <ul>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+          <li>This is a test</li>
+          <li>This is another</li>
+          <li>And another</li>
+        </ul>
+      </div>
+    </div>        
+    <div id="page-content-wrapper">
+      <div class="article-post-container">
+        <div class="article-post">
+          {{> yield}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> tagModal }}
+</template>
