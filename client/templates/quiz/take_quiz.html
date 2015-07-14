@@ -1,7 +1,11 @@
 <template name="takeQuiz">
 
-<h2 class='quiz-header'>Question {{questionIndex}}</h2>
+<h2 class='quiz-header'>Question {{questionIndex}})</h2>
   {{> Template.dynamic template=questionTemplate data=questionData}}
 
 <button class='quiz-answer-button'>Answer</button>
+<div class="quiz-grade-container">
+  <button class='quiz-mark-correct'>Correct</button>
+<button class='quiz-mark-incorrect'>Incorrect</button>
+</div>
 </template>

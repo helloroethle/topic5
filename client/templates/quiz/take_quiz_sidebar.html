@@ -2,17 +2,20 @@
   <div id="sidebar-content">
     <div class="quiz-results">
       <h3>Results</h3>
-      <div class="remaining">
-        {{questionsRemaining}}
+      <div class="remaining clearfix">
+        <label>Remaining:</label>
+        <span>{{questionsRemaining}}</span>
       </div>
-      <div class="correct">
-        {{questionsCorrect}}
+      <div class="correct clearfix">
+        <label>Correct:</label>
+        <span>{{questionsCorrect}}</span>
       </div>
-      <div class="incorrect">
-        {{questionsIncorrect}}
+      <div class="incorrect clearfix">
+        <label>Incorrect:</label>
+        <span>{{questionsIncorrect}}</span>
       </div>
     </div>
-    <div class="actions">
+    <div class="quiz-actions">
       <button class="restart">
         Restart
       </button>
