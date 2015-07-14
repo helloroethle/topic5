@@ -18,6 +18,7 @@ Template.articleLayout.helpers({
 });
 
 Template.articleLayout.rendered = function () {
+  console.log(this);
   renderHighlights(this.data._id);
   Session.set('articleId', this.data._id);
 };
@@ -136,7 +137,7 @@ function renderHighlights(articleId){
   paragraph_highlight_builder = _.sortBy(paragraph_highlight_builder, function(item){ return -item.end_highlight; });
   _.each(paragraph_highlight_builder, function(item){
     renderHighlight(item, paragraph_starts);
-    // console.log('[' + item.start_highlight + ', ' + item.end_highlight + ',' + (item.end_highlight - item.start_highlight).toString() + ']');
+    console.log('[' + item.start_highlight + ', ' + item.end_highlight + ',' + (item.end_highlight - item.start_highlight).toString() + ']');
   });
   for(i = 0; i < myIndex; i++){
     var item = _.find(paragraph_highlight_builder, function(item){ return item.index == i; })
@@ -241,7 +242,11 @@ Template.articleLayout.events({
 
         if (window.getSelection() && window.getSelection().toString()) {
             selectionObject = window.getSelection();
-            Session.set('highlight_start', selectionObject.anchorOffset);
+            var previousOffest = $(selectionObject.anchorNode).prev().data('offset');
+            if(!previousOffest){
+              previousOffest = 0;
+            }
+            Session.set('highlight_start', selectionObject.anchorOffset + previousOffest);
             text = selectionObject.toString();
             var oldSelectionText = Session.get('highlighted_text');
             if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
@@ -285,6 +290,9 @@ Template.articleLayout.events({
     },
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
+    },
+    'click .quiz':function(e){
+      $('.question-container').toggleClass('hide');
     },
     // move to tag_modal template
     'click .save-tags' : function(event, template){

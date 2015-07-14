@@ -22,6 +22,10 @@
   }
 }
 
+#wrapper.quiz-layout.toggled #page-content-wrapper{
+  padding-left:300px;
+}
+
 #wrapper,
 #page-content-wrapper {
     padding-left: 50px;
@@ -230,7 +234,8 @@
 #wrapper.toggled .add-highlight,
 #wrapper.toggled .close, 
 #wrapper.toggled .expand,
-#wrapper.toggled .tags {
+#wrapper.toggled .tags,
+#wrapper.toggled .quiz {
     display: block;
     position: absolute;
     width: 30px;
@@ -247,6 +252,10 @@
     top:10px;
 }
 
+#wrapper.toggled .quiz{
+  font-size:22px !important;
+}
+
 .add-icon{
   right:145px;
   font-size:22px !important;;
@@ -258,7 +267,15 @@
 }
 
 .expand{
-  right: 180px;
+  right: 210px;
+}
+
+.question-container label{
+  margin-top:10px;
+}
+
+.quiz{
+  right:180px;
 }
 
 button.tags{
@@ -274,7 +291,8 @@ button.tags{
 .close, 
 .expand,
 .add-icon,
-.add-highlight{
+.add-highlight,
+.quiz{
   display:none;
 }
 
@@ -282,7 +300,8 @@ btn.close,
 btn.expand,
 btn.tags, 
 btn.add-icon,
-btn.add-highlight {
+btn.add-highlight,
+btn.quiz {
   &:focus,
   &:active,
   &:visited {

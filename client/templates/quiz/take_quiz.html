@@ -1,3 +1,7 @@
 <template name="takeQuiz">
-  <h5>Take Quiz</h5>
+
+<h2 class='quiz-header'>Question {{questionIndex}}</h2>
+  {{> Template.dynamic template=questionTemplate data=questionData}}
+
+<button class='quiz-answer-button'>Answer</button>
 </template>

@@ -1,8 +1,12 @@
 <template name="createNote">
-  <h5>New Note</h5>
+  <h5>Note</h5>
   <div class="tag-container hide">
     <label for='tags'>Tags</label>
   <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
+  <div class="question-container hide">
+    <label for='question'>Question</label>
+  <input name='question' class='form-control' type="text" />
   </div>
   {{> quickForm collection="Notes" id="createNote" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="note,comments" }}
   <div class="form-group">

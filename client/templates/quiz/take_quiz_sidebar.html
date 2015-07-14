@@ -1,0 +1,27 @@
+<template name="takeQuizSidebar">
+  <div id="sidebar-content">
+    <div class="quiz-results">
+      <h3>Results</h3>
+      <div class="remaining">
+        {{questionsRemaining}}
+      </div>
+      <div class="correct">
+        {{questionsCorrect}}
+      </div>
+      <div class="incorrect">
+        {{questionsIncorrect}}
+      </div>
+    </div>
+    <div class="actions">
+      <button class="restart">
+        Restart
+      </button>
+      <button class="edit">
+        Edit
+      </button>
+      <button class="history">
+        History
+      </button>
+    </div>
+  </div>
+</template>

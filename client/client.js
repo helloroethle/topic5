@@ -32,6 +32,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           }
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
+          console.log(interactionObject);
           Interactions.insert( interactionObject );
           // if(Session.get('interactions2_id')){
           //   var myId = Session.get('interactions2_id');
@@ -50,7 +51,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
 
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);
+          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).data('offset', interactionObject.highlight_length);
           $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).removeClass('current');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
