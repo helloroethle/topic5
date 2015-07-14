@@ -1,13 +1,15 @@
 <template name="quizTimeline">
   <div class="quiz-item">
     <div class="prompt-container">
-      <span class="prompt">{{term}}</span>
+      <h3 class="prompt">{{title}}</h3>
+      <p>{{details}}</p>
     </div>
     <div class="prompt-answer-container">
       <input type="text" class="answer">
     </div>
     <div class="answer-container">
-      <p>{{definition}}</p>
+      <h3>Answer</h3>
+      <p>{{event_date}}</p>
     </div>
   </div>
 </template>

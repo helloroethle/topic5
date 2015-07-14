@@ -24,6 +24,7 @@ Template.takeQuiz.helpers({
 function toggleActionButtons(){
   $('.quiz-answer-button').toggle();
   $('.quiz-grade-container').toggle();
+  $('.answer-container').toggle();
 }
 
 function nextQuestion(){

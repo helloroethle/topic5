@@ -24,12 +24,15 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'outline': true,
             'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail'),
+            'quiz' : interactionMeta.quiz
           }
           if(Session.get('highlighted_text')){
             interactionObject.paragraph_start = Session.get('paragraph_start');
             interactionObject.highlight_start = Session.get('highlight_start'); 
             interactionObject.highlight_length = Session.get('highlighted_text').length;         
           }
+          console.log('inserted doc');
+          console.log(this.insertDoc);
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
           console.log(interactionObject);
@@ -66,6 +69,12 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         }
         if(Session.get('templateName') == 'createTimeline'){
           Session.set('timelineCount', (Session.get('timelineCount') + 1) );
+        }
+        if($('#sidebar-content .question-container input').val() != ''){
+          console.log('setting question field');
+          console.log($('#sidebar-content .question-container input').val());
+          doc.question = $('#sidebar-content .question-container input').val();
+          doc.quiz = true;
         }
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();

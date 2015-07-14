@@ -1,13 +1,15 @@
 <template name="quizReaction">
   <div class="quiz-item">
     <div class="prompt-container">
-      <span class="prompt">{{term}}</span>
+      <h3 class="prompt">{{question}}</h3>
+      <p>{{text}}</p>
     </div>
     <div class="prompt-answer-container">
       <input type="text" class="answer">
     </div>
     <div class="answer-container">
-      <p>{{definition}}</p>
+      <h3>Answer</h3>
+      <p>{{reaction}}</p>
     </div>
   </div>
 </template>
