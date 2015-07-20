@@ -31,30 +31,12 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             interactionObject.highlight_start = Session.get('highlight_start'); 
             interactionObject.highlight_length = Session.get('highlighted_text').length;         
           }
-          console.log('inserted doc');
-          console.log(this.insertDoc);
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
-          console.log(interactionObject);
           Interactions.insert( interactionObject );
-          // if(Session.get('interactions2_id')){
-          //   var myId = Session.get('interactions2_id');
-          //   Interactions2.update(
-          //      { _id: myId },
-          //      { $push: { interactions: {resourceId: this.docId, order: (index - 1), key: interactionKey } } }
-          //   );
-          // }
-          // else{
-          //   var insertedId = Interactions2.insert({
-          //     'articleId': 4,
-          //     'interactions': {resourceId: this.docId, order: (index - 1), key: interactionKey } 
-          //   });
-          //   Session.set('interactions2_id', insertedId);
-          // }
-
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).data('offset', interactionObject.highlight_length);
+          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).data('offset', interactionObject.highlight_start).data('length', interactionObject.highlight_length);
           $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).removeClass('current');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');

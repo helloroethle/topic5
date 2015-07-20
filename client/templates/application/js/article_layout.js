@@ -18,7 +18,6 @@ Template.articleLayout.helpers({
 });
 
 Template.articleLayout.rendered = function () {
-  console.log(this);
   renderHighlights(this.data._id);
   Session.set('articleId', this.data._id);
 };
@@ -28,7 +27,6 @@ function renderHighlights(articleId){
   var all_interactions = Interactions.find({highlight_length:{"$exists":true}, articleId: articleId}, {sort: {highlight_length: 1}}).fetch();
   var paragraph_highlight_builder = [];
   var myIndex = 0;
-  // var paragraph_highlight_builder_index = -1;
   var paragraph_starts = [];
   var paragraph_length_aggregate = 0;
   $('.article-post p').each(function() {
@@ -88,7 +86,7 @@ function renderHighlights(articleId){
               'index': myIndex,
               'resource': interaction.resourceId,
               'template': interaction.detailTemplate,
-              'label': interaction.meta.label
+              'label': interaction.meta.label,
             }); 
             updated = true;
           }
@@ -141,6 +139,8 @@ function renderHighlights(articleId){
   });
   for(i = 0; i < myIndex; i++){
     var item = _.find(paragraph_highlight_builder, function(item){ return item.index == i; })
+    console.log(item.start_highlight);
+    console.log(item.end_highlight - item.start_highlight);
     $('.highlight-section-' + item.index).data('resource', item.resource).data('template', item.template).data('index', item.index);
   }
   // $('body').tooltip({
@@ -200,8 +200,8 @@ function renderHighlight(interaction, paragraph_starts){
 
 function renderParagraph(paragraph, start, end, index, label){
     var html = paragraph.html();
-    html = html.substring(0, start) + // 10 = length of "Posted by "
-           "<span title='" + label + "' class='highlight-section highlight-section-" + index + "'>" +
+    html = html.substring(0, start) +
+           "<span data-length = '" + (end-start) + "' data-offset='" + start + "' title='" + label + "' class='highlight-section highlight-section-" + index + "'>" +
            html.substring(start, end) +
            "</span>" +
            html.substring(end);
@@ -242,11 +242,26 @@ Template.articleLayout.events({
 
         if (window.getSelection() && window.getSelection().toString()) {
             selectionObject = window.getSelection();
-            var previousOffest = $(selectionObject.anchorNode).prev().data('offset');
-            if(!previousOffest){
-              previousOffest = 0;
+            $selectionNode = $(selectionObject.anchorNode);
+            // calculate the highlight start relative to the parent paragraph tag
+            // if selection is taking place within another selection
+            var previousOffset = $selectionNode.parent().data('offset');
+            console.log('parent offset');
+            console.log(previousOffset);
+            if(!previousOffset){
+              // if selection is later than a pervious highlight
+              previousOffset = $selectionNode.prev().data('offset');
+              if(!previousOffset){
+                Session.set('highlight_start', selectionObject.anchorOffset);
+              }
+              else{
+                var previousLength = $selectionNode.prev().data('length');
+                Session.set('highlight_start', selectionObject.anchorOffset + previousLength + previousOffset);
+              }
             }
-            Session.set('highlight_start', selectionObject.anchorOffset + previousOffest);
+            else{
+              Session.set('highlight_start', selectionObject.anchorOffset + previousOffset);
+            }
             text = selectionObject.toString();
             var oldSelectionText = Session.get('highlighted_text');
             if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
@@ -262,7 +277,7 @@ Template.articleLayout.events({
             }
             if(!oldSelectionText || oldSelectionText.length == 0 || text != oldSelectionText){
                highlightSelection(templateName, false);
-               Session.set('paragraph_start', $(className).first().parent().index());
+               Session.set('paragraph_start', $(className).first().parents('p').index());
                index += 1;
                Session.set('highlight_index', index);
             }
@@ -296,11 +311,9 @@ Template.articleLayout.events({
     },
     // move to tag_modal template
     'click .save-tags' : function(event, template){
-        if($('.article-tags-input').val() != ''){
-          allTags = $('.article-tags-input').val();
-          this.tags = allTags;
-          Articles.update(this._id, { $set: {'tags': allTags}});
-        }
+        allTags = $('.article-tags-input').val();
+        this.tags = allTags;
+        Articles.update(this._id, { $set: {'tags': allTags}});
         $('#tagModal').modal('hide');
     },
     'click .show-love' : function(event, template){
@@ -473,8 +486,9 @@ function clearActiveHighlight(templateName, closeSidebar){
      var highlightIndex = Session.get('highlight_index');
      var classSelector = '.highlight-section-' + (highlightIndex - 1);
      $(classSelector).each(function(index){
+         var offset = $(this).data('offset');
          var text = $(this).text();//get span content
-         $(this).replaceWith(text);//replace all span with just content
+         $(this).replaceWith(text).data('offset', offset);//replace all span with just content
      });
    }
    if(closeSidebar){
@@ -507,32 +521,29 @@ function highlightRange(range, templateName, isActiveHighlight) {
         classNames = classNames + ' highlight-agree';
     }
     newNode.setAttribute( "class", classNames );
-    // newNode.setAttribute('data-template', detailsTemplateName);
-    // newNode.setAttribute('data-toggle', 'tooltip');
-    // newNode.setAttribute('data-placement', 'top');
-    // newNode.setAttribute('title', 'hello');
     range.surroundContents(newNode);
 }
 
 function getSafeRanges(dangerous) {
     var a = dangerous.commonAncestorContainer;
     // Starts -- Work inward from the start, selecting the largest safe range
-    var s = new Array(0), rs = new Array(0);
-    if (dangerous.startContainer != a)
-        for(var i = dangerous.startContainer; i != a; i = i.parentNode)
-            s.push(i)
-    ;
-    if (0 < s.length) for(var i = 0; i < s.length; i++) {
+    var safe = new Array(0), rs = new Array(0);
+    if (dangerous.startContainer != a){
+      for(var i = dangerous.startContainer; i != a; i = i.parentNode){
+        safe.push(i);
+      }
+    }
+    if (0 < safe.length) for(var i = 0; i < safe.length; i++) {
         var xs = document.createRange();
         if (i) {
-            xs.setStartAfter(s[i-1]);
-            xs.setEndAfter(s[i].lastChild);
+            xs.setStartAfter(safe[i-1]);
+            xs.setEndAfter(safe[i].lastChild);
         }
         else {
-            xs.setStart(s[i], dangerous.startOffset);
+            xs.setStart(safe[i], dangerous.startOffset);
             xs.setEndAfter(
-                (s[i].nodeType == Node.TEXT_NODE)
-                ? s[i] : s[i].lastChild
+                (safe[i].nodeType == Node.TEXT_NODE)
+                ? safe[i] : safe[i].lastChild
             );
         }
         rs.push(xs);
@@ -561,9 +572,9 @@ function getSafeRanges(dangerous) {
     }
 
     // Middle -- the uncaptured middle
-    if ((0 < s.length) && (0 < e.length)) {
+    if ((0 < safe.length) && (0 < e.length)) {
         var xm = document.createRange();
-        xm.setStartAfter(s[s.length - 1]);
+        xm.setStartAfter(safe[safe.length - 1]);
         xm.setEndBefore(e[e.length - 1]);
     }
     else {

@@ -5,7 +5,7 @@ Meteor.publish('singleTopic', function(topicId) {
 
 Meteor.publish('topics', function() {
   if (this.userId) {
-    return Topics.find({userId: this.userId}, {sort: {submitted: -1}, limit:5});
+    return Topics.find({userId: this.userId}, {sort: {title: 1}});  //, limit:5});
   } else {
     this.ready();
   }
@@ -14,7 +14,7 @@ Meteor.publish('topics', function() {
 
 Meteor.publish('allTopics', function() {
   if (this.userId) {
-    return Topics.find({userId: this.userId}, {sort: {submitted: -1}});
+    return Topics.find({userId: this.userId}, {sort: {title: 1}});
   } else {
     this.ready();
   }

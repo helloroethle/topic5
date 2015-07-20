@@ -5,9 +5,11 @@
         {{> mainSidebar }}
       </div>
       <div class="col-md-8 list-article main-content">
-        <a href="{{pathFor 'createTopic'}}" class="add">+</a>
+        
         <h2 class='topic-week vertical-align'>My Topics</h2>
+        <input type="text" placeholder="search" class="topic-search" />
         <div class="topic-list">
+          <h3><input type="text" placeholder="add topic" class='add-topic form-input' /></h3>
           {{#each topics}}
             <h3><a href="{{pathFor 'detailTopic'}}">{{title}}</a><span class="number-badge">4</span></h3>
           {{/each}}
