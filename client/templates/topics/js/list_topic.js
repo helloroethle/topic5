@@ -12,10 +12,15 @@ Template.listTopic.helpers({
 
 Template.listTopic.created = function () {
   Session.set('topic_search_query', '');
+    toastr.options = {
+      closeButton: true,
+      progressBar: true,
+      positionClass: 'toast-bottom-left',
+  };
 };
 
 Template.listTopic.events({
-  'keyup .topic-search': function(e){
+  'keyup .topic-search input': function(e){
     Session.set('topic_search_query', e.currentTarget.value);
   },
   'keypress .add-topic': function(e) {
@@ -33,12 +38,10 @@ Template.listTopic.events({
     Meteor.call('createTopic', topic, function(error, result) {
       // display the error to the user and abort
       if (error){
-        console.log(error);
-        // return throwError(error.reason);
+        toastr.error(error, 'oops... something isn\'t right');
       }
       else{
-        console.log('success');
-        console.log(result);
+        toastr.success('New topic has been created', 'Success!');
         $('.add-topic').val('').focus();
       }
         
