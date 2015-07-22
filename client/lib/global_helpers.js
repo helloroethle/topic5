@@ -72,7 +72,8 @@ interactionMeta = {
     'secondary_field' : '',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },
   'quote' : {
     'label' : 'Quote',
@@ -85,7 +86,8 @@ interactionMeta = {
     'secondary_field' : 'source',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':false,
+    'allow_question':true
   },
   'fact' : {
     'label' : 'Fact',
@@ -98,7 +100,8 @@ interactionMeta = {
     'secondary_field' : 'source',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },
   'responsequiz' : {
     'label' : 'Response Quiz',
@@ -111,7 +114,8 @@ interactionMeta = {
     'secondary_field' : 'answer',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
   'mcquiz' : {
     'label' : 'Multiple Choice Quiz',
@@ -124,7 +128,8 @@ interactionMeta = {
     'secondary_field' : 'choices',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
   'tfquiz' : {
     'label' : 'True False Quiz',
@@ -137,7 +142,8 @@ interactionMeta = {
     'secondary_field' : '',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
   'flashcard' : {
     'label' : 'Flashcard',
@@ -150,7 +156,8 @@ interactionMeta = {
     'secondary_field' : 'back_text',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
   'idea' : {
     'label' : 'New Idea',
@@ -163,9 +170,10 @@ interactionMeta = {
     'secondary_field' : '',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },
-  'topic' : {
+  'futuretopic' : {
     'label' : 'Future Topic',
     'icon' : 'fa-share',
     'template' : 'FutureTopic',
@@ -176,7 +184,8 @@ interactionMeta = {
     'secondary_field' : '',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':false
   },
   'concept' : {
     'label' : 'Key Concept',
@@ -189,7 +198,8 @@ interactionMeta = {
     'secondary_field' : 'details',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },
   'definition' : {
     'label' : 'Definition',
@@ -202,12 +212,12 @@ interactionMeta = {
     'secondary_field' : 'definition',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
-  'agree' : {
+  'agreement' : {
     'label' : 'Agreement',
     'icon' : 'fa-plus',
-    // 'icon' : 'fa-sliders',
     'template' : 'Reaction',
     'create_template' : 'createReaction',
     'quiz_template' : 'quizReaction',
@@ -216,21 +226,22 @@ interactionMeta = {
     'secondary_field' : 'reaction',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':false,
+    'allow_question':true
   },
-  'disagree' : {
+  'disagreement' : {
     'label' : 'Disagreement',
     'icon' : 'fa-minus',
-    // 'icon' : 'fa-sliders',
     'template' : 'Reaction',
-    'create_template' : 'createDisagreement',
-    'quiz_template' : 'quizDisagreement',
+    'create_template' : 'createReaction',
+    'quiz_template' : 'quizReaction',
     'display_fields' : [],
     'summary_field' : 'text',
     'secondary_field' : 'reaction',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':false,
+    'allow_question':true
   },
   'timeline' : {
     'label' : 'Timeline',
@@ -243,7 +254,8 @@ interactionMeta = {
     'secondary_field' : 'details',
     'outline' : true,
     'collection' : '',
-    'quiz':true
+    'quiz':true,
+    'allow_question':false
   },
   'verify' : {
     'label' : 'Verification',
@@ -256,7 +268,8 @@ interactionMeta = {
     'secondary_field' : 'whyVerify',
     'outline' : true,
     'collection' : '',
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },
   // 'mneumonic' : {
   //   'label' : 'Mneumonics',
@@ -275,7 +288,8 @@ interactionMeta = {
     'summary_field' : 'inspiration',
     'secondary_field' : '',
     'outline' : false,
-    'quiz':false
+    'quiz':false,
+    'allow_question':true
   },  
 }
 

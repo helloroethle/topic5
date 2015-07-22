@@ -4,6 +4,14 @@
     <div id="wrapper" class='tk-proxima-nova watch-keys'>
       <div id="sidebar-wrapper">
         <div id="sidebar-content">
+          <div class="sidebar-action-buttons">
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Make into Quiz" class='quiz {{showQuiz}}'><i class="fa fa-graduation-cap fa-fw"></i></button>
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Expand Sidebar" class='expand'><i class="fa fa-arrows-h fa-fw"></i></button>
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Icon" class='add-icon'><i class="fa fa-bookmark fa-fw"></i></button>
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Highlight" class='add-highlight'><i class="fa fa-pencil-square fa-fw"></i></button>
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Tags" class="tags tag-trigger"> <i class="fa fa-tags fa-fw"></i> </button>
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Close Sidebar" class="close"><i class="fa fa-times-circle-o fa-fw"></i></button>
+          </div>
           {{> Template.dynamic template=whichOne data=whichData}}
         </div>
         <ul id="sidebar-nav">
@@ -15,12 +23,6 @@
           </li>
           {{/each}}
         </ul>  
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Close Sidebar" class="close"><i class="fa fa-times-circle-o"></i></button>
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Expand Sidebar" class='expand'><i class="fa fa-arrows-h"></i></button>
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Make into Quiz" class='quiz'><i class="fa fa-graduation-cap"></i></button>
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Tags" class="tags tag-trigger"> <i class="fa fa-tags"></i> </button>
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Highlight" class='add-highlight'><i class="fa fa-pencil-square"></i></button>
-        <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Icon" class='add-icon'><i class="fa fa-bookmark"></i></button>
       </div>        
 
 <div id="page-content-wrapper">

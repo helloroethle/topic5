@@ -2,9 +2,9 @@
     <h5>Quiz</h5>
   <div class="tag-container hide">
     <label for='tags'>Tags</label>
-  <input name='tags' class='tags-input' placeholder='+' type="text" />
+    <input name='tags' class='tags-input' placeholder='+' type="text" />
   </div>
-  {{> quickForm collection="ResponseQuizes" id="createResponseQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question, answer, comments, minLength" }}
+  {{> quickForm collection="ResponseQuizes" id="createResponseQuiz" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="question, answer, comments" }}
   <div class="form-group">
     <button class="btn-template-close">Cancel</button>
   </div>

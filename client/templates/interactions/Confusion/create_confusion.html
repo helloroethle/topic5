@@ -1,8 +1,12 @@
 <template name="createConfusion">
-<h5>New Area of Confusion</h5>
+<h5>Confusion</h5>
   <div class="tag-container hide">
     <label for='tags'>Tags</label>
-  <input name='tags' class='tags-input' placeholder='+' type="text" />
+    <input name='tags' class='tags-input' placeholder='+' type="text" />
+  </div>
+  <div class="question-container hide">
+    <label for='question'>Question</label>
+    <input name='question' class='form-control' type="text" />
   </div>
   {{> quickForm collection="Confusions" id="createConfusion" type="insert" buttonClasses="btn-template-save" buttonContent="Save" fields="text,reason" }}
   <div class="form-group">

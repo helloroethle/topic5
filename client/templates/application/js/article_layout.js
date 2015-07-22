@@ -14,6 +14,13 @@ Template.articleLayout.helpers({
     else{
       return null;
     }
+  },
+  showQuiz: function(){
+    var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+    var interactionMeta = getInteractionMeta(interactionKey);
+    if(interactionMeta.allow_question == false){
+      return 'hide';
+    }
   }
 });
 

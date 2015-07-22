@@ -1,5 +1,9 @@
 <template name="detailFlashCard">
   <h5>Flashcard</h5>
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' value="{{tags}}" placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="FlashCards" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Update" doc=this fields="front_text,back_text,comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>

@@ -1,15 +1,14 @@
-<template name="quizConcept">
+<template name="quizResponseQuiz">
   <div class="quiz-item">
     <div class="prompt-container">
       <h3 class="prompt">{{question}}</h3>
-      <p>{{details}}</p>
     </div>
     <div class="prompt-answer-container">
-      <input type="text" class="answer">
+      <textarea class="answer" name="answer"></textarea>
     </div>
     <div class="answer-container">
       <h3>Answer</h3>
-      <p>{{concept}}</p>
+      <p>{{answer}}</p>
     </div>
   </div>
 </template>

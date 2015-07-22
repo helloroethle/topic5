@@ -52,7 +52,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         if(Session.get('templateName') == 'createTimeline'){
           Session.set('timelineCount', (Session.get('timelineCount') + 1) );
         }
-        if($('#sidebar-content .question-container input').val() != ''){
+        if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
           console.log('setting question field');
           console.log($('#sidebar-content .question-container input').val());
           doc.question = $('#sidebar-content .question-container input').val();

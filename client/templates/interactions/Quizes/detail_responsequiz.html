@@ -1,5 +1,13 @@
 <template name="detailResponseQuiz">
   <h5>Quiz</h5>
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' value="{{tags}}" placeholder='+' type="text" />
+  </div>
+  <div class="question-container {{hasQuestion}}">
+    <label for='question'>Question</label>
+  <input name='question' class='form-control' type="text" value="{{question}}" />
+  </div>
   {{> quickForm collection="ResponseQuizes" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Save" doc=this fields="question, answer, comments, minLength" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>

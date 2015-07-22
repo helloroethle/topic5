@@ -11,6 +11,11 @@
 //     return !!Session.get('quoteSubmitErrors')[field] ? 'has-error' : '';
 //   }
 // });
+Template.createReaction.events({
+  'click .rating .rating-bubble': function (e, template) {
+    $(e.currentTarget).addClass('selected');
+  }
+});
 
 Template.createReaction.helpers({
   reaction_type: function () {

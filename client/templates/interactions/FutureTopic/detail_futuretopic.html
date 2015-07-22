@@ -1,5 +1,9 @@
 <template name="detailFutureTopic">
   <h5>Future Topic</h5>
+  <div class="tag-container hide">
+    <label for='tags'>Tags</label>
+  <input name='tags' class='tags-input' value="{{tags}}" placeholder='+' type="text" />
+  </div>
   {{> quickForm collection="FutureTopics" id=makeUniqueID type="update" buttonClasses="btn-template-save" buttonContent="Update" doc=this fields="topic,comments" }}
   <div class="form-group">
     <button class="btn-template-delete">Delete</button>

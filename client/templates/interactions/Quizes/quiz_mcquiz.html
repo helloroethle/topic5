@@ -1,0 +1,21 @@
+<template name="quizMCQuiz">
+  <div class="quiz-item">
+    <div class="prompt-container">
+      <h3 class="prompt">{{question}}</h3>
+    </div>
+    <div class="prompt-answer-container">
+        {{#each addIndex choices}}
+        <div class="option-item">
+          <input name="choice" id='choice{{index}}' type="radio" class='item-choice' />
+          <label for='choice{{index}}' class='item-option-text'>{{value}}</label>
+        </div>
+        {{/each}}
+    </div>
+    <div class="answer-container">
+      <h3>Answer</h3>
+      <p>{{answer_label}}</p>
+    </div>
+  </div>
+</template>
+
+

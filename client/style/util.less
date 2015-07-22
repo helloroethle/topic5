@@ -1,3 +1,7 @@
+.datepicker{
+  z-index:10000 !important;
+}
+
 .circle
     {
     line-height:40px;
@@ -9,6 +13,36 @@
     height:40px;
     border-radius:20px;
     display:inline-block;
+}
+
+div.rating{
+  padding:10px;
+}
+
+.rating-bubble {
+    width:25px;
+    height:25px;
+    line-height:25px;
+  position: relative;
+  display: inline-block;
+  border-radius: 25px;
+  background: #008fe2;
+  color: white;
+  text-align: center;
+  margin: 2px 4px 5px;
+}
+
+div.rating .rating-bubble{
+    margin:2px 0px 5px;
+}
+
+.rating-bubble:hover{
+    background-color: #28b779;
+    cursor:pointer;
+}
+
+.rating-bubble.selected{
+    background-color: #28b779;
 }
 
 .list{

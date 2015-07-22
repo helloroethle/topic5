@@ -1,11 +1,34 @@
 <template name="takeQuiz">
+<div id="quiz-section">
+  <h2 class='quiz-header'>Question {{questionIndex}})</h2>
+    {{> Template.dynamic template=questionTemplate data=questionData}}
 
-<h2 class='quiz-header'>Question {{questionIndex}})</h2>
-  {{> Template.dynamic template=questionTemplate data=questionData}}
-
-<button class='quiz-answer-button'>Answer</button>
-<div class="quiz-grade-container">
-  <button class='quiz-mark-correct'>Correct</button>
-<button class='quiz-mark-incorrect'>Incorrect</button>
+  <button class='quiz-answer-button'>Answer</button>
+  <div class="quiz-grade-container">
+    <button class='quiz-mark-correct'>Correct</button>
+  <button class='quiz-mark-incorrect'>Incorrect</button>
+  </div>
+</div>
+<div id='quiz-summary'>
+  <h2 class='quiz-header'>Quiz Summary</h2>
+  <ul class="list-group summary">
+    <li class="list-group-item">
+      <span class="badge">{{correct}}</span>
+      Correct
+    </li>
+    <li class="list-group-item">
+      <span class="badge">{{incorrect}}</span>
+      Incorrect
+    </li>
+    <li class="list-group-item">
+      <span class="badge">{{score}}%</span>
+      Score
+    </li>
+    <li class="list-group-item">
+      <span class="badge">{{duration}}</span>
+      Duration
+    </li>
+  </ul>
+  
 </div>
 </template>
