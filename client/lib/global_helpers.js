@@ -352,6 +352,12 @@ Template.registerHelper('addIndex', function (all) {
     });
 });
 
+Template.registerHelper('addIndexOne', function (all) {
+    return _.map(all, function(val, index) {
+        return {index: (index + 1), value: val};
+    });
+});
+
 Template.registerHelper('templateCreate', function(key){
   if(key in interactionMeta){
     return 'create' + interactionMeta[key].template;

@@ -2,7 +2,21 @@
   <div id="sidebar-content">
     <div class="quiz-results">
       <h3>Results</h3>
-      <div class="remaining clearfix">
+      <ul class="list-group summary">
+      <li class="list-group-item">
+        <span class="badge">{{questionsRemaining}}</span>
+        Remaining
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{questionsCorrect}}</span>
+        Correct
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{questionsIncorrect}}</span>
+        Incorrect
+      </li>
+    </ul>
+      <!-- <div class="remaining clearfix">
         <label>Remaining:</label>
         <span>{{questionsRemaining}}</span>
       </div>
@@ -13,17 +27,22 @@
       <div class="incorrect clearfix">
         <label>Incorrect:</label>
         <span>{{questionsIncorrect}}</span>
+      </div> -->
+      <h3 class='quiz-quick-jump-header'>Questions</h3>
+      <div class="quiz-quick-jump">
+        <ul id="quick-jump" class='clearfix'>
+        {{#each addIndexOne questions}}
+            <li>{{index}}</li>
+        {{/each}}
+        </ul>
       </div>
     </div>
     <div class="quiz-actions">
-      <button class="restart">
-        Restart
+      <button class="restart quiz-action-button">
+        <i class="fa fa-refresh"></i> Restart
       </button>
-      <button class="edit">
-        Edit
-      </button>
-      <button class="history">
-        History
+      <button class="edit quiz-action-button">
+        <i class="fa fa-pencil"></i> Edit
       </button>
     </div>
   </div>

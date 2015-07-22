@@ -1,5 +1,5 @@
 #quiz-summary{
-  // display:none;
+  display:none;
   .list-group.summary{
     max-width:400px;
     margin:15px auto;
@@ -10,9 +10,52 @@
   .quiz-grade-container{
     display:block;
   }
+  .summary-buttons{
+    max-width:400px;
+    margin:0px auto;
+  }
 }
-#quiz-section{
-  display:none;
+#wrapper.quiz-layout.toggled #sidebar-content {
+  .quiz-quick-jump-header{
+    margin-top:15px;
+  }
+  #quick-jump{
+    list-style-type: none;
+    li{
+      display:inline-block;
+      float:left;
+      border:2px solid #777;
+      background-color:#fff;
+      vertical-align: baseline;
+      text-align:center;
+      padding:4px;
+      width: 28px;
+      height: 28px;
+      line-height: 18px;
+      margin: 0 5px 5px;
+      cursor:pointer;
+      &.correct{
+        background-color:#2dbe60;
+        color:#fff;
+        border-color:#fff;
+      }
+      &.incorrect{
+        background-color:#ED1556;
+        color: #fff;
+        border-color:#fff;
+      }
+    }
+  }
+}
+
+#sidebar-content{
+  .summary{
+    .badge{
+      margin-top:10px;
+      font-size:14px;
+      border-radius:4px;
+    }
+  }
 }
 
 
@@ -84,6 +127,8 @@
   margin-top:15px;
 }
 
+
+
 .quiz-action-button,
 .quiz-answer-button,
 .quiz-grade-container button{
@@ -91,7 +136,7 @@
   border: 2px solid #2dbe60;
   color:#555;
   width: 100%;
-  margin:25px auto;
+  margin:10px auto;
   text-align: center;
   height:40px;
   outline:none;

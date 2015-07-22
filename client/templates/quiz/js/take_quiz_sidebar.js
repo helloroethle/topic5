@@ -20,5 +20,10 @@ Template.takeQuizSidebar.events({
     Session.set('current_questions_remaining', this.questions.length); 
     $('#quiz-summary').hide();
     $('#quiz-section').show();
-  }
+  },
+  'click #quick-jump li':function(e, template){
+    var index = parseInt($(e.currentTarget).text());
+    console.log(index);
+    Session.set('current_question_index', index - 1);
+  },
 });

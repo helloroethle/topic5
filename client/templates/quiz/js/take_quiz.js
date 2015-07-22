@@ -9,10 +9,28 @@ Template.takeQuiz.rendered = function () {
   
   $("body").keydown(function(e) {
     if(e.keyCode == 37) { // left
-      prevQuestion();
+      if(Session.get('current_state') == 'grade'){
+        markIncorrect();
+        toggleActionButtons();
+        nextQuestion();
+        updateProgress();
+        Session.set('current_state', 'answer');
+      }
+      else if(Session.get('current_state') == 'answer'){
+        prevQuestion();
+      }
     }
     else if(e.keyCode == 39) { // right
-      nextQuestion();
+      if(Session.get('current_state') == 'grade'){
+        markCorrect();
+        toggleActionButtons();
+        nextQuestion();
+        updateProgress();
+        Session.set('current_state', 'answer');
+      }
+      else if(Session.get('current_state') == 'answer'){
+        nextQuestion();
+      }
     }
   });
 };
@@ -93,28 +111,42 @@ function updateProgress(){
     Session.set('progress', width);
 }
 
+function markCorrect(){
+  Session.set('current_questions_correct', Session.get('current_questions_correct') + 1);
+  Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
+  $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('correct');
+}
+
+function markIncorrect(){
+  Session.set('current_questions_incorrect', Session.get('current_questions_incorrect') + 1);
+  Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
+  $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('incorrect');
+}
+
 Template.takeQuiz.events({
   'keypress .answer': function(e, template){
     if(e.which === 13){
       toggleActionButtons();
+      Session.set('current_state', 'grade');
     }
   },
   'click .quiz-answer-button': function (e, template) {
     toggleActionButtons();
+    Session.set('current_state', 'grade');
   },
   'click .quiz-mark-correct':function(e, template){
-    Session.set('current_questions_correct', Session.get('current_questions_correct') + 1);
-    Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
+    markCorrect();
     toggleActionButtons();
     nextQuestion();
     updateProgress();
+    Session.set('current_state', 'answer');
   },
   'click .quiz-mark-incorrect':function(e, template){
-    Session.set('current_questions_incorrect', Session.get('current_questions_incorrect') + 1);
-    Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
+    markIncorrect();
     toggleActionButtons();
     nextQuestion();
     updateProgress();
+    Session.set('current_state', 'answer');
   },
   'click .quiz-prev-question':function(e, template){
     prevQuestion();
