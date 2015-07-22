@@ -17,6 +17,11 @@
 //       $container.addClass('overlay-open');
 //    }
 // }
+Template.articleHeader.events({
+  'click .app-back': function () {
+    history.back();
+  }
+});
 
 Template.articleHeader.helpers({
   favoriteIcon: function () {

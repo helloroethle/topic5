@@ -1,5 +1,6 @@
 <template name="templateHeader">
   <nav class="navbar navbar-fixed-top" role="navigation">
+    <a href="#" class="app-back"><i class="fa fa-chevron-left"></i></a>
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -12,6 +13,7 @@
       </div>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav navbar-right">
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="View Settings" href="#" class="show-settings"><i class="fa fa-cog"></i></a></li>
           {{> loginButtons}}
         </ul>
       </div>

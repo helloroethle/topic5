@@ -1,24 +1,5 @@
 <template name="detailTemplate">
-<div class="container">
-  <div class="row">
-    <div class="col-md-3 builder-option-content">
-      <ul class='builder-option-list'>
-        {{#each builderOptionList}}
-          <li>
-            <div class='option-content' data-key="{{name}}">
-            <i class="fa {{value.icon}}"></i> {{value.label}}
-            </div>
-            <div class="question-content">
-              {{> Template.dynamic template=value.edit}}
-            </div>
-          </li>
-        {{/each}}
-      </ul>
-      <button class='btn btn-option-list-action btn-clear-template'>Clear</button>
-      <button class="btn btn-option-list-action btn-delete-template">Delete</button>
-      <button class='btn btn-option-list-action btn-save-template'>Save</button>
-    </div>
-    <div class="col-md-9 builder-question-content">
+    <div class="builder-question-content">
       <h2><input type="text" class='template-title' value="{{title}}" placeholder="name your template..."></h2>
       <textarea class='template-description' placeholder='enter brief description' value="{{description}}"></textarea>
       <ul class='builder-question-list'>
@@ -34,6 +15,4 @@
         {{/each}}
       </ul>
     </div>
-  </div>
-</div>
 </template>

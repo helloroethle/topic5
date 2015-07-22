@@ -27,6 +27,10 @@ Template.templateLayout.rendered = function () {
 // });
 
 Template.templateLayout.events({
+  'click button.overlay-slide-outline-close, click .show-settings':function(e){
+      $('div.overlay-slide-outline').toggleClass('open');
+      $('#wrapper').toggleClass('noscroll');
+    },
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
   },
