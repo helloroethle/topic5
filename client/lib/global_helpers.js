@@ -40,6 +40,12 @@ templateOptionHelpers = {
     'display' : 'displayTrueFalse',
     'edit' : 'editTrueFalse'
   },
+  'rating' : {
+    'label' : 'Rating',
+    'icon' : 'fa-star',
+    'display': 'displayRating',
+    'edit': 'editRating'
+  },
   'header' : {
     'label' : 'Header',
     'icon' : 'fa-header',

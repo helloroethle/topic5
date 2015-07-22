@@ -6,6 +6,15 @@ Template.takeQuiz.rendered = function () {
   Session.set('current_questions_remaining', this.data.questions.length);
   Session.set('total_questions', this.data.questions.length);
   Session.set('start_time', moment().toString());
+  
+  $("body").keydown(function(e) {
+    if(e.keyCode == 37) { // left
+      prevQuestion();
+    }
+    else if(e.keyCode == 39) { // right
+      nextQuestion();
+    }
+  });
 };
 
 Template.takeQuiz.helpers({
@@ -85,6 +94,11 @@ function updateProgress(){
 }
 
 Template.takeQuiz.events({
+  'keypress .answer': function(e, template){
+    if(e.which === 13){
+      toggleActionButtons();
+    }
+  },
   'click .quiz-answer-button': function (e, template) {
     toggleActionButtons();
   },

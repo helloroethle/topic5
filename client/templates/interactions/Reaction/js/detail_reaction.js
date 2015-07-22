@@ -6,6 +6,7 @@ Template.detailReaction.events({
 
 Template.detailReaction.rendered = function(){
   $('.tags-input').tagsinput();
+  // need to select level of agreement / disagreement
 }
 
 Template.detailReaction.helpers({

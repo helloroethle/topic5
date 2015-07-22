@@ -1,5 +1,5 @@
 #quiz-summary{
-  display:none;
+  // display:none;
   .list-group.summary{
     max-width:400px;
     margin:15px auto;
@@ -7,6 +7,12 @@
   h2.quiz-header{
     text-align:center;
   }
+  .quiz-grade-container{
+    display:block;
+  }
+}
+#quiz-section{
+  display:none;
 }
 
 
@@ -62,7 +68,8 @@
       outline: none;
       // color: #2dbe60;
       color: #222;
-      border:2px solid #f2f2f2;
+      border:2px solid #f0f0f0;
+      border-bottom:4px solid #f0f0f0;
     }  
   }
 
@@ -77,6 +84,7 @@
   margin-top:15px;
 }
 
+.quiz-action-button,
 .quiz-answer-button,
 .quiz-grade-container button{
   background-color: #fff;
@@ -91,6 +99,8 @@
   &:hover,
   &:active,
   &:visited{
+    background-color: #2dbe60;
+    color: #fff;
     outline:none;
   }
 }
@@ -107,6 +117,12 @@
   button.quiz-mark-incorrect{
     float:left;
     border-color: #ED1556;
+    &:hover,
+    &:active,
+    &:visited{
+      background-color:#ED1556;
+      color:#fff;
+    }
   }
 }
 

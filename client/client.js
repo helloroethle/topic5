@@ -50,11 +50,15 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           doc.answer = Session.get('mc_answer')
         }
         if(Session.get('templateName') == 'createTimeline'){
-          Session.set('timelineCount', (Session.get('timelineCount') + 1) );
+          if(Session.get('agree')){
+            doc.agreement = true;
+          }
+          else{
+            doc.agreement = false;
+          }
+          doc.agreement_score = $('.rating-bubble.selected').text();
         }
         if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
-          console.log('setting question field');
-          console.log($('#sidebar-content .question-container input').val());
           doc.question = $('#sidebar-content .question-container input').val();
           doc.quiz = true;
         }
