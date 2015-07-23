@@ -9,5 +9,10 @@ Template.listItemArticle.helpers({
 Template.listItemArticle.events({
   'click .delete' : function(e){
       Articles.remove(this._id);
+      toastr.success('Article Successfully Deleted');
+  },
+  'click .pick-template' : function(e){
+    // show sidebar with jquery
+    $('#wrapper').toggleClass('toggled-right-sidebar');
   }
 })

@@ -1,18 +1,11 @@
 <template name="listTemplate">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-3 blog-sidebar">
-        {{> mainSidebar }}
-      </div>
-      <div class="col-md-8 list-article main-content">
-        <a href="{{pathFor 'createTemplate'}}" class="add">+</a>
-        <h2 class='title'>My Templates</h2>
-        <div class="topic-list">
-          {{#each myTemplates}}
-            {{> listItemTemplate}}
-          {{/each}}
-        </div>
-      </div>
+  <div class="list-article main-content">
+    <a href="{{pathFor 'createTemplate'}}" class="add">+</a>
+    <h2 class='title'>My Templates</h2>
+    <div class="topic-list">
+      {{#each myTemplates}}
+        {{> listItemTemplate}}
+      {{/each}}
     </div>
   </div>
 </template>

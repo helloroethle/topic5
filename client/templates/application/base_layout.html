@@ -1,9 +1,34 @@
-<template name="baseLayout">
+<!-- <template name="baseLayout">
     {{> header}}
     {{> errors}}
     <div id="main">
       <div class="container">
         {{> yield}}
+      </div>
+    </div>
+    {{> footer }}
+</template> -->
+
+
+<template name="baseLayout">
+    {{> header}}
+    <div id="wrapper" class='tk-proxima-nova toggled'>
+      <div id="sidebar-wrapper">
+        <div id="sidebar-content">
+          {{> mainSidebar }}
+        </div>
+      </div>        
+
+      <div id="page-content-wrapper">
+        {{> yield}}
+      </div>
+      <div id="sidebar-wrapper-right">
+        <div id="sidebar-content-right">
+          <div class="sidebar-action-buttons">
+            <button class="close"><i class="fa fa-times-circle-o fa-fw"></i></button>
+          </div>
+          {{> yield region='sidebar-right'}}
+        </div>
       </div>
     </div>
     {{> footer }}

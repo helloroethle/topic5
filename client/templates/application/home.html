@@ -1,8 +1,8 @@
-<template name="home">
+<!-- <template name="home">
   <div class="container page">
     <div class="row">
       <div class="col-md-3 blog-sidebar">
-<!--         <div class="sidebar-module">
+        <div class="sidebar-module">
           <ul class="nav nav-sidebar">
             <li><a href="{{pathFor 'listTopic'}}"><i class="fa fa-bars menu-icon"></i>My Topics</a></li>
             <li><a href="#"><i class="fa fa-search menu-icon"></i>Browse</a></li>
@@ -14,7 +14,7 @@
             <li><a href="{{pathFor 'detailSettings'}}"><i class="fa fa-cogs menu-icon"></i>Settings</a></li>
             <li><a href="#"><i class="fa fa-folder-open-o menu-icon"></i>Categories</a></li>
           </ul>
-        </div> -->
+        </div>
         {{> mainSidebar }}
       </div>
       <div class="col-md-8 article-main">
@@ -27,4 +27,17 @@
       </div>
     </div>
   </div>
+</template> -->
+
+
+
+<template name="home">
+      <div class="article-main">
+        <h2 class='topic-week vertical-align'><i class="fa fa-angle-left left-icon"></i> Week # <span class='date-range'>3/1/2015 - 3/8/2015</span> <i class="fa fa-angle-right right-icon"></i></h2>
+        <div class="topic-list">
+          {{#each topics}}
+            <h3><a href="{{pathFor 'detailTopic'}}">{{title}}</a><span class="number-badge">4</span></h3>
+          {{/each}}
+        </div>
+      </div>
 </template>

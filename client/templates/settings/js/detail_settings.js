@@ -17,6 +17,13 @@ Template.detailSettings.helpers({
       colorHue = 'random';
     }
     return randomColor({hue: colorHue, count: 28});
+  },
+  colorSelection: function(){
+    var colorHue = Session.get('color_hue');
+    if(!colorHue){
+      colorHue = 'Random';
+    }
+    return colorHue;
   }
 });
 
@@ -24,9 +31,12 @@ Template.detailSettings.events({
   'click .btn-primary': function () {
     Session.set('helloColors', randomColor());
   },
-  'change #colorHue':function(e){
-    var newValue = $(e.target).val();
+  'click #colorHue .dropdown-menu li a':function(e){
+    e.preventDefault();
+    var newValue = $(e.target).attr('data-value');
     Session.set("color_hue", newValue);
+    $('#colorDropdown').dropdown('toggle');
+    return false;
   },
   'dragstart .swatch':function(e){
     Session.set('currentColor', this.toString());

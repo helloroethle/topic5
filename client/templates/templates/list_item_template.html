@@ -1,10 +1,11 @@
 <template name="listItemTemplate">
   <div class="blog-post">
-    <h2 class="blog-post-title"><a href="{{pathFor 'detailTemplate'}}">{{title}}</a></h2>
+    <h2 class="blog-post-title"><a href="{{pathFor 'detailListTemplate'}}">{{title}}</a></h2>
     <p class="blog-post-meta">{{created}}</p>
     <p>{{description}}</p>
     <div class="icon-group">
       <button class="delete"><i class="fa fa-trash-o"></i></button>
+      <a href="{{pathFor 'detailTemplate'}}"><i class="fa fa-pencil-square-o"></i></a>
     </div>
   </div>
   <hr>
