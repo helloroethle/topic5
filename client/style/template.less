@@ -70,32 +70,117 @@
   }
 }
 
+
+
+
 .builder-option-content{
   // position:fixed;
   // max-width:250px;
+  .action-buttons-container{
+    width:100%;
+    padding:10px;
+  }
   .btn-option-list-action{
-    display: inline-block;
-    // background-color: #1abc9c;
-    // margin-bottom: 10px;
-    // box-sizing: border-box;
-    // color: #fff;
-    // padding: 5px 10px;
+    margin: 5px 0px;
+    width:100%;
+    display: block;
+    border:2px solid #fff;
     text-align: center;
     cursor: pointer;
-    // border-radius:0px;
     outline:none;
     box-shadow: none;
-    // background-color:inherit;
     padding:10px;
-    margin-top:10px;
     color:#fff;
+    background-color:#eee;
+  }
+  .btn-preview-template{
+    background-color:#0087F7;
+  }
+  .btn-clear-template{
+    background-color:#f7f7f7;
+    color:#999;
+    border-color:#999;
   }
   .btn-save-template{
-    background-color:#47AE73;
+    background-color:#2dbe60;
   }
 }
 
 .builder-question-content {
+  &.preview-template{
+    padding: 20px;
+    height: auto;
+    background: #f7f7f7;
+    color: #777;
+    font-size: 1.2em;
+    margin-bottom:25px;
+    border-radius:6px;
+    .builder-item{
+      border-bottom:2px solid #eee;
+    }
+    /* hide placeholder text */
+    ::-webkit-input-placeholder {
+       color: #f7f7f7;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+       color: #f7f7f7;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: #f7f7f7;  
+    }
+
+    :-ms-input-placeholder {  
+       color: #f7f7f7;  
+    }
+    input,
+    textarea{
+      background-color:#f7f7f7;
+      outline:none;
+      border:none;
+    }
+    .item-question{
+      color:#777;
+      font-size: 18px;
+      font-weight:bold;
+    }
+    .item-remove,
+    .builder-item-remove,
+    .builder-item-expand,
+    .item-add,
+    .required-container,
+    .hide{
+      display:none;
+    }
+    .text-placeholder,
+    .text-area-placeholder,
+    .builder-section-break.builder-item,
+    .builder-header.builder-item {
+      background-color:#f7f7f7;
+      height:auto;
+    }
+    .template-title{
+      background-color:#f7f7f7;
+      color:#777;
+      text-align:left;
+    }
+    .template-description{
+      padding:0px;
+      resize: none;
+    }
+    .item-question-required {
+      background-image: url(../img/star.svg);
+      background-position: top right;
+      background-size: 18px;
+      background-repeat: no-repeat;
+    }
+  }
+
+
+
+
+
   margin-top:25px;
   textarea.template-description{
     width:100%;
@@ -139,7 +224,7 @@
   position:relative;
   cursor: move;
   padding:10px;
-  background-color:#f3f4f5;
+  background-color:#f7f7f7;
   border-radius:4px; 
 
   h3{

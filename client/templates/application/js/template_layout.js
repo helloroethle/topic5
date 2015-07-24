@@ -1,4 +1,11 @@
 Template.templateLayout.rendered = function () {
+
+  // distinguish between create and display views
+  if(this._id){
+    $('.btn-preview-template').text('Edit');
+    $('.btn-save-template, .btn-clear-template').hide();
+  }
+
   Sortable.create( $('.builder-option-list').get(0), 
     {
       group: {
@@ -31,6 +38,35 @@ Template.templateLayout.events({
       $('div.overlay-slide-outline').toggleClass('open');
       $('#wrapper').toggleClass('noscroll');
     },
+  'click .btn-preview-template':function(e){
+      $('.builder-question-content').toggleClass('preview-template');
+      $('.template-title, .template-description').attr('readonly', 'readonly');
+      var buildPreview = $('.builder-question-content').hasClass('preview-template');
+      if(buildPreview){
+        var $questionContainers = $('.builder-question-content .question-content');
+        $questionContainers.each(function(index){
+          $(this).find('input, textarea').attr('readonly', 'readonly');
+          var question = $(this).find('.item-question').val();
+          if(question == ''){
+            $(this).addClass('hide');
+          }
+          var description = $(this).find('.item-description').val();
+          if(description == ''){
+            $(this).find('.item-description').addClass('hide');
+          }
+          var required = $(this).find('.item-required').is(':checked');
+          if(required){
+            $(this).find('.item-question').addClass('item-question-required');  
+          }
+        })
+      }
+      else{
+        $('.builder-question-content [readonly=readonly]').removeAttr('readonly');
+        $('.hide').removeClass('hide');
+        $('.item-question-required').removeClass('item-question-required');
+      }
+
+  },
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
   },
