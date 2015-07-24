@@ -82,15 +82,49 @@ div.rating .rating-bubble{
   padding-top:20px;
 }
 
-.sidebar-menu-items {
-    list-style-type: none;
-    padding: 0px;
-    margin: 0px;
-  li {
-    height: 40px;
-    line-height: 40px;
-    padding: 0px 20px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f7f7f7;
+.dropdown-full{
+  width:100%;
+}
+
+.sidebar-selectable{
+  .search{
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    padding: 5px;
+    margin: 0;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom:10px;
+    input{
+      border-bottom:none;
+    }
+  }
+
+  .sidebar-menu-items {
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+    li {
+      &:hover{
+        background-color:#0087F7;
+        color:#fff;
+      }
+      height: 40px;
+      line-height: 40px;
+      padding: 0px 20px;
+      border-bottom: 1px solid #ccc;
+      background-color: #fff;
+      font-size:16px;
+      cursor:pointer;
+      i{
+        // float:left;
+      }
+      span{
+        padding-left:5px;
+      }
+    }
   }
 }

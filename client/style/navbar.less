@@ -4,6 +4,19 @@
   font-size:18px;
   border-radius:0;
 
+  input::-webkit-input-placeholder {
+    color:#fff;
+  }
+  input::-moz-placeholder {
+    color:#fff;
+  }
+  input:-moz-placeholder {   /* Older versions of Firefox */
+    color:#fff;
+  }
+  input:-ms-input-placeholder { 
+    color:#fff;
+  }
+
   a{
     color:#fff;
   }
@@ -75,14 +88,38 @@ ul.nav-sidebar{
   }
 }
 
-a.app-header-new-task-button {
-  height: 30px;
-  line-height: 30px;
-  border-radius: 20px;
+.navbar-nav > li a.nav-button-add,
+.navbar-nav > li a.nav-button-add:hover,
+.navbar-nav > li a.nav-button-add:focus,
+.navbar-nav > li a.nav-button-add:active{
+  background: #fff;
+  background-color:#fff;
+  display: inline-block;
+  margin-top: 8px;
+  height: 34px;
+  width: auto;
+  color: #0087F7;
+  border-radius: 6px;
+  padding: 4px 8px;
   font-weight: 400;
-  background: rgb(21, 202, 110);
-  color: rgb(255, 255, 255);
-  opacity: 1;
-  cursor: pointer;
-  padding: 0px 1em;
+  line-height:28px;
+  margin-right:10px;
 }
+
+.navbar .search{
+  color:#fff;
+  i{color:#fff;}
+  input{border-bottom: 2px solid #fff;color:#fff;}
+}
+
+// a.app-header-new-task-button {
+//   height: 30px;
+//   line-height: 30px;
+//   border-radius: 20px;
+//   font-weight: 400;
+//   background: rgb(21, 202, 110);
+//   color: rgb(255, 255, 255);
+//   opacity: 1;
+//   cursor: pointer;
+//   padding: 0px 1em;
+// }

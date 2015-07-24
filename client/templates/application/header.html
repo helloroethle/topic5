@@ -19,17 +19,27 @@
         <ul class="nav navbar-nav navbar-right">
           
           {{#if currentUser}}
-          <li>
-            <a class="app-header-new-task-button" role="button" data-helpout="true" title="" data-helpout-title="Create a New Task">
-              <span class="app-header-new-task-button-text">New</span>
-            </a>
-          </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle nav-button-add"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{pathFor 'createArticle'}}">New Article</a></li>
+                <li><a href="{{pathFor 'listTopic'}}">New Topic</a></li>
+                <li><a href="{{pathFor 'createTemplate'}}">New Template</a></li>
+                <li><a href="{{pathFor 'createQuiz'}}">New Quiz</a></li>
+              </ul>
+            </li>
             <li><img class="initial img-rounded" /></li>
           {{else}}
             {{> loginButtons}}
           {{/if}}
           
         </ul>
+     <form class="navbar-form navbar-right search" role="search">
+        <i class="fa fa-search"></i>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+      </form>
       </div>
     </div>
   </nav>

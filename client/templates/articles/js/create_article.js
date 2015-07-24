@@ -45,5 +45,8 @@ Template.createArticle.events({
     //   template.find('.editable').value = results.text;
     //   template.find('[name=html]').value = results.text;
     // });
-  }
+  },
+  'click .btn-template-close':function(e, template){
+      history.back();
+    }
 });

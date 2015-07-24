@@ -16,6 +16,15 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="View Settings" href="#" class="show-settings"><i class="fa fa-cog"></i></a></li>
           {{#if currentUser}}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle nav-button-add"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{pathFor 'createArticle'}}">New Article</a></li>
+                <li><a href="{{pathFor 'listTopic'}}">New Topic</a></li>
+                <li><a href="{{pathFor 'createTemplate'}}">New Template</a></li>
+                <li><a href="{{pathFor 'createQuiz'}}">New Quiz</a></li>
+              </ul>
+            </li>
             <li><img class="initial img-rounded" /></li>
           {{else}}
             {{> loginButtons}}
