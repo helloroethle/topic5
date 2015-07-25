@@ -13,10 +13,16 @@
 <template name="templateCheckbox">
     <label class="fs-field-label fs-anim-upper" for="q{{index}}" data-info="{{value.description}}">{{value.title}}</label>
     <div class="fs-anim-lower">
+      <ul class='sidebar-menu-items'>
         {{#each value.options}}
-          <input type="checkbox" class='item-multiple-choice-radio' />
-          <span class='item-multiple-choice-text item-option-text'>{{this}}</span>
+        <li>
+          <i class="fa fa-fw fa-square-o"></i>
+          <span>{{this}}</span>
+<!--           <input type="checkbox" class='item-multiple-choice-radio' />
+          <span class='item-multiple-choice-text item-option-text'>{{this}}</span> -->
+        </li>
         {{/each}}
+      </ul>
     </div>
 </template>
 

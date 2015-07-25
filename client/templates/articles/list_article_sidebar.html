@@ -12,14 +12,12 @@
                     <input type="text" placeholder="search" class='form-control'>
                   </div>
                   <ul class="sidebar-menu-items">
+                    {{#each myTemplates}}
                     <li>
                       <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
-                      </li>
-                    <li>
-                      <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
+                      <span>{{title}}</span>
                     </li>
+                    {{/each}}
                   </ul>        
                 </div>
 
@@ -27,27 +25,23 @@
                 <div class="tab-pane fade" id="post">
                   <h5>Select Post-Reading Template</h5>
                   <ul class="sidebar-menu-items">
+                    {{#each myTemplates}}
                     <li>
                       <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
+                      <span>{{title}}</span>
                     </li>
-                    <li>
-                      <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
-                    </li>
+                    {{/each}}
                   </ul>
                 </div>
                 <div class="tab-pane fade" id="set">
                   <h5>Select Template Set</h5>
                    <ul class="sidebar-menu-items">
+                    {{#each myTemplates}}
                     <li>
                       <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
+                      <span>{{title}}</span>
                     </li>
-                    <li>
-                      <i class="fa fa-fw fa-square-o"></i>
-                      <span>hello</span>
-                    </li>
+                    {{/each}}
                   </ul>
               </div>
             </div>
