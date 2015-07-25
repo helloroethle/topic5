@@ -3,6 +3,11 @@
   <div class="text-placeholder"></div>
 </template>
 
+<template name="templateText">
+  <label class="fs-field-label fs-anim-upper" for="q{{index}}" data-info="{{value.description}}">{{value.title}}</label>
+  <input class="fs-anim-lower" id="q{{index}}" name="q{{index}}" type="text" placeholder="{{value.placeholder}}" {{isRequired}}/>
+</template>
+
 <template name="editText">
   <div class="builder-text builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>

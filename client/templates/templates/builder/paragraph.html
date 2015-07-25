@@ -3,6 +3,13 @@
   <div class="text-placeholder"></div>
 </template>
 
+<template name="templateParagraph">
+  <label class="fs-field-label fs-anim-upper" for="q{{index}}" data-info="{{value.description}}">{{value.title}}</label>
+  <textarea class="fs-anim-lower" id="q{{index}}" name="q{{index}}" placeholder="{{value.placeholder}}" {{isRequired}}></textarea>
+</template>
+
+
+
 <template name="editParagraph">
   <div class="builder-paragraph builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>

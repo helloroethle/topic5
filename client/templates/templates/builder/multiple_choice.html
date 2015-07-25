@@ -2,22 +2,34 @@
   <h3 class="template-builder-question">{{question}}</h3>
 </template>
 
+<template name="templateMultipleChoice">
+    <label class="fs-field-label fs-anim-upper" for="q{{index}}" data-info="{{value.description}}">{{value.title}}</label>
+    <div class="fs-anim-lower">
+        {{#each value.options}}
+          <input type="radio" class='item-multiple-choice-radio' />
+          <span class='item-multiple-choice-text item-option-text'>{{this}}" </span>
+        {{/each}}
+    </div>
+</template>
+
 <template name="editMultipleChoice">
   <div class="builder-multiple-choice builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>
     <div class="option-full">
       <div class="multiple-choice-list option-list">
-        <div class="multiple-choice-item option-item">
           {{#each options}}
+          <div class="multiple-choice-item option-item">
             <input type="radio" false onclick="javascript: return false;" class='item-multiple-choice-radio' />
             <input type="text" value="{{this}}" class='item-multiple-choice-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
           {{else}}
+          <div class="multiple-choice-item option-item">
             <input type="radio" false onclick="javascript: return false;" class='item-multiple-choice-radio' />
             <input type="text" class='item-multiple-choice-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
           {{/each}}
-        </div>
       </div>
       <div class='item-add'><i class="fa fa-plus-square"></i></div>
       <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
@@ -30,4 +42,5 @@
     <span class='builder-item-expand'><i class="fa fa-caret-down"></i></span>
   </div>
 </template>
+
 

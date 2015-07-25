@@ -82,7 +82,6 @@ Template.templateLayout.events({
     }
   },
   'click .btn-save-template':function(e){
-    console.log('btn save template called');
     var $templateList = $('.builder-question-list li');
     var title = $('.template-title').val();
     var tplDescription = $('.template-description').val();
@@ -117,6 +116,7 @@ Template.templateLayout.events({
       'description':tplDescription
     }
     Templates.insert( template );
+    toastr.success('New Template has been created', 'Success!');
   },
   'click .builder-item-remove':function(e){
     $(e.currentTarget).parents('li').remove();

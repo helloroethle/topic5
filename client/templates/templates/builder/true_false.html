@@ -2,6 +2,16 @@
   <h3 class="template-builder-question">{{question}}</h3>
 </template>
 
+<template name="templateTrueFalse">
+  <label class="fs-field-label fs-anim-upper" data-info="{{value.description}}">{{value.title}}</label>
+    <div class="true-false-item fs-anim-lower">
+      <input type="radio" id="trueFalseTrue" {{isRequired}} name='trueFalse'/>
+      <label for="trueFalseTrue"> True</label> 
+      <input type="radio" id="trueFalseFalse" name='trueFalse'/>
+      <label for="trueFalseTrue"> False</label> 
+    </div>
+</template>
+
 <template name="editTrueFalse">
   <div class="builder-true-false builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>

@@ -2,6 +2,23 @@
   <h3 class="template-builder-question">{{question}}</h3>
 </template>
 
+<template name="templateDropdown">
+    <label class="fs-field-label fs-anim-upper" for="q{{index}}" data-info="{{value.description}}">{{value.title}}</label>
+    <div class="fs-anim-lower">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdown{{index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Please Select
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{index}}">
+          {{#each value.options}}
+          <li><a href="#">{{this}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+</template>
+
 <template name="editDropdown">
   <div class="builder-dropdown builder-item">
     <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{title}}" /></h3>

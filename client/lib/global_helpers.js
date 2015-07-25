@@ -8,61 +8,71 @@ templateOptionHelpers = {
     'label' : 'Text',
     'icon' : 'fa-font',
     'display' : 'displayText',
-    'edit' : 'editText'
+    'edit' : 'editText',
+    'template' : 'templateText'
   },
   'paragraph' : {
     'label' : 'Paragraph',
     'icon' : 'fa-paragraph',
     'display' : 'displayParagraph',
-    'edit' : 'editParagraph'
+    'edit' : 'editParagraph',
+    'template' : 'templateParagraph'
   },
   'checkbox' : {
     'label' : 'Check Box',
     'icon' : 'fa-square-o',
     'display' : 'displayCheckbox',
-    'edit' : 'editCheckbox'
+    'edit' : 'editCheckbox',
+    'template' : 'templateCheckbox'
   },
   'multiple_choice' : {
     'label' : 'Multiple Choice',
     'icon' : 'fa-circle-o',
     'display' : 'displayMultipleChoice',
-    'edit' : 'editMultipleChoice'
+    'edit' : 'editMultipleChoice',
+    'template' : 'templateMultipleChoice'
   },
   'select' : {
     'label' : 'Dropdown',
     'icon' : 'fa-caret-down',
     'display' : 'displayDropdown',
-    'edit' : 'editDropdown'
+    'edit' : 'editDropdown',
+    'template' : 'templateDropdown'
   },
   'true_false' : {
     'label' : 'True/False',
     'icon' : 'fa-toggle-on',
     'display' : 'displayTrueFalse',
-    'edit' : 'editTrueFalse'
+    'edit' : 'editTrueFalse',
+    'template' : 'templateTrueFalse'
   },
   'rating' : {
     'label' : 'Rating',
     'icon' : 'fa-star',
     'display': 'displayRating',
-    'edit': 'editRating'
+    'edit': 'editRating',
+    'template' : 'templateRating'
   },
-  'header' : {
-    'label' : 'Header',
-    'icon' : 'fa-header',
-    'display' : 'displayHeader',
-    'edit' : 'editHeader'
-  },
-  'section' : {
-    'label' : 'Section Break',
-    'icon' : 'fa-minus',
-    'display' : 'displaySection',
-    'edit' : 'editSection'
-  },
+  // 'header' : {
+  //   'label' : 'Header',
+  //   'icon' : 'fa-header',
+  //   'display' : 'displayHeader',
+  //   'edit' : 'editHeader',
+  //   'template' : 'templateHeader'
+  // },
+  // 'section' : {
+  //   'label' : 'Section Break',
+  //   'icon' : 'fa-minus',
+  //   'display' : 'displaySection',
+  //   'edit' : 'editSection',
+  //   'template' : 'templateSection'
+  // },
   'info' : {
     'label' : 'Info Section',
     'icon' : 'fa-info',
     'display' : 'displayInfo',
-    'edit' : 'editInfo'
+    'edit' : 'editInfo',
+    'template' : 'templateInfo'
   }
 }
 
