@@ -133,3 +133,82 @@ div.rating .rating-bubble{
     }
   }
 }
+
+.select-menu-list{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    cursor:pointer;
+    color:#4a4a4a;
+    .select-menu-list-selected-title{
+      max-width: 291px;
+      transition: max-width 0.3s ease-in-out;
+      overflow: hidden;
+    }
+  .select-outer-container {
+    background-color: #fff;
+    position: relative;
+    top: 0;
+    left: 0;
+    display:none;
+    padding: 14px 16px 0;
+    width: 326px;
+    border: 3px solid rgba(217, 217, 217, 0.4);
+    border-top: 1px solid rgba(217, 217, 217, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04), -6px 8px 15px rgba(0, 0, 0, 0.04), 6px 8px 15px rgba(0, 0, 0, 0.04);
+    z-index: 1;
+    height: 416px;
+      .search-container{
+        margin-bottom:16px;
+        position:relative;
+        input{
+          position: relative;
+          background-color: transparent;
+          border: 1px solid #e1e1e1;
+          border-radius: 2px;
+          padding: 10px 40px 9px 8px;
+          margin: 0;
+          outline: none;
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+    .select-inner-container{
+      position: absolute;
+      left: 0px;
+      top: 68px;
+      right: 0px;
+      bottom: 0px;
+      border-top:1px solid #e1e1e1;
+      overflow-y:scroll;
+      .menu-item{
+        position: relative;
+        padding: 0 26px;
+        height: 52px;
+        cursor: pointer;
+        border-bottom:1px solid #e1e1e1;
+        &:hover{
+          background-color: #0087F7;
+          color: #fff;
+        }
+        .select-title {
+            cursor: default;
+            font-size: 15px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 15px 0 15px;
+            display: inline-block;
+            max-width: 250px;
+        }
+        .select-icon{
+          position: absolute;
+          right: 33px;
+          top: 15px;
+        }
+      }
+    }
+  }
+}

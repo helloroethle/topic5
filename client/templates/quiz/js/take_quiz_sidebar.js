@@ -22,8 +22,11 @@ Template.takeQuizSidebar.events({
     $('#quiz-section').show();
   },
   'click #quick-jump li':function(e, template){
+    if(Session.get('current_state') == 'grade'){
+      toastr.error('Please mark answer as correct or incorrect');
+      return;
+    }
     var index = parseInt($(e.currentTarget).text());
-    console.log(index);
     Session.set('current_question_index', index - 1);
   },
 });

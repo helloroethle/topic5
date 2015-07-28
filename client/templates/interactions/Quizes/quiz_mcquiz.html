@@ -4,12 +4,17 @@
       <h3 class="prompt">{{question}}</h3>
     </div>
     <div class="prompt-answer-container">
+
+      <ul class='sidebar-menu-items'>
         {{#each addIndex choices}}
-        <div class="option-item">
-          <input name="choice" id='choice{{index}}' type="radio" class='item-choice' />
+        <li class='option-item'>
+          <i class="fa fa-circle-o"></i>
+          <input name="choice" id='choice{{index}}' type="radio" class='item-choice item-multiple-choice-radio' />
           <label for='choice{{index}}' class='item-option-text'>{{value}}</label>
-        </div>
+        </li>
         {{/each}}
+      </ul>
+
     </div>
     <div class="answer-container">
       <h3>Answer</h3>

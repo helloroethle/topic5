@@ -1,0 +1,32 @@
+<template name='thisWeekTopic'>
+    <div class="main-content">
+      <h2 class='topic-week vertical-align'><i class="fa fa-angle-left left-icon"></i> Week # <span class='date-range'>3/1/2015 - 3/8/2015</span> <i class="fa fa-angle-right right-icon"></i></h2>
+      <div class="topic-list">
+        <div class="select-menu-list">
+          <div class="select-menu-list-selected-title">
+            <h3><input type="text" placeholder="add topic" class='add-topic form-input' /></h3>
+          </div>
+          <div class="select-outer-container">
+              <div class="search-container">
+                <input type="text"  />
+              </div>
+            <div class="select-inner-container">
+              {{#each topics}}
+              <div class="menu-item">
+                <div class="select-title" data-topic-id="{{_id}}">
+                    {{title}}
+                </div>
+                <div class="select-icon">
+                  <i class="fa fa-check-circle-o"></i>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{#each allThisWeeks}}
+        <h3><a href="#">{{title}}</a></h3>
+      {{/each}}
+      </div>
+    </div>
+</template>

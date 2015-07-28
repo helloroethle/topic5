@@ -7,3 +7,7 @@ Meteor.publish('singleArticle', function(articleId) {
 Meteor.publish('articles', function() {
   return Articles.find();
 });
+
+Meteor.publish('topicsThisWeek', function(){
+  return ThisWeeks.find();
+})

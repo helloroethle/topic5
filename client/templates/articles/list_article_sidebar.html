@@ -24,6 +24,7 @@
                 </div>
                 <div class="tab-pane fade" id="post">
                   <h5>Select Post-Reading Template</h5>
+                  <div class="sidebar-selectable">
                   <ul class="sidebar-menu-items">
                     {{#each myTemplates}}
                     <li>
@@ -32,9 +33,10 @@
                     </li>
                     {{/each}}
                   </ul>
-                </div>
+                </div></div>
                 <div class="tab-pane fade" id="set">
                   <h5>Select Template Set</h5>
+                  <div class="sidebar-selectable">
                    <ul class="sidebar-menu-items">
                     {{#each myTemplates}}
                     <li>
@@ -43,6 +45,7 @@
                     </li>
                     {{/each}}
                   </ul>
-              </div>
+              </div></div>
+              <a href="{{pathFor 'detailArticle'}}">Continue to Article</a>
             </div>
 </template>

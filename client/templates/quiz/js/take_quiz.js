@@ -38,7 +38,6 @@ Template.takeQuiz.rendered = function () {
 Template.takeQuiz.helpers({
   questionTemplate: function () {
     var index = Session.get('current_question_index');
-    console.log(this.questions[index].meta.quiz_template);
     return this.questions[index].meta.quiz_template;
   },
   questionData: function (){
@@ -123,12 +122,43 @@ function markIncorrect(){
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('incorrect');
 }
 
+function retakeIncorrect(){
+    Session.set('progress', 0);
+    Session.set('start_time', moment().toString());
+    Session.set('current_question_index', 0);
+    Session.set('current_questions_remaining', Session.get('current_questions_incorrect')); 
+    Session.set('current_questions_correct', 0);
+    Session.set('current_questions_incorrect', 0);
+    $('#quiz-summary').hide();
+    $('#quiz-section').show();
+}
+
+function retakeQuiz(){
+    Session.set('progress', 0);
+    Session.set('start_time', moment().toString());
+    Session.set('current_question_index', 0);
+    Session.set('current_questions_correct', 0);
+    Session.set('current_questions_incorrect', 0);
+    Session.set('current_questions_remaining', this.questions.length); 
+    $('#quiz-summary').hide();
+    $('#quiz-section').show();
+}
+
 Template.takeQuiz.events({
   'keypress .answer': function(e, template){
     if(e.which === 13){
       toggleActionButtons();
       Session.set('current_state', 'grade');
     }
+  },
+  'click .quiz-retake-incorrect': function(e, template){
+    retakeIncorrect();
+  },
+  'click .quiz-retake-all' : function(e, template){
+    retakeQuiz();
+  },
+  'click .view-comment': function(e, template){
+    $("#comments").toggle();
   },
   'click .quiz-answer-button': function (e, template) {
     toggleActionButtons();

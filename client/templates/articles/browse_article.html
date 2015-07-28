@@ -1,0 +1,15 @@
+<template name="browseArticle">
+      <div class="list-article main-content">
+        <a href="{{pathFor 'createArticle'}}" class="add">+</a>
+        <h2 class='title'>Popular Articles</h2>
+        <div class="topic-list">
+          {{#each popular_articles}}
+          <div class="blog-post">
+            <h2 class="blog-post-title"><a href="{{_id}}">{{_id}}</a></h2>
+            <p>{{count}}</p>
+          </div>
+          <hr>  
+          {{/each}}
+        </div>
+      </div>
+</template>
