@@ -1,15 +1,12 @@
 Template.thisWeekTopic.helpers({
-  topics: function() {
-    var queryOptions = {
-      sort: {title: 1}
-    };
-    var keyword = Session.get('topic_search_query');
-    var query = new RegExp( keyword, 'i') ;
-    return Topics.find({'title': query}, queryOptions);
-  },
-  chosen_title: function(){
-    return Session.get('chosen_title');
-  },
+  // topics: function() {
+  //   var queryOptions = {
+  //     sort: {title: 1}
+  //   };
+  //   var keyword = Session.get('topic_search_query');
+  //   var query = new RegExp( keyword, 'i') ;
+  //   return Topics.find({'title': query}, queryOptions);
+  // },
   allThisWeeks: function(){
     return ThisWeeks.find();
   }
@@ -17,8 +14,7 @@ Template.thisWeekTopic.helpers({
 
 
 Template.thisWeekTopic.created = function () {
-  Session.set('topic_search_query', '');
-  Session.set('chosen_title', 'hello');
+  // Session.set('topic_search_query', '');
     toastr.options = {
       closeButton: true,
       progressBar: true,
@@ -27,8 +23,11 @@ Template.thisWeekTopic.created = function () {
 };
 
 Template.thisWeekTopic.events({
-  'keyup .search-container input': function(e){
-    Session.set('topic_search_query', e.currentTarget.value);
+  // 'keyup .search-container input': function(e){
+  //   Session.set('topic_search_query', e.currentTarget.value);
+  // },
+  'click .add-topics' : function(e){
+    $('#wrapper').toggleClass('toggled-right-sidebar');
   },
   'click .menu-item': function(e) {
     $topicItem = $(e.currentTarget).find('.select-title');
@@ -40,6 +39,8 @@ Template.thisWeekTopic.events({
     }
     ThisWeeks.insert( thisWeekObject );
     toastr.success('Topic of the week has been added');
+    $('.select-outer-container').toggle();
+    $('.add-topic').val('');
   },
   'click .select-menu-list-selected-title' : function(e){
     $(e.currentTarget).parent().find('.select-outer-container').toggle();
