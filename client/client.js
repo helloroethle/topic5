@@ -116,6 +116,7 @@ AutoForm.addHooks(['createArticle'], {
             delete interactionUpdate['_id'];
             delete interactionUpdate['resourceId'];
             var interactionObject = Interactions.findOne({'resourceId': this.docId});
+            console.log(interactionUpdate);
             if(interactionObject && interactionObject._id){
               console.log(Interactions.update({'_id': interactionObject._id}, interactionUpdate ));
             }

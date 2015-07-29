@@ -13,6 +13,8 @@ Template.listItemArticle.events({
   },
   'click .pick-template' : function(e){
     // show sidebar with jquery
+    Session.set('current_sidebar_article_id', this._id);
     $('#wrapper').toggleClass('toggled-right-sidebar');
+
   }
 })
