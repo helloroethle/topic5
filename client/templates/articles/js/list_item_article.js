@@ -2,8 +2,13 @@ Template.listItemArticle.helpers({
   published_clean: function () {
     var date = new Date(this.published);
     return moment(date).format('MM-DD-YYYY');
+  },
+  topic_title: function (){
+    return 'Topic Title';
   }
 });
+
+
 
 
 Template.listItemArticle.events({
