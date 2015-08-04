@@ -1,0 +1,37 @@
+tags - 
+should probably have a collection for the counts per user. UserTags. It will keep a "unique" list for all the tags a user has. Everytime a tag is added, it needs to be added to this collection and increment the count if it already exists. If a tag is deleted the count needs to be 0
+
+Same logic should be applied to topics and templates and quizes
+
+
+basically undo everything and use mongo db to generte the tags list for all the article
+
+or create a collection for all the tags that might be better
+
+desirable difficulties
+
+Encoding / Consolidation / Science behind memories forming 
+
+Active learning
+
+Reflection
+
+Process of Learning
+
+Periodic retrieval
+
+Familiarity vs Knowledge
+
+false consensus effect
+
+When it comes to learning, what we choose to do is guided by our judgements of what works and what doesn't, and we are easily misled.
+
+Fluid intelligence and crystallized intelligence
+
+Cognitive "Multipliers" to amp up the performance of the intelligence I've already got:
+
+Learning, like writing, is an act of engagement. Struggling with the puzzle stirs your creative juices, sets the mind to looking for parallels and metaphors from elsewhere in your experience, knowledge that can be transferred and applied here. It makes you hungry for the solution. And the solution, when you arrive at it, becomes more deeply embedded with your prior knowledge and abilities than anything pasted onto the surface of your brain by PowerPoint. 
+
+Habit of reflection: At its most powerful this habit involves engagement of the mind through generation, visualization, and mental rehearsal. 
+
+1 - 5 noteable at collectivo, get after it

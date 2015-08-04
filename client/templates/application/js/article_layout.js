@@ -27,6 +27,7 @@ Template.articleLayout.helpers({
 Template.articleLayout.rendered = function () {
   renderHighlights(this.data._id);
   Session.set('articleId', this.data._id);
+
 };
 
 
@@ -316,13 +317,12 @@ Template.articleLayout.events({
     'click .quiz':function(e){
       $('.question-container').toggleClass('hide');
     },
-    // move to tag_modal template
-    'click .save-tags' : function(event, template){
-        allTags = $('.article-tags-input').val();
-        this.tags = allTags;
-        Articles.update(this._id, { $set: {'tags': allTags}});
-        $('#tagModal').modal('hide');
-    },
+    // // move to tag_modal template
+    // 'click .save-tags' : function(event, template){
+    //     allTags = $('.article-tags-input').val().split(',');
+    //     Articles.update(this._id, { $set: {'tags': allTags}});
+    //     $('#tagModal').modal('hide');
+    // },
     'click .show-love' : function(event, template){
       if(this.favorite){
         $('.show-love i').removeClass('fa-heart').addClass('fa-heart-o');
@@ -347,6 +347,7 @@ Template.articleLayout.events({
       Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
     },
     'click .tag-modal-trigger':function(e){
+      Session.set('current_tag_modal_id', this._id);
       $('#tagModal').modal();
     },
     'click .expand':function(e){

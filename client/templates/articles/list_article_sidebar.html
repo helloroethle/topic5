@@ -1,5 +1,91 @@
 <template name="listArticleSidebar">
-<ul class="nav nav-tabs">
+  <div id="filter">
+        Keyword
+        <div class="search">
+            <input type="text" placeholder="search" class='form-control'>
+          </div>
+        <hr>
+        Date Range
+        <div class="input-daterange">
+            <input type="text" class="input-small"  />
+            <span class="add-on">to</span>
+            <input type="text" class="input-small"  />
+        </div>
+            <ul class="sidebar-menu-items">
+              <li>
+                <input type="checkbox" style="display:none;">
+                <label><i class="fa fa-fw fa-square-o"></i> My Favorites</label>
+              </li>
+              <li>
+                <input type="checkbox" style="display:none;">
+                <label><i class="fa fa-fw fa-square-o"></i> Show Archived</label>
+              </li>
+            </ul>  
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" expanded="false"  aria-controls="collapseOne">
+          Topics
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="sidebar-selectable">
+          <div class="search">
+            <input type="text" placeholder="search" class='form-control'>
+          </div>
+          <form id="add-this-week-topics">
+            <ul class="sidebar-menu-items">
+              {{#each topics}}
+              <li>
+                <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+                <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+              </li>
+              {{/each}}
+            </ul>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Tags
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <div class="sidebar-selectable">
+          <div class="search">
+            <input type="text" placeholder="search" class='form-control'>
+          </div>
+          <form id="add-this-week-topics">
+            <ul class="sidebar-menu-items">
+              {{#each myTags}}
+              <li>
+                <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+                <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{_id}}</label>
+              </li>
+              {{/each}}
+            </ul>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  </div>
+  <div id="right-overlay">
+    {{> Template.dynamic template=whichOne }}
+  </div>
+<!-- <ul class="nav nav-tabs">
   <li class="active"><a href="#pre" data-toggle="tab" aria-expanded="true">Pre</a></li>
   <li class=""><a href="#post" data-toggle="tab" aria-expanded="false">Post</a></li>
   <li class=""><a href="#set" data-toggle="tab" aria-expanded="false">Set</a></li>
@@ -48,5 +134,5 @@
               </div></div>
               <a href="{{pathFor 'detailArticle'}}">Continue to Article</a>
               <button class='btn btn-default btn-save-template-assignment'>Save</button>
-            </div>
+            </div> -->
 </template>

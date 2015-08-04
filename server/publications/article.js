@@ -5,7 +5,7 @@ Meteor.publish('singleArticle', function(articleId) {
 });
 
 Meteor.publish('articles', function() {
-  return Articles.find();
+  return Articles.find({}, {sort: { published: -1 }});
 });
 
 Meteor.publish('topicsThisWeek', function(){

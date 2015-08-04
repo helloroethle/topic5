@@ -1,0 +1,17 @@
+<template name="chooseTopicArticleSidebar">
+<h4>Assign Article to Topic</h4>
+  <div class="sidebar-selectable">
+    <div class="search">
+      <input type="text" placeholder="search" class='form-control'>
+    </div>
+    <ul class="sidebar-menu-items">
+      {{#each myTopics}}
+      <li data-topic-id="{{_id}}">
+        <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+        <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+      </li>
+      {{/each}}
+    </ul>        
+  </div>
+  <button class='btn btn-default btn-save-topic-assignment'>Save</button>
+</template>

@@ -1,0 +1,56 @@
+<template name="chooseTemplateArticleSidebar">
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#pre" data-toggle="tab" aria-expanded="true">Pre</a></li>
+  <li class=""><a href="#post" data-toggle="tab" aria-expanded="false">Post</a></li>
+  <li class=""><a href="#set" data-toggle="tab" aria-expanded="false">Set</a></li>
+</ul>
+<div class="tab-content">
+                <div class="tab-pane fade active in" id="pre">
+                  <h5>Select Pre-Reading Template</h5>
+                <div class="sidebar-selectable">
+                  <div class="search">
+                    <input type="text" placeholder="search" class='form-control'>
+                  </div>
+                  <ul class="sidebar-menu-items pre-template-options">
+                    {{#each myTemplates}}
+                    <li data-template-id="{{_id}}">
+  <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+        <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+ <!--                      <i class="fa fa-fw fa-square-o"></i>
+                      <span>{{title}}</span> -->
+                    </li>
+                    {{/each}}
+                  </ul>        
+                </div>
+
+                </div>
+                <div class="tab-pane fade" id="post">
+                  <h5>Select Post-Reading Template</h5>
+                  <div class="sidebar-selectable">
+                  <ul class="sidebar-menu-items post-template-options">
+                    {{#each myTemplates}}
+                    <li data-template-id="{{_id}}">
+<input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+        <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+<!--                       <i class="fa fa-fw fa-square-o"></i>
+                      <span>{{title}}</span> -->
+                    </li>
+                    {{/each}}
+                  </ul>
+                </div></div>
+                <div class="tab-pane fade" id="set">
+                  <h5>Select Template Set</h5>
+                  <div class="sidebar-selectable">
+                   <ul class="sidebar-menu-items">
+                    {{#each myTemplates}}
+                    <li>
+                      <i class="fa fa-fw fa-square-o"></i>
+                      <span>{{title}}</span>
+                    </li>
+                    {{/each}}
+                  </ul>
+              </div></div>
+              <a href="{{pathFor 'detailArticle'}}">Continue to Article</a>
+              <button class='btn btn-default btn-save-template-assignment'>Save</button>
+            </div>
+</template>

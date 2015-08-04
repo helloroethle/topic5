@@ -1,5 +1,6 @@
 <template name="listArticle">
       <div class="list-article main-content">
+        <button class='btn btn-filter btn-default'><i class="fa fa-sliders"></i> Filter</button> 
         <a href="{{pathFor 'createArticle'}}" class="add">+</a>
         <h2 class='title'>My Articles</h2>
         <div class="topic-list">
@@ -8,4 +9,5 @@
           {{/each}}
         </div>
       </div>
+{{> tagModal }}
 </template>
