@@ -233,6 +233,58 @@
 
 #filter{
   padding:15px;
+  margin-top:10px;
+  .apply-filter{
+    // position:absolute;
+    // top:10px;
+    // left:15px;
+    margin-top:5px;
+    background-color: #2dbe60;
+    width:100%;
+    color:#fff;
+    &:hover{
+      background-color:#2dbe60;
+    }
+  }
+  .panel a{
+    text-decoration:none;
+    color:inherit;
+    &:hover, &:active, &:visited, &:focus{
+      text-decoration:none; 
+      color:inherit;
+    }
+  }
+  .panel-heading{
+    padding: 10px 15px;
+    background-color: #E9E9E9;
+    cursor:pointer;
+    border-radius:3px;
+    &.panel-active{
+      background-color: #0087F7;
+      color: #fff;
+      border-radius: 3px 3px 0px 0px;
+    }
+    i{
+      float:right;
+    }
+  }
+  .panel-body{
+    padding:0px;
+    &.general-filter-container{
+      padding:15px;
+      background-color:#fff;
+      border: 1px solid #ccc;
+      border-radius: 0px 0px 3px 3px;
+      .general-option{
+        font-size:16px;
+        padding-bottom:5px;
+        cursor: pointer;
+        &.active{
+          color:#0087F7;
+        }
+      }
+    }
+  }
 }
 
 #right-overlay{

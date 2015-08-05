@@ -1,41 +1,55 @@
 <template name="listArticleSidebar">
   <div id="filter">
-        Keyword
-        <div class="search">
-            <input type="text" placeholder="search" class='form-control'>
+        <div class="sidebar-search">
+            <input type="text" placeholder="Keyword" class='form-control'>
           </div>
+    <button class="apply-filter btn btn-default">
+      Apply Filters
+    </button>
         <hr>
-        Date Range
-        <div class="input-daterange">
-            <input type="text" class="input-small"  />
-            <span class="add-on">to</span>
-            <input type="text" class="input-small"  />
-        </div>
-            <ul class="sidebar-menu-items">
-              <li>
-                <input type="checkbox" style="display:none;">
-                <label><i class="fa fa-fw fa-square-o"></i> My Favorites</label>
-              </li>
-              <li>
-                <input type="checkbox" style="display:none;">
-                <label><i class="fa fa-fw fa-square-o"></i> Show Archived</label>
-              </li>
-            </ul>  
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+    <a class="collapsed trigger"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" expanded="false"  aria-controls="collapseThree">
+    <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
-        <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" expanded="false"  aria-controls="collapseOne">
-          Topics
-        </a>
+        <span class="fa fa-fw fa-bars"></span> General Search <i class="fa fa-fw fa-chevron-right"></i>
       </h4>
     </div>
+    </a>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body general-filter-container">
+       <div class="input-daterange">
+            <input type="text" placeholder="from" class="input-small"  />
+            <span class="add-on">to</span>
+            <input type="text" placeholder="to" class="input-small"  />
+        </div>
+        <hr>
+        <div class='general-option'>
+          <i class="fa fa-fw fa-square-o"></i> <span class='fa fa-heart fa-fw'></span> Favorites
+        </div>
+        <div class='general-option'>
+          <i class="fa fa-fw fa-square-o"></i> <span class='fa fa-archive fa-fw'></span> Archived
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <a class="collapsed trigger"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" expanded="false"  aria-controls="collapseOne">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <span class="fa fa-fw fa-list"></span>
+          Find By Topics <i class="fa fa-fw fa-chevron-right"></i>
+        
+      </h4>
+    </div>
+    </a>
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="sidebar-selectable">
           <div class="search">
-            <input type="text" placeholder="search" class='form-control'>
+            <input type="text" id="topic-search" placeholder="search" class='form-control'>
           </div>
           <form id="add-this-week-topics">
             <ul class="sidebar-menu-items">
@@ -52,18 +66,19 @@
     </div>
   </div>
   <div class="panel panel-default">
+    <a class="collapsed trigger" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Tags
-        </a>
+        <span class="fa fa-fw fa-tags"></span>
+          Find By Tags <i class="fa fa-fw fa-chevron-right"></i>
       </h4>
     </div>
+    </a>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="sidebar-selectable">
           <div class="search">
-            <input type="text" placeholder="search" class='form-control'>
+            <input id="tag-search" type="text" placeholder="search" class='form-control'>
           </div>
           <form id="add-this-week-topics">
             <ul class="sidebar-menu-items">

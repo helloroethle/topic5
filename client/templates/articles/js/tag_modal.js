@@ -2,9 +2,7 @@ Template.tagModal.rendered = function(){
   $('.article-tags-input').tagsinput();
   Tracker.autorun(function () {
     Session.get('current_tag_modal_id');
-    console.log('what up tag modal autorun');
     Tracker.afterFlush(function(){
-      console.log('what up after flush');
       $('.article-tags-input').tagsinput('destroy');
       $('.article-tags-input').tagsinput();
     });
