@@ -34,6 +34,64 @@ Template.listArticleSidebar.events({
   'keyup #tag-search':function(e, tempate){
     Session.set('tag_search_query', e.currentTarget.value);
   },
+  'click .apply-filter': function(e, template){
+    var keyword = $('#filter .sidebar-search input').val();
+    var $general = $('.general-filter-container');
+    // date range
+    var fromDate = $('.input-daterange input.from').first().datepicker('getUTCDate');
+    var toDate = $('.input-daterange input.to').first().datepicker('getUTCDate');
+    // favorites
+    var favorite = $('.filter-favorite i').hasClass('fa-check-square-o');
+    // archived
+    var archived = $('.filter-archived i').hasClass('fa-check-square-o');
+    // get all topics selected
+    var $topics = $('.topic-filter-container');
+    var selectedTopics = [];
+    $topics.find('i.fa-check-square-o').each(function ( index ) {
+      $topicItem = $(this).parent('label');
+      // var title = $topicItem.text();
+      var id = $topicItem.attr('data-topic-id');
+      // var topicObject = {
+      //   'title' : title,
+      //   '_id' : id
+      // }
+      selectedTopics.push(id);
+    });
+    // get all tags selected
+    var $tags = $('.tag-filter-container');
+    var selectedTags = [];
+    $tags.find('i.fa-check-square-o').each(function ( index ) {
+      $tagItem = $(this).parent('label');
+      var title = $tagItem.text();
+      selectedTags.push(title);
+    });
+    var searchQuery = {};
+    if(keyword && keyword.length){
+      searchQuery.title = keyword;
+    }
+    if(fromDate){
+      searchQuery.fromDate = fromDate;
+    }
+    if(toDate){
+      searchQuery.toDate = toDate;
+    }
+    if(favorite){
+      searchQuery.favorite = true;
+    }
+    if(archived){
+      searchQuery.archived = true;
+    }
+    if(selectedTopics && selectedTopics.length){
+      searchQuery['topics._id'] = {  $in : selectedTopics }; 
+    }
+    if(selectedTags && selectedTags.length){
+      searchQuery.tags = { $in : selectedTags }; 
+    }
+    Session.set('filter_search_query', JSON.stringify(searchQuery));
+  },
+  'click .clear-filter' : function(e){
+    Session.set('filter_search_query', '');
+  },
   'click .trigger': function (e, template) {
     // $(e.currentTarget).toggleClass('panel-active');
     // $('.panel-heading').removeClass('panel-active');

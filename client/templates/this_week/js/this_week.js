@@ -15,6 +15,7 @@ Template.thisWeekTopic.helpers({
 
 Template.thisWeekTopic.created = function () {
   // Session.set('topic_search_query', '');
+  Session.set("show_right_sidebar", false);
     toastr.options = {
       closeButton: true,
       progressBar: true,

@@ -1,10 +1,14 @@
 <template name="listArticleSidebar">
   <div id="filter">
+    <h3>Filter Articles:</h3>
         <div class="sidebar-search">
             <input type="text" placeholder="Keyword" class='form-control'>
           </div>
     <button class="apply-filter btn btn-default">
       Apply Filters
+    </button>
+    <button class="clear-filter btn btn-default">
+      Clear Filters
     </button>
         <hr>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -19,15 +23,15 @@
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body general-filter-container">
        <div class="input-daterange">
-            <input type="text" placeholder="from" class="input-small"  />
+            <input type="text" placeholder="from" class="input-small from"  />
             <span class="add-on">to</span>
-            <input type="text" placeholder="to" class="input-small"  />
+            <input type="text" placeholder="to" class="input-small to"  />
         </div>
         <hr>
-        <div class='general-option'>
+        <div class='general-option filter-favorite'>
           <i class="fa fa-fw fa-square-o"></i> <span class='fa fa-heart fa-fw'></span> Favorites
         </div>
-        <div class='general-option'>
+        <div class='general-option filter-archived'>
           <i class="fa fa-fw fa-square-o"></i> <span class='fa fa-archive fa-fw'></span> Archived
         </div>
       </div>
@@ -46,7 +50,7 @@
     </div>
     </a>
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+      <div class="panel-body topic-filter-container">
         <div class="sidebar-selectable">
           <div class="search">
             <input type="text" id="topic-search" placeholder="search" class='form-control'>
@@ -75,7 +79,7 @@
     </div>
     </a>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
+      <div class="panel-body tag-filter-container">
         <div class="sidebar-selectable">
           <div class="search">
             <input id="tag-search" type="text" placeholder="search" class='form-control'>
@@ -85,7 +89,7 @@
               {{#each myTags}}
               <li>
                 <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
-                <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{_id}}</label>
+                <label for="{{_id}}"><i class="fa fa-fw fa-square-o"></i>{{_id}}</label>
               </li>
               {{/each}}
             </ul>        
