@@ -5,6 +5,8 @@
     <div class="topic-list">
       {{#each quizes}}
         {{> listItemQuiz}}
+      {{else}}
+      <h4>There are currently no quizes to display.</h4>
       {{/each}}
     </div>
   </div>

@@ -3,6 +3,8 @@
         <h2 class='main-search'><i class="fa fa-search"></i><input type="text" placeholder="search..." class='form-control' value="{{search_term}}"></h2>
           {{#each articleResults}}
             {{> listItemSearchArticle}}
+          {{else}}
+          <h4>There are no search results to display.</h4>
           {{/each}}
       </div>
 </template>

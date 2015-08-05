@@ -1,6 +1,5 @@
 Template.browseArticle.helpers({
     popular_articles: function () {
-      console.log(Template.instance().popular_articles.get());
         return Template.instance().popular_articles.get();
     }
 });

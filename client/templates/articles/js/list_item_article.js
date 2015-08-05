@@ -54,14 +54,14 @@ Template.listItemArticle.events({
     // show sidebar with jquery
     Session.set('articleSidebarTemplateName', 'chooseTemplateArticleSidebar');
     Session.set('current_sidebar_article_id', this._id);
-    $('#wrapper').addClass('toggled-right-sidebar');
+    Session.set("show_right_sidebar", true);
     $("#filter").hide();
     $('#right-overlay').show();
   },
   'click .pick-topic' : function(e){
     Session.set('articleSidebarTemplateName', 'chooseTopicArticleSidebar');
     Session.set('current_sidebar_article_id', this._id);
-    $('#wrapper').addClass('toggled-right-sidebar');
+    Session.set("show_right_sidebar", true);
     $("#filter").hide();
     $('#right-overlay').show();
   },
