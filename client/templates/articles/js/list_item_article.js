@@ -4,7 +4,21 @@ Template.listItemArticle.helpers({
     return moment(date).format('MM-DD-YYYY');
   },
   topic_title: function (){
-    return 'Topic Title';
+    if(this.topics && this.topics.length > 0){
+      return this.topics[0].title;
+    }
+    else{
+      return '';
+    }
+  },
+  has_template: function(){
+    if(this.preTemplates && this.preTemplates.length > 0){
+      return true;
+    }
+    else if(this.postTemplates && this.postTemplates.length > 0){
+      return true;
+    }
+    return false;
   },
   favoriteIcon: function () {
     if(this.favorite){

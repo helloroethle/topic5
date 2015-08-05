@@ -14,8 +14,8 @@
                   <ul class="sidebar-menu-items pre-template-options">
                     {{#each myTemplates}}
                     <li data-template-id="{{_id}}">
-  <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
-        <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+  <input type="checkbox" name="pre-{{_id}}" id="pre-{{_id}}" style="display:none;">
+        <label data-topic-id="{{_id}}" for="pre-{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
  <!--                      <i class="fa fa-fw fa-square-o"></i>
                       <span>{{title}}</span> -->
                     </li>
@@ -30,8 +30,8 @@
                   <ul class="sidebar-menu-items post-template-options">
                     {{#each myTemplates}}
                     <li data-template-id="{{_id}}">
-<input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
-        <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+<input type="checkbox" name="post-{{_id}}" id="post-{{_id}}" style="display:none;">
+        <label data-topic-id="{{_id}}" for="post-{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
 <!--                       <i class="fa fa-fw fa-square-o"></i>
                       <span>{{title}}</span> -->
                     </li>

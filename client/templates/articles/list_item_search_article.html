@@ -1,0 +1,8 @@
+<template name="listItemSearchArticle">
+  <div class="blog-post">
+    <h2 class="blog-post-title" ><a href="{{pathFor 'detailArticle'}}">{{title}}</a></h2>
+    <p class="blog-post-meta">{{published_clean}} - <a href="#">{{author}}</a> - <a target="_blank" href="{{url}}">{{ source }}</a></p>
+    <p>{{summary}}</p>
+  </div>
+  <hr>
+</template>

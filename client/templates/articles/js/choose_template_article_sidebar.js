@@ -8,12 +8,13 @@ Template.chooseTemplateArticleSidebar.events({
       $(e.currentTarget).find('i').removeClass('fa-check-square-o');
       $(e.currentTarget).find('i').addClass('fa-square-o');
     }
+    e.preventDefault();
   },
   'click .btn-save-template-assignment': function (e){
     var pre = [];
     var post = [];
     $('.post-template-options i.fa-check-square-o').each(function ( index ) {
-      $templateItem = $(this).parent('li');
+      $templateItem = $(this).parent('label');
       var title = $templateItem.text();
       var id = $templateItem.attr('data-template-id');
       var templateObject = {
@@ -23,7 +24,7 @@ Template.chooseTemplateArticleSidebar.events({
       post.push(templateObject);
     });
     $('.pre-template-options i.fa-check-square-o').each(function( index ) {
-      $templateItem = $(this).parent('li');
+      $templateItem = $(this).parent('label');
       var title = $templateItem.text();
       var id = $templateItem.attr('data-template-id');
       var templateObject = {
@@ -39,7 +40,7 @@ Template.chooseTemplateArticleSidebar.events({
         postTemplates : post
       }
     });
-    toastr.success('Topics of the week have been added');
+    toastr.success('Templates have been assigned');
   }
 });
 

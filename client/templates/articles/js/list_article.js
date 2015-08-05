@@ -41,8 +41,9 @@ Template.listArticle.helpers({
 
 Template.listArticle.events({
   'click .btn-filter': function (e, template) {
-    Session.set("show_right_sidebar", false);
-    // $('#wrapper').toggleClass('toggled-right-sidebar');
+    Session.set("show_right_sidebar", true);
+    $('#filter').show();
+    $('#right-overlay').hide();
   }
 });
 

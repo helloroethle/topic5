@@ -1,5 +1,6 @@
 Template.chooseTopicArticleSidebar.events({
-  'click .sidebar-menu-items li': function (e) {
+  'click .sidebar-menu-items li label': function (e) {
+    e.preventDefault();
     if($(e.currentTarget).find('i').hasClass('fa-square-o')){
       $(e.currentTarget).find('i').removeClass('fa-square-o');
       $(e.currentTarget).find('i').addClass('fa-check-square-o');
@@ -11,8 +12,8 @@ Template.chooseTopicArticleSidebar.events({
   },
   'click .btn-save-topic-assignment': function (e){
     var topics = [];
-    $('.sidebar-selectable i.fa-check-square-o').each(function ( index ) {
-      $topicItem = $(this).parent('li');
+    $('.sidebar-selectable .choose-topics i.fa-check-square-o').each(function ( index ) {
+      $topicItem = $(this).parent('label');
       var title = $topicItem.text();
       var id = $topicItem.attr('data-topic-id');
       var topicObject = {

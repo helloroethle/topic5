@@ -105,7 +105,7 @@ Template.listArticleSidebar.events({
       $('#accordion .panel-heading i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');
     }
   },
-  'click .general-option, click .sidebar-menu-items li label': function(e, template){
+  'click .general-option, click #filter .sidebar-menu-items li label': function(e, template){
     if($(e.currentTarget).find('i').hasClass('fa-square-o')){
       $(e.currentTarget).find('i').removeClass('fa-square-o');
       $(e.currentTarget).find('i').addClass('fa-check-square-o');

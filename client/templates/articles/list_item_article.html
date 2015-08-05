@@ -1,8 +1,14 @@
 <template name="listItemArticle">
   <div class="blog-post">
-    <h2 class="blog-post-title"><a href="{{pathFor 'detailArticle'}}">{{title}}</a>
-      <div class="blog-post-topic"><span class="highlighted-topic">{{topic_title}}</span>
-        <i class="fa fa-fw fa-file-text-o has-template"></i></div></h2>
+    <h2 class="blog-post-title {{#if topic_title}} has-topic {{/if}} {{#if has_template}} has-template {{/if}}" ><a href="{{pathFor 'detailArticle'}}">{{title}}</a>
+      <div class="blog-post-topic">
+        {{#if topic_title}}
+          <span class="highlighted-topic">{{topic_title}}</span>
+        {{/if}}
+        {{#if has_template}}
+        <i class="fa fa-fw fa-file-text-o has-template"></i>
+        {{/if}}
+      </div></h2>
     <p class="blog-post-meta">{{published_clean}} - <a href="#">{{author}}</a> - <a target="_blank" href="{{url}}">{{ source }}</a></p>
     <p>{{summary}}</p>
     <div class="item-footer">

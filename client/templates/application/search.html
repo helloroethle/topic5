@@ -1,13 +1,8 @@
 <template name="search">
       <div class="search main-content">
-        <h2>Search Results: <input type="text" class='form-control' value="{{search_term}}"></h2>
-          <hr>
-          <h3>Articles</h3>
-          <hr>
-          <h3>Tags</h3>
-          <hr>
-          <h3>Templates</h3>
-          <hr>
-          <h3>Quizes</h3>
+        <h2 class='main-search'><i class="fa fa-search"></i><input type="text" placeholder="search..." class='form-control' value="{{search_term}}"></h2>
+          {{#each articleResults}}
+            {{> listItemSearchArticle}}
+          {{/each}}
       </div>
 </template>
