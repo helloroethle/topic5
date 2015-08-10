@@ -52,22 +52,24 @@
   color:#0087F7;
 }
 
-.topic-list h3:first-child{
-  border-top:1px solid #ddd;
-}
+// .topic-list h3:first-child{
+//   border-top:1px solid #ddd;
+// }
 
-h2.topic-week{
-  text-align:left;
-  color:#555;
-  font-size:2em;
-  padding-bottom:10px;
-  position:relative;
-  display:inline-block;
-}
+// h2.topic-week{
+//   text-align:left;
+//   color:#555;
+//   font-size:2em;
+//   padding-bottom:10px;
+//   position:relative;
+//   display:inline-block;
+// }
 .topic-search{
   display:inline-block;
-  float:right;
+  position:absolute;
   margin-top:5px;
+  top:0;
+  right:0;
 }
 
 .topic-search input{
@@ -78,32 +80,53 @@ h2.topic-week{
   outline:none;
 }
 
-h2.topic-week .date-range{
-  color:#999;
-  font-size:.75em;
-  padding:0px 10px;
+.topic-week{
+  h2{
+    width:100%;
+    padding-right:50px;
+  }
+  .right-icon{
+    position:absolute;
+    right:0;
+    display:inline-block;
+    cursor:pointer;
+    top:0;
+    font-size:30px;
+    line-height:30px;
+    &:hover{
+      color:#0087F7;
+    }
+  }
+  .left-icon{
+    position:absolute;
+    right:25px;
+    display:inline-block;
+    cursor:pointer;
+    top:0;
+    font-size:30px;
+    line-height:30px;
+    &:hover{
+      color:#0087F7;
+    }
+  }
+  .add-topics{
+    border:none;
+    position:absolute;
+    right:50px;
+    top:0px;
+    font-size:30px;
+    line-height:36px;
+    padding:0px;
+    &:hover, &:active, &:focus, &:visited{
+      background:none;
+      border:none;
+      outline:none;
+      color:inherit;
+    }
+    &:hover{
+      color: #0087F7;
+    }
+  }
+
 }
 
-h2.topic-week .right-icon{
-  position:absolute;
-  // top:10px;
-  right:0px;
-  // padding:10px;
-  display:inline-block;
-  cursor:pointer;
-}
-
-h2.topic-week .left-icon{
-  position:absolute;
-  // top:10px;
-  left:0px;
-  // padding:10px;
-  display:inline-block;
-  cursor:pointer;
-}
-
-h2.topic-week .left-icon:hover,
-h2.topic-week .right-icon:hover{
-  // background-color: purple;
-  color:#0087F7;
-}

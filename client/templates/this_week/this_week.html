@@ -1,10 +1,15 @@
 <template name='thisWeekTopic'>
-    <div class="main-content">
-      <h2 class='topic-week vertical-align'><i class="fa fa-angle-left left-icon"></i> Week # <span class='date-range'>3/1/2015 - 3/8/2015</span> <i class="fa fa-angle-right right-icon"></i></h2>
+    <div class="main-content topic-week">
+      <h2 class='title no-margin-bottom pick-week'>
+        3/1/2015 - 3/8/2015
+      </h2>
       <!-- <button class="add-topics btn btn-default">Add Topics</button> -->
+      <i class="fa fa-angle-left left-icon"></i>
+      <i class="fa fa-angle-right right-icon"></i>
       <button class='add-topics btn btn-default'>+</button>
 
     <div class="topic-list">
+      <h3><input type="text" placeholder="create new topic" class='add-topic form-input' /></h3>
       {{#each allThisWeeks}}
         <h3><a href="{{pathFor 'detailTopic' _id=this.topicId}}">{{title}}</a><span class="number-badge">4</span></h3>
       {{/each}}

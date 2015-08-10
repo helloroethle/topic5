@@ -25,9 +25,6 @@ Template.thisWeekSidebar.events({
       $(e.currentTarget).find('i').addClass('fa-square-o');
     }
   },
-  'click .save-week-topics':function(e){
-    console.log('hello save week topics');
-  },
   'keypress #add-this-week-topics': function(e) {
       if(e.which === 13){
         console.log('enter has been pressed');
