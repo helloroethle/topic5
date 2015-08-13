@@ -8,7 +8,15 @@
     <div class="topic-list">
       <h3><input type="text" placeholder="add topic" class='add-topic form-input' /></h3>
       {{#each topics}}
-        <h3><a href="{{pathFor 'detailTopic'}}">{{title}}</a><span class="number-badge">4</span></h3>
+        <h3>
+          <a href="{{pathFor 'detailTopic'}}">{{title}}</a>
+          <ul class="list-item-action-group">
+            <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Take Quiz" href="{{pathFor 'takeQuiz'}}" class="view-quiz"><i class="fa fa-bolt fa-fw"></i></a></li>
+            <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Edit" href="#" class="archive"><i class="fa fa-pencil-square-o"></i></a></li>
+            <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete" href="#" class="delete"><i class="fa fa-trash-o fa-fw"></i></a></li>
+          </ul>
+          <span class="number-badge">4</span>
+        </h3>
       {{/each}}
     </div>
   </div>

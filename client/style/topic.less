@@ -17,6 +17,7 @@
 
 .topic-list h3 {
   cursor:pointer;
+  position:relative;
   margin: 0;
   padding:15px 15px 15px 0px;
   border-bottom: 1px solid #ddd;
@@ -41,7 +42,7 @@
     border-radius: 10px;
     float:right;
     margin-right:10px;
-    margin-top:4px;
+    // margin-top:4px;
 }
 
 .topic-list h3:hover{
@@ -109,10 +110,23 @@
       color:#0087F7;
     }
   }
+  .view-calendar{
+    position: absolute;
+    right: 83px;
+    display: inline-block;
+    cursor: pointer;
+    top: 0;
+    font-size: 20px;
+    line-height: 32px;
+    color:#555;
+    &:hover{
+      color:#0087f7;
+    }
+  }
   .add-topics{
     border:none;
     position:absolute;
-    right:50px;
+    right:60px;
     top:0px;
     font-size:30px;
     line-height:36px;
@@ -127,6 +141,30 @@
       color: #0087F7;
     }
   }
-
 }
+
+h3:hover .list-item-action-group{
+  display:inline-block;
+}
+.list-item-action-group{
+  list-style-type: none;
+  padding-left:0px;
+  position:absolute;
+  right:50px;
+  top:0px;
+  // height:50px;
+  padding-top:15px;
+  display:none;
+  li{
+    float:left;
+    padding-right:10px;
+    a{
+      font-size:16px;
+      color:#999;
+      &:hover{
+        color: #0087F7;
+      }
+    }
+  }
+} 
 

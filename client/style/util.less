@@ -174,25 +174,36 @@ div.rating .rating-bubble{
   }
 }
 
+.visibile{
+  visibility: visible;
+}
+
+.visibile-hidden{
+  visibility: hidden;
+}
+
 .select-menu-list{
     display: inline-block;
     vertical-align: top;
     position: relative;
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
     white-space: nowrap;
     cursor:pointer;
     color:#4a4a4a;
+    width:100%;
     .select-menu-list-selected-title{
-      max-width: 291px;
+      // max-width: 291px;
       transition: max-width 0.3s ease-in-out;
       overflow: hidden;
     }
   .select-outer-container {
     background-color: #fff;
-    position: relative;
-    top: 0;
+    // position: relative;
+    position:absolute;
+    top: 63px;
     left: 0;
-    display:none;
+    // display:none;
+    // visibility: hidden;
     padding: 14px 16px 0;
     width: 326px;
     border: 3px solid rgba(217, 217, 217, 0.4);
@@ -218,7 +229,8 @@ div.rating .rating-bubble{
     .select-inner-container{
       position: absolute;
       left: 0px;
-      top: 68px;
+      // top: 68px;
+      top:0px;
       right: 0px;
       bottom: 0px;
       border-top:1px solid #e1e1e1;

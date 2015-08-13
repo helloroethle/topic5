@@ -3,17 +3,22 @@ Template.thisWeekSidebar.events({
     Session.set('topic_search_query', e.currentTarget.value);
   },
   'click .btn-save-topics': function(e){
+    var thisWeekId = Session.get('current_week_id');
     $('i.fa-check-square-o').each(function( index ) {
       $topicItem = $(this).parent('label');
       var title = $topicItem.text();
       var id = $topicItem.attr('data-topic-id');
-      var thisWeekObject = {
+      var thisWeekTopicObject = {
+        '_id' : id,
         'title' : title,
-        'topicId' : id
-      }
-      ThisWeeks.insert( thisWeekObject );
+        'count' : 0
+      };
+      ThisWeeks.update(
+         { _id: thisWeekId },
+         { $addToSet: { topics: thisWeekTopicObject } }
+      );
     });
-    toastr.success('Topics of the week have been added');
+    toastr.success('Topics of this week have been added');
   },
   'click .sidebar-menu-items li label': function (e) {
     if($(e.currentTarget).find('i').hasClass('fa-square-o')){

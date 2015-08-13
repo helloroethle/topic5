@@ -385,3 +385,8 @@ Template.registerHelper('templateUpdate', function(key){
 Template.registerHelper('interactionMeta', function(key){
   getInteractionMeta(key);
 });
+
+Template.registerHelper("prettifyDate", function(timestamp) {
+    var date = new Date(timestamp);
+    return moment(date).format('MM/DD/YYYY');
+});
