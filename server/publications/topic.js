@@ -12,10 +12,10 @@ Meteor.publish('topics', function() {
 });
 
 
-Meteor.publish('allTopics', function() {
-  if (this.userId) {
-    return Topics.find({userId: this.userId}, {sort: {title: 1}});
-  } else {
-    this.ready();
-  }
-});
+// Meteor.publish('allTopics', function() {
+//   if (this.userId) {
+//     return Topics.find({userId: this.userId}, {sort: {title: 1}});
+//   } else {
+//     this.ready();
+//   }
+// });

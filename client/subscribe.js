@@ -1,5 +1,5 @@
-Meteor.subscribe('topics');
+// Meteor.subscribe('topics');
 
-Meteor.subscribe('articles');
+// Meteor.subscribe('articles');
 
-Meteor.subscribe('interactions');
+// Meteor.subscribe('interactions');
