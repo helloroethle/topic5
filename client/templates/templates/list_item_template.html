@@ -1,12 +1,20 @@
 <template name="listItemTemplate">
   <div class="blog-post">
-    <h2 class="blog-post-title"><a href="{{pathFor 'detailTemplate'}}">{{title}}</a></h2>
-    <p class="blog-post-meta">{{created}}</p>
+    <!-- <h2 class="blog-post-title"><a href="{{pathFor 'detailTemplate'}}">{{title}}</a></h2> -->
+    <h2 class="blog-post-title"><a href="{{pathFor 'detailListTemplate'}}">{{title}}</a></h2>
+    <p class="blog-post-meta">Created {{prettifyDate created}}</p>
     <p>{{description}}</p>
-    <div class="icon-group">
-      <button class="delete"><i class="fa fa-fw fa-trash-o"></i></button>
-      <a href="{{pathFor 'previewTemplate'}}" class="view-quiz"><i class="fa fa-fw fa-bolt"></i></a>
-      <a href="{{pathFor 'detailListTemplate'}}"><i class="fa fa-fw fa-book"></i></a>
+
+    <div class="item-footer">
+<ul class='action-group clearfix'>
+
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Live Preview" href="{{pathFor 'previewTemplate'}}" class="view-quiz"><i class="fa fa-bolt fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Template Overview" href="{{pathFor 'previewTemplate'}}" class="view-quiz"><i class="fa fa-search fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Assign to Topics" href="#" class="pick-topic"><i class="fa fa-bars fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Assign to Articles" href="#" class="pick-template"><i class="fa fa-file-text-o fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Default Template for all Articles" href="#" class="show-love"><i class="fa {{favoriteIcon}} fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete Article" href="#" class="delete"><i class="fa fa-trash-o fa-fw"></i></a></li>
+</ul>
     </div>
   </div>
   <hr>

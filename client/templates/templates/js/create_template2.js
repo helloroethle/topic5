@@ -74,7 +74,8 @@ Template.createTemplate2.events({
     var template = {
       'title': title,
       'questions':questions,
-      'description':tplDescription
+      'description':tplDescription,
+      'created': moment().toDate()
     }
     Templates.insert( template );
   },

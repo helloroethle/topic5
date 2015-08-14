@@ -387,6 +387,9 @@ Template.registerHelper('interactionMeta', function(key){
 });
 
 Template.registerHelper("prettifyDate", function(timestamp) {
+    if(!timestamp){
+      return '';
+    }
     var date = new Date(timestamp);
     return moment(date).format('MM/DD/YYYY');
 });
