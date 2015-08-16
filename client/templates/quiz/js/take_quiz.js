@@ -1,4 +1,4 @@
-Template.takeQuiz.rendered = function () {
+Template.takeQuiz.created = function () {
   Session.set('progress', 0);
   Session.set('current_question_index', 0);
   Session.set('current_questions_correct', 0);
@@ -6,7 +6,9 @@ Template.takeQuiz.rendered = function () {
   Session.set('current_questions_remaining', this.data.questions.length);
   Session.set('total_questions', this.data.questions.length);
   Session.set('start_time', moment().toString());
-  
+};
+
+Template.takeQuiz.rendered = function () {
   $("body").keydown(function(e) {
     if(e.keyCode == 37) { // left
       if(Session.get('current_state') == 'grade'){

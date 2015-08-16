@@ -37,14 +37,48 @@ Template.quizLayout.events({
   },
   'keypress .builder-checkbox input, keypress .builder-dropdown input, keypress .builder-multiple-choice input':function(e, template){
     if(e.which === 13){
-      console.log('enter has been pressed');
       $appendToItem = $(e.currentTarget).parents('div.builder-item').find('div.option-list');
       $itemToAppend = $(e.currentTarget).parents('div.builder-item').find('div.option-list div.option-item').first();
       $itemToAppend.clone().appendTo($appendToItem).find('.item-option-text').val('').focus();
     }
   },
   'click .btn-save-template':function(e){
-    console.log('btn save template called');
+    var $questionList = $('.builder-question-list li');
+    var title = $('.template-title').val();
+    var tplDescription = $('.template-description').val();
+    var questions = [];
+    $questionList.each(function(index, item){
+      var optionKey = $(item).find('.option-content').data('key');
+      var $content = $(item).find('.question-content div.builder-item');
+      // var required = $content.find('.item-required').is(":checked");
+      var question = $content.find('.item-question').val();
+      var answer = $content.find('.item-placeholder').val();
+      var description = $content.find('.item-description').val();
+      var $optionList = $content.find('.option-list .option-item .item-option-text');
+      var optionItems = [];
+      var meta = getTemplateOption(optionKey);
+      meta.name = optionKey;
+      $optionList.each(function(index, item){
+        optionItems.push($(item).val());
+      });
+      questions.push({
+        'meta':meta,
+        'order': index,
+        'title': question,
+        'options':optionItems,
+        'required':required,
+        'answer': answer,
+        'description': description
+      });
+    });
+    var quiz = {
+      'title': title,
+      'questions':questions,
+      'description':tplDescription,
+      'created': moment().toDate(),
+    }
+    Quizes.insert( quiz );
+    toastr.success('New Quiz has been created', 'Success!');
   },
   'click .builder-item-remove':function(e){
     $(e.currentTarget).parents('li').remove();

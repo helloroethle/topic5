@@ -12,9 +12,7 @@ Template.thisWeekTopic.helpers({
   // },
   currentWeek: function(){
     var thisWeekId = Session.get('current_week_id');
-    console.log(thisWeekId);
     var thisWeek = ThisWeeks.findOne({_id: thisWeekId});
-    console.log(thisWeek);
     return thisWeek;
   },
   showMenuSelect: function(){
@@ -31,22 +29,27 @@ Template.thisWeekTopic.created = function () {
     // var startDate = moment().day(1).toDate(), endDate = moment().day(7).toDate();
     var startDate = moment().startOf('isoWeek').toDate();
     var endDate = moment().endOf('isoWeek').toDate();
+    var previousWeekId = '';
+    if(user.profile.thisWeek){
+      previousWeekId = user.profile.thisWeek._id;
+    }
     var thisWeekObject = {
       'startDate' : startDate,
       'endDate' : endDate,
       'userId' : Meteor.userId(),
-      'prev' : user.profile.thisWeek.id
+      'prev' : previousWeekId
     }
     var newId = ThisWeeks.insert( thisWeekObject );
     var profileThisWeek  = {
       'endDate' : endDate,
       '_id' : newId
     }
-    ThisWeeks.update({_id: user.profile.thisWeek._id}, {$set:{"next":newId}});
+    if(user.profile.thisWeek){
+      ThisWeeks.update({_id: user.profile.thisWeek._id}, {$set:{"next":newId}});
+    }
     Meteor.users.update({_id:Meteor.user()._id}, {$set:{"profile.thisWeek":profileThisWeek}});
   }
-  console.log(user);
-  Session.set('current_week_id', user.profile.thisWeek._id);
+  Session.set('current_week_id', Meteor.user().profile.thisWeek._id);
   // var instance = this;
   // instance.currentWeek = 
   Session.set('show_menu_select', false);
@@ -114,7 +117,6 @@ Template.thisWeekTopic.events({
       console.log(errors);
       return false;
     }
-
     // it's better to keep our event handlers simple and, if we are doing more than the most basic inserts or updates to collections, use a Method.
     // Meteor.call('createTopic', topic, function(error, result) {
     //   // display the error to the user and abort
@@ -127,7 +129,21 @@ Template.thisWeekTopic.events({
     //   }
     // });
     }
-  }
+  },
+  'click .left-icon': function(e){
+    var thisWeekId = Session.get('current_week_id');
+    var thisWeek = ThisWeeks.findOne({_id: thisWeekId});
+    if(thisWeek.prev && thisWeek.prev != ''){
+      Session.set('current_week_id', thisWeek.prev);
+    }
+  },
+  'click .right-icon': function(e){
+    var thisWeekId = Session.get('current_week_id');
+    var thisWeek = ThisWeeks.findOne({_id: thisWeekId});
+    if(thisWeek.next && thisWeek.next != ''){
+      Session.set('current_week_id', thisWeek.next);
+    }
+  },
   // 'click .select-menu-list-selected-title' : function(e){
   //   $(e.currentTarget).parent().find('.select-outer-container').toggle();
   // }

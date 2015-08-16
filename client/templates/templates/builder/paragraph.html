@@ -1,3 +1,29 @@
+<template name="quizParagraph">
+  <div class="quiz-item">
+    <div class="prompt-container">
+      <h3 class="prompt">{{question_label}}</h3>
+    </div>
+    <div class="prompt-answer-container">
+      <input type="text" placeholder='please add quote source' class="answer">
+    </div>
+    <div class="answer-container">
+      <h3>Answer</h3>
+      <p>{{source}}</p>
+    </div>
+  </div>
+</template>
+
+<template name="quizCreateParagraph">
+  <div class="builder-paragraph builder-item">
+    <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{question}}" /></h3>
+    <div>
+      <textarea class='item-placeholder' placeholder="please enter answer" name='item-placeholder' >{{answer}}</textarea>
+    </div>
+    <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
+    <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
+  </div>
+</template>
+
 <template name="displayParagraph">
   <h3 class="template-builder-question">{{question}}</h3>
   <div class="text-placeholder"></div>

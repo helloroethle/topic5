@@ -1,0 +1,16 @@
+<template name="chooseTemplateArticleOverlay">
+    <div class="overlay-slide-outline overlay-slide-outline-slideup">
+      <button type="button" class="overlay-slide-outline-close">Close</button>
+      <!-- <h2 style='text-align:center;'>You don't have any key concept items yet...</h2> -->
+      <h2>Assign Template to Articles</h2>
+      <div class="container">
+      <div class="row">
+        <section>
+          {{#each articles}}
+            {{title}}
+          {{/each}}
+        </section>
+    </div>
+    </div>
+    </div>
+</template>

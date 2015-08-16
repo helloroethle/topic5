@@ -114,7 +114,8 @@ Template.templateLayout.events({
       'title': title,
       'questions':questions,
       'description':tplDescription,
-      'created': moment().toDate()
+      'created': moment().toDate(),
+      'defaultTemplate': false
     }
     Templates.insert( template );
     toastr.success('New Template has been created', 'Success!');

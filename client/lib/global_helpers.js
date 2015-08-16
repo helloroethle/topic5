@@ -9,49 +9,63 @@ templateOptionHelpers = {
     'icon' : 'fa-font',
     'display' : 'displayText',
     'edit' : 'editText',
-    'template' : 'templateText'
+    'template' : 'templateText',
+    'quiz_template' : 'quizText',
+    'quiz_create_template' : 'quizCreateText'
   },
   'paragraph' : {
     'label' : 'Paragraph',
     'icon' : 'fa-paragraph',
     'display' : 'displayParagraph',
     'edit' : 'editParagraph',
-    'template' : 'templateParagraph'
+    'template' : 'templateParagraph',
+    'quiz_template' : 'quizParagraph',
+    'quiz_create_template' : 'quizCreateParagraph'
   },
   'checkbox' : {
     'label' : 'Check Box',
     'icon' : 'fa-square-o',
     'display' : 'displayCheckbox',
     'edit' : 'editCheckbox',
-    'template' : 'templateCheckbox'
+    'template' : 'templateCheckbox',
+    'quiz_template' : 'quizCheckbox',
+    'quiz_create_template' : 'quizCreateCheckbox'
   },
   'multiple_choice' : {
     'label' : 'Multiple Choice',
     'icon' : 'fa-circle-o',
     'display' : 'displayMultipleChoice',
     'edit' : 'editMultipleChoice',
-    'template' : 'templateMultipleChoice'
+    'template' : 'templateMultipleChoice',
+    'quiz_template' : 'quizMultipleChoice',
+    'quiz_create_template' : 'quizCreateMultipleChoice'
   },
   'select' : {
     'label' : 'Dropdown',
     'icon' : 'fa-caret-down',
     'display' : 'displayDropdown',
     'edit' : 'editDropdown',
-    'template' : 'templateDropdown'
+    'template' : 'templateDropdown',
+    'quiz_template' : 'quizSelect',
+    'quiz_create_template' : 'quizCreateDropdown'
   },
   'true_false' : {
     'label' : 'True/False',
     'icon' : 'fa-toggle-on',
     'display' : 'displayTrueFalse',
     'edit' : 'editTrueFalse',
-    'template' : 'templateTrueFalse'
+    'template' : 'templateTrueFalse',
+    'quiz_template' : 'quizTrueFalse',
+    'quiz_create_template' : 'quizCreateTrueFalse'
   },
   'rating' : {
     'label' : 'Rating',
     'icon' : 'fa-star',
     'display': 'displayRating',
     'edit': 'editRating',
-    'template' : 'templateRating'
+    'template' : 'templateRating',
+    'quiz_template' : 'quizRating',
+    'quiz_create_template' : 'quizCreateRating'
   },
   // 'header' : {
   //   'label' : 'Header',
@@ -67,13 +81,13 @@ templateOptionHelpers = {
   //   'edit' : 'editSection',
   //   'template' : 'templateSection'
   // },
-  'info' : {
-    'label' : 'Info Section',
-    'icon' : 'fa-info',
-    'display' : 'displayInfo',
-    'edit' : 'editInfo',
-    'template' : 'templateInfo'
-  }
+  // 'info' : {
+  //   'label' : 'Info Section',
+  //   'icon' : 'fa-info',
+  //   'display' : 'displayInfo',
+  //   'edit' : 'editInfo',
+  //   'template' : 'templateInfo'
+  // }
 }
 
 interactionMeta = {

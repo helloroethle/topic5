@@ -1,0 +1,33 @@
+<template name="listFilterTemplateSidebar">
+  <div id="filter">
+    <h3>Filter Templates:</h3>
+        <div class="sidebar-search">
+            <input type="text" placeholder="Keyword" class='form-control'>
+          </div>
+    <button class="apply-filter btn btn-default">
+      Apply Filters
+    </button>
+    <button class="clear-filter btn btn-default">
+      Clear Filters
+    </button>
+        <hr>
+        <div class="topic-filter-container">
+        <h4>Filter By Topic</h4>
+        <div class="sidebar-selectable">
+          <div class="search">
+            <input type="text" id="topic-search" placeholder="search" class='form-control'>
+          </div>
+          <form id="add-this-week-topics">
+            <ul class="sidebar-menu-items">
+              {{#each topics}}
+              <li>
+                <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+                <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
+              </li>
+              {{/each}}
+            </ul>        
+          </form>
+        </div>
+        </div>
+  </div>
+</template>

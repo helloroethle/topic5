@@ -1,3 +1,52 @@
+<template name="quizCheckbox">
+  <div class="quiz-item">
+    <div class="prompt-container">
+      <h3 class="prompt">{{question}}</h3>
+    </div>
+    <div class="prompt-answer-container">
+      <ul>
+        {{#each addIndex choices}}
+          <li>
+            <label for="choice-{{index}}">{{value}}</label>
+            <input type="checkbox" name="choice-{{index}}" />
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="answer-container">
+      <h3>Answer</h3>
+      <p>{{source}}</p>
+    </div>
+  </div>
+</template>
+
+<template name="quizCreateCheckbox">
+  <div class="builder-checkbox builder-item">
+    <h3><input type="text" name="question" placeholder="question" class="item-question" value="{{question}}" /></h3>
+    <div class="option-full">
+      <div class="checkbox-list option-list">
+        {{#each options}}
+          <div class="checkbox-item option-item">
+            <span class='chbx'></span>
+            <input type="text" value="{{this}}" class='item-checkbox-text item-option-text' />
+            <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
+        {{else}}
+          <div class="checkbox-item option-item">
+            <span class='chbx'></span>
+            <input type="text" class='item-checkbox-text item-option-text' />
+            <span class='item-remove'><i class="fa fa-minus-square"></i></span>
+          </div>
+        {{/each}}
+      </div>
+      <div class='item-add'><i class="fa fa-plus-square"></i></div>
+      <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
+    </div>
+    <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
+    <span class='builder-item-expand'><i class="fa fa-caret-down"></i></span>
+  </div>
+</template>
+
 <template name="displayCheckbox">
   <h3 class="template-builder-question">{{question}}</h3>
 <ul>
