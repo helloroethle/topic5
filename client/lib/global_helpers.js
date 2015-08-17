@@ -46,7 +46,7 @@ templateOptionHelpers = {
     'display' : 'displayDropdown',
     'edit' : 'editDropdown',
     'template' : 'templateDropdown',
-    'quiz_template' : 'quizSelect',
+    'quiz_template' : 'quizDropdown',
     'quiz_create_template' : 'quizCreateDropdown'
   },
   'true_false' : {

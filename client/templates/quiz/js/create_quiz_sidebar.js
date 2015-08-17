@@ -12,6 +12,10 @@ Template.createQuizSidebar.rendered = function () {
   );
 };
 
+Template.createQuizSidebar.created = function () {
+  Session.set('preview_mode', false);
+};
+
 Template.createQuizSidebar.events({
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
@@ -24,6 +28,7 @@ Template.createQuizSidebar.events({
       $('.template-title, .template-description').attr('readonly', 'readonly');
       var buildPreview = $('.builder-question-content').hasClass('preview-template');
       if(buildPreview){
+        Session.set('preview_mode', true);
         var $questionContainers = $('.builder-question-content .question-content');
         $questionContainers.each(function(index){
           $(this).find('input, textarea').attr('readonly', 'readonly');
@@ -35,16 +40,17 @@ Template.createQuizSidebar.events({
           if(description == ''){
             $(this).find('.item-description').addClass('hide');
           }
-          var required = $(this).find('.item-required').is(':checked');
-          if(required){
-            $(this).find('.item-question').addClass('item-question-required');  
-          }
+          // var required = $(this).find('.item-required').is(':checked');
+          // if(required){
+          //   $(this).find('.item-question').addClass('item-question-required');  
+          // }
         })
       }
       else{
+        Session.set('preview_mode', false);
         $('.builder-question-content [readonly=readonly]').removeAttr('readonly');
         $('.hide').removeClass('hide');
-        $('.item-question-required').removeClass('item-question-required');
+        // $('.item-question-required').removeClass('item-question-required');
       }
   },
   'click .btn-save':function(e){
@@ -67,6 +73,30 @@ Template.createQuizSidebar.events({
       $optionList.each(function(index, item){
         optionItems.push($(item).val());
       });
+      // find answers
+      if(optionItems.length > 0){
+        // one of the option based fields - must find marked answer(s)
+        // if checkbox
+        if(optionKey == 'checkbox'){
+          var $markedAnswers = $content.find('.option-list .option-item span.fa-check-square-o');
+          var answers = [];
+          $markedAnswers.each(function(index, item){
+            answers.push($(item).parent('div.option-item').find('.item-option-text').val());
+          });
+          answer = answers.join();
+        }
+        else{
+          // means will be either multiple choice or dropdown which have same html
+          var $markedAnswer = $content.find('.option-list .option-item span.fa-check-circle-o').first();
+          answer = $markedAnswer.parent('.option-item').find('.item-option-text').val();
+        }
+      }
+      if(optionKey == 'true_false'){
+        answer = $content.find("input[type='radio']:checked").val() ? true : false;
+      }
+      else if(optionKey == 'rating'){
+        answer = $content.find('.selected').text();
+      }
       questions.push({
         'meta':meta,
         'order': index,

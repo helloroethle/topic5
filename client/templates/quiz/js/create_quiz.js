@@ -12,6 +12,7 @@ Template.createQuiz.rendered = function () {
 
 Template.createQuiz.created = function () {
   Session.set('is_detail_quiz', true);
+  Session.set('show_right_sidebar', false);
 };
 
 Template.createQuiz.events({
@@ -26,20 +27,25 @@ Template.createQuiz.events({
     }
   },
   'click .radio':function(e){
-    if($(e.currentTarget).hasClass('fa-circle-thin')){
-      $(e.currentTarget).removeClass('fa-circle-thin');
-      $(e.currentTarget).addClass('fa-check-circle-o');
-    }
-    else{
-      $(e.currentTarget).removeClass('fa-check-circle-o');
-      $(e.currentTarget).addClass('fa-circle-thin');
-    }
+    // only one check can be present
+    console.log($(e.currentTarget).parents('.option-list').find('.fa-check-circle-o'));
+    $(e.currentTarget).parents('.option-list').find('.fa-check-circle-o').removeClass('fa-check-circle-o').addClass('fa-circle-thin');
+    // if($(e.currentTarget).hasClass('fa-circle-thin')){
+    $(e.currentTarget).removeClass('fa-circle-thin').addClass('fa-check-circle-o');
+    // }
+    // else{
+    //   $(e.currentTarget).removeClass('fa-check-circle-o');
+    //   $(e.currentTarget).addClass('fa-circle-thin');
+    // }
   },
   'keypress .builder-checkbox input, keypress .builder-dropdown input, keypress .builder-multiple-choice input':function(e, template){
     if(e.which === 13){
       $appendToItem = $(e.currentTarget).parents('div.builder-item').find('div.option-list');
       $itemToAppend = $(e.currentTarget).parents('div.builder-item').find('div.option-list div.option-item').first();
-      $itemToAppend.clone().appendTo($appendToItem).find('.item-option-text').val('').focus();
+      var $itemAppended = $itemToAppend.clone().appendTo($appendToItem);
+      $itemAppended.find('.fa-check-square-o').removeClass('fa-check-square-o').addClass('fa-square-o');
+      $itemAppended.find('.fa-check-circle-o').removeClass('fa-check-circle-o').addClass('fa-circle-thin');
+      $itemAppended.find('.item-option-text').val('').focus();
     }
   },
   'click .builder-item-remove':function(e){
@@ -52,7 +58,10 @@ Template.createQuiz.events({
   'click .item-add':function(e){
     $appendToItem = $(e.currentTarget).parents('div.builder-item').find('div.option-list');
     $itemToAppend = $(e.currentTarget).parents('div.builder-item').find('div.option-list div.option-item').first();
-    $itemToAppend.clone().appendTo($appendToItem).find('.item-option-text').val('');
+    var $itemAppended = $itemToAppend.clone().appendTo($appendToItem);
+    $itemAppended.find('.fa-check-square-o').removeClass('fa-check-square-o').addClass('fa-square-o');
+    $itemAppended.find('.fa-check-circle-o').removeClass('fa-check-circle-o').addClass('fa-circle-thin');
+    $itemAppended.find('.item-option-text').val('').focus();
   },
   'click .item-remove':function(e){
     var itemCount = $(e.currentTarget).parents('div.option-list').find('div.option-item').length;

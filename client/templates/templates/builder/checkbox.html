@@ -5,7 +5,7 @@
     </div>
     <div class="prompt-answer-container">
       <ul>
-        {{#each addIndex choices}}
+        {{#each addIndex options}}
           <li>
             <label for="choice-{{index}}">{{value}}</label>
             <input type="checkbox" name="choice-{{index}}" />
@@ -44,7 +44,7 @@
       <input type="text" name="description" placeholder="add a longer description to this field" class="item-description" value="{{description}}" /> 
     </div>
     <span class='builder-item-remove'><i class="fa fa-minus-square"></i></span>
-    <span class='builder-item-expand'><i class="fa fa-caret-down"></i></span>
+    <!-- <span class='builder-item-expand'><i class="fa fa-caret-down"></i></span> -->
   </div>
 </template>
 

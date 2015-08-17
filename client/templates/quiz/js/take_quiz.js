@@ -6,6 +6,7 @@ Template.takeQuiz.created = function () {
   Session.set('current_questions_remaining', this.data.questions.length);
   Session.set('total_questions', this.data.questions.length);
   Session.set('start_time', moment().toString());
+  Session.set('show_right_sidebar', false);
 };
 
 Template.takeQuiz.rendered = function () {
@@ -40,10 +41,12 @@ Template.takeQuiz.rendered = function () {
 Template.takeQuiz.helpers({
   questionTemplate: function () {
     var index = Session.get('current_question_index');
+    console.log(this.questions[index].meta.quiz_template);
     return this.questions[index].meta.quiz_template;
   },
   questionData: function (){
     var index = Session.get('current_question_index');
+    console.log(this.questions[index]);
     return this.questions[index];
   },
   questionIndex: function (){
@@ -131,6 +134,7 @@ function retakeIncorrect(){
     Session.set('current_questions_remaining', Session.get('current_questions_incorrect')); 
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
+    $('#quick-jump li.correct').remove();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
 }
@@ -142,6 +146,7 @@ function retakeQuiz(){
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
     Session.set('current_questions_remaining', this.questions.length); 
+    $('#quick-jump li').removeClass();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
 }
