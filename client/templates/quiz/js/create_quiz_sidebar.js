@@ -54,30 +54,41 @@ Template.createQuizSidebar.events({
       }
   },
   'click .btn-save':function(e){
-    console.log('clicked');
     var $questionList = $('.builder-question-list li');
     var title = $('.template-title').val();
+    if(!title || title == ''){
+      toastr.error('Please enter quiz title');
+      return;
+    }
+    if($questionList.length == 0){
+      toastr.error('Please add at least one question');
+      return;
+    }
     var tplDescription = $('.template-description').val();
     var questions = [];
+    var errors = [];
     $questionList.each(function(index, item){
       var optionKey = $(item).find('.option-content').data('key');
       var $content = $(item).find('.question-content div.builder-item');
       // var required = $content.find('.item-required').is(":checked");
       var question = $content.find('.item-question').val();
-      var answer = $content.find('.item-placeholder').val();
-      var description = $content.find('.item-description').val();
-      var $optionList = $content.find('.option-list .option-item .item-option-text');
-      var optionItems = [];
-      var meta = getTemplateOption(optionKey);
-      meta.name = optionKey;
-      $optionList.each(function(index, item){
-        optionItems.push($(item).val());
-      });
+      if(question == ''){
+        errors.push($content);
+        return;
+      }
+      var answer = '';
       // find answers
-      if(optionItems.length > 0){
-        // one of the option based fields - must find marked answer(s)
-        // if checkbox
-        if(optionKey == 'checkbox'){
+      if(optionKey == 'text' || optionKey == 'paragraph'){
+        answer = $content.find('.item-placeholder').val();
+      }
+      else{
+        if(optionKey == 'true_false'){
+          answer = $content.find("input[type='radio']:checked").val() ? true : false;
+        }
+        else if(optionKey == 'rating'){
+          answer = $content.find('.selected').text();
+        }
+        else if(optionKey == 'checkbox'){
           var $markedAnswers = $content.find('.option-list .option-item span.fa-check-square-o');
           var answers = [];
           $markedAnswers.each(function(index, item){
@@ -91,12 +102,19 @@ Template.createQuizSidebar.events({
           answer = $markedAnswer.parent('.option-item').find('.item-option-text').val();
         }
       }
-      if(optionKey == 'true_false'){
-        answer = $content.find("input[type='radio']:checked").val() ? true : false;
+      if(!answer || answer == ''){
+        errors.push($content);
+        return;
       }
-      else if(optionKey == 'rating'){
-        answer = $content.find('.selected').text();
-      }
+
+      var description = $content.find('.item-description').val();
+      var $optionList = $content.find('.option-list .option-item .item-option-text');
+      var optionItems = [];
+      var meta = getTemplateOption(optionKey);
+      meta.name = optionKey;
+      $optionList.each(function(index, item){
+        optionItems.push($(item).val());
+      });
       questions.push({
         'meta':meta,
         'order': index,
@@ -107,6 +125,15 @@ Template.createQuizSidebar.events({
         'description': description
       });
     });
+
+    if(errors.length > 0){
+      $('.error').removeClass('error');
+      _.each(errors, function(item){
+        item.addClass('error');
+      });
+      toastr.error('Please fill out all questions and answers');
+      return;
+    }
     var quiz = {
       'title': title,
       'questions':questions,
