@@ -1,6 +1,5 @@
 Template.templateDropdown.events({
   'click .dropdown-menu li': function (e, template) {
-    console.log(e);
     template.current_selection.set($(e.currentTarget).text());
   }
 });

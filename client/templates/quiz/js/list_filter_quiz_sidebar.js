@@ -1,4 +1,4 @@
-Template.listFilterTemplateSidebar.helpers({
+Template.listFilterQuizSidebar.helpers({
    topics: function (){
     // sort in submitted decending order
     var queryOptions = {
@@ -11,7 +11,7 @@ Template.listFilterTemplateSidebar.helpers({
 })
 
 
-Template.listFilterTemplateSidebar.events({
+Template.listFilterQuizSidebar.events({
   'keyup #topic-search':function(e, template){
     Session.set('topic_search_query', e.currentTarget.value);
   },
@@ -56,6 +56,6 @@ Template.listFilterTemplateSidebar.events({
   }
 });
 
-Template.listFilterTemplateSidebar.created = function () {
+Template.listFilterQuizSidebar.created = function () {
     Session.set('topic_search_query', '');
 };

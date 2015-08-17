@@ -15,7 +15,7 @@
     </div>
     <div class="answer-container">
       <h3>Answer</h3>
-      <p>{{source}}</p>
+      <p>{{answer}}</p>
     </div>
   </div>
 </template>
@@ -27,13 +27,14 @@
       <div class="checkbox-list option-list">
         {{#each options}}
           <div class="checkbox-item option-item">
-            <span class='chbx'></span>
+            <!-- <span class='chbx'></span> -->
             <input type="text" value="{{this}}" class='item-checkbox-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
           </div>
         {{else}}
           <div class="checkbox-item option-item">
-            <span class='chbx'></span>
+            <!-- <span class='chbx'></span> -->
+            <span class="chbx fa fa-fw fa-square-o"></span>
             <input type="text" class='item-checkbox-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
           </div>

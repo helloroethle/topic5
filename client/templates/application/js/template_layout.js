@@ -38,7 +38,7 @@ Template.templateLayout.events({
       $('div.overlay-slide-outline').toggleClass('open');
       $('#wrapper').toggleClass('noscroll');
     },
-  'click .btn-preview-template':function(e){
+  'click .btn-preview':function(e){
       $('.builder-question-content').toggleClass('preview-template');
       $('.template-title, .template-description').attr('readonly', 'readonly');
       var buildPreview = $('.builder-question-content').hasClass('preview-template');
@@ -65,12 +65,11 @@ Template.templateLayout.events({
         $('.hide').removeClass('hide');
         $('.item-question-required').removeClass('item-question-required');
       }
-
   },
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
   },
-  'click .btn-clear-template':function(e){
+  'click .btn-clear':function(e){
     $('.builder-question-list').empty();
   },
   'keypress .builder-checkbox input, keypress .builder-dropdown input, keypress .builder-multiple-choice input':function(e, template){
@@ -81,7 +80,7 @@ Template.templateLayout.events({
       $itemToAppend.clone().appendTo($appendToItem).find('.item-option-text').val('').focus();
     }
   },
-  'click .btn-save-template':function(e){
+  'click .btn-save':function(e){
     var $templateList = $('.builder-question-list li');
     var title = $('.template-title').val();
     var tplDescription = $('.template-description').val();
@@ -115,7 +114,8 @@ Template.templateLayout.events({
       'questions':questions,
       'description':tplDescription,
       'created': moment().toDate(),
-      'defaultTemplate': false
+      'defaultTemplate': false,
+      'userId': Meteor.userId()
     }
     Templates.insert( template );
     toastr.success('New Template has been created', 'Success!');

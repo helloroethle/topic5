@@ -4,11 +4,18 @@
       <h3 class="prompt">{{question_label}}</h3>
     </div>
     <div class="prompt-answer-container">
-      <input type="text" placeholder='please add quote source' class="answer">
+      <ul>
+        {{#each addIndex choices}}
+          <li>
+            <label for="choice-{{index}}">{{value}}</label>
+            <input type="radio" name="choice-{{index}}" />
+          </li>
+        {{/each}}
+      </ul>
     </div>
     <div class="answer-container">
       <h3>Answer</h3>
-      <p>{{source}}</p>
+      <p>{{answer}}</p>
     </div>
   </div>
 </template>
@@ -21,13 +28,15 @@
       <div class="multiple-choice-list option-list">
           {{#each options}}
           <div class="multiple-choice-item option-item">
-            <input type="radio" class='item-multiple-choice-radio' />
+            <span class="radio fa fa-circle-thin"></span>
+            <!-- <input type="radio" name='multiple' class='item-multiple-choice-radio' /> -->
             <input type="text" value="{{this}}" class='item-multiple-choice-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
           </div>
           {{else}}
           <div class="multiple-choice-item option-item">
-            <input type="radio" class='item-multiple-choice-radio' />
+            <span class="radio fa fa-circle-thin"></span>
+            <!-- <input type="radio" name='multiple' class='item-multiple-choice-radio' /> -->
             <input type="text" class='item-multiple-choice-text item-option-text' />
             <span class='item-remove'><i class="fa fa-minus-square"></i></span>
           </div>

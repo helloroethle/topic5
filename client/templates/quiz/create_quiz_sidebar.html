@@ -1,5 +1,6 @@
-<Template name="createSidebar">
+<Template name="createQuizSidebar">
   <div id="sidebar-content" class="builder-option-content">
+    <h3 style="text-align:center; margin-top:15px; margin-bottom:15px;"><i class="fa fa-list-ol"></i> Quiz Builder</h3>
     <ul class='builder-option-list'>
       {{#each builderOptionList}}
         <li>
@@ -12,8 +13,11 @@
         </li>
       {{/each}}
     </ul>
-      <button class='btn btn-option-list-action btn-preview-template'>Preview</button>
-      <button class='btn btn-option-list-action btn-save-template'>Save</button>
-      <button class='btn btn-option-list-action btn-clear-template'>Clear</button>
+    <div class="action-buttons-container">
+      <button class='btn btn-option-list-action btn-preview'>Preview</button>
+      <button class='btn btn-option-list-action btn-save'>Save</button>
+      <button class='btn btn-option-list-action btn-clear'>Clear</button>
+    </div>
+      
   </div>
 </Template>

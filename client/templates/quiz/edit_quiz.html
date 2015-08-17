@@ -1,0 +1,18 @@
+<template name="editQuiz">
+    <div class="builder-question-content">
+      <h2><input type="text" class='template-title' placeholder="name your quiz..." value="{{title}}"></h2>
+      <textarea placeholder='enter brief description' class='template-description' value="{{description}}"></textarea>
+      <ul class='builder-question-list'>
+        {{#each questions}}
+          <li>
+            <div class='option-content' data-key="{{meta.name}}">
+            <i class="fa {{meta.icon}}"></i> {{value.label}}
+            </div>
+            <div class="question-content">
+              {{> Template.dynamic template=meta.createQuizTemplate}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+</template>

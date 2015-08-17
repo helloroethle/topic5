@@ -24,7 +24,8 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'outline': true,
             'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail'),
-            'quiz' : interactionMeta.quiz
+            'quiz' : interactionMeta.quiz,
+            'userId': Meteor.userId()
           }
           if(Session.get('highlighted_text')){
             interactionObject.paragraph_start = Session.get('paragraph_start');
@@ -46,6 +47,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
     },
     before: {
       insert: function(doc){
+        doc.userid = Meteor.userId();
         if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
           doc.answer = Session.get('mc_answer')
         }
@@ -78,7 +80,7 @@ AutoForm.addHooks(['createArticle'], {
           // doc.html = '<div><p>' + doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />').replace(/<p><\/p>/g, ""); + '</p></div>';
           // doc.html = doc.html.replace(/\n([ \t]*\n)+/g, '</p><p>')
         // }
-
+        // doc.userid = Meteor.userId();
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();
         }
