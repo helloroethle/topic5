@@ -18,6 +18,7 @@ Template.takeQuizSidebar.events({
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
     Session.set('current_questions_remaining', this.questions.length); 
+    $('#quick-jump li').removeClass();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
   },

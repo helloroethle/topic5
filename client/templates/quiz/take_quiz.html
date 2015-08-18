@@ -1,10 +1,14 @@
 <template name="takeQuiz">
 <div id="quiz-section">
   <i class="view-comment fa fa-comment"></i>
-  <h2 class='quiz-header'>Question {{questionIndex}})</h2>
+  <h2 class='quiz-header {{gradeColor}}'>Question {{questionIndex}})</h2>
     {{> Template.dynamic template=questionTemplate data=questionData}}
 
   <button class='quiz-answer-button'><i class="fa fa-paper-plane-o"></i> Answer</button>
+  <div class="quiz-auto-grade-container clearfix">
+    <hr>
+    <button class='quiz-next'>Next <i class="fa fa-chevron-right"></i></button>
+  </div>
   <div class="quiz-grade-container clearfix">
     <hr>
     <button class='quiz-mark-correct'><i class="fa fa-check-circle-o"></i> Correct</button>
@@ -36,7 +40,9 @@
     </li>
   </ul>
   <div class="summary-buttons">
-    <button class="quiz-action-button quiz-retake-incorrect">Retake Incorrect</button>
+    {{#if incorrect}}
+      <button class="quiz-action-button quiz-retake-incorrect">Retake Incorrect</button>
+    {{/if}}
     <button class="quiz-action-button quiz-retake-all">Retake Quiz</button>
     <button class="quiz-action-button quiz-return-home">Return Home</button>
   </div>

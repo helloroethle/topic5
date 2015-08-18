@@ -11,7 +11,8 @@ templateOptionHelpers = {
     'edit' : 'editText',
     'template' : 'templateText',
     'quiz_template' : 'quizText',
-    'quiz_create_template' : 'quizCreateText'
+    'quiz_create_template' : 'quizCreateText',
+    'quiz_auto_grade' : false
   },
   'paragraph' : {
     'label' : 'Paragraph',
@@ -20,7 +21,8 @@ templateOptionHelpers = {
     'edit' : 'editParagraph',
     'template' : 'templateParagraph',
     'quiz_template' : 'quizParagraph',
-    'quiz_create_template' : 'quizCreateParagraph'
+    'quiz_create_template' : 'quizCreateParagraph',
+    'quiz_auto_grade' : false
   },
   'checkbox' : {
     'label' : 'Check Box',
@@ -29,7 +31,8 @@ templateOptionHelpers = {
     'edit' : 'editCheckbox',
     'template' : 'templateCheckbox',
     'quiz_template' : 'quizCheckbox',
-    'quiz_create_template' : 'quizCreateCheckbox'
+    'quiz_create_template' : 'quizCreateCheckbox',
+    'quiz_auto_grade' : true
   },
   'multiple_choice' : {
     'label' : 'Multiple Choice',
@@ -38,7 +41,8 @@ templateOptionHelpers = {
     'edit' : 'editMultipleChoice',
     'template' : 'templateMultipleChoice',
     'quiz_template' : 'quizMultipleChoice',
-    'quiz_create_template' : 'quizCreateMultipleChoice'
+    'quiz_create_template' : 'quizCreateMultipleChoice',
+    'quiz_auto_grade' : true
   },
   'select' : {
     'label' : 'Dropdown',
@@ -47,7 +51,8 @@ templateOptionHelpers = {
     'edit' : 'editDropdown',
     'template' : 'templateDropdown',
     'quiz_template' : 'quizDropdown',
-    'quiz_create_template' : 'quizCreateDropdown'
+    'quiz_create_template' : 'quizCreateDropdown',
+    'quiz_auto_grade' : true
   },
   'true_false' : {
     'label' : 'True/False',
@@ -56,7 +61,8 @@ templateOptionHelpers = {
     'edit' : 'editTrueFalse',
     'template' : 'templateTrueFalse',
     'quiz_template' : 'quizTrueFalse',
-    'quiz_create_template' : 'quizCreateTrueFalse'
+    'quiz_create_template' : 'quizCreateTrueFalse',
+    'quiz_auto_grade' : true
   },
   'rating' : {
     'label' : 'Rating',
@@ -65,7 +71,8 @@ templateOptionHelpers = {
     'edit': 'editRating',
     'template' : 'templateRating',
     'quiz_template' : 'quizRating',
-    'quiz_create_template' : 'quizCreateRating'
+    'quiz_create_template' : 'quizCreateRating',
+    'quiz_auto_grade' : true
   },
   // 'header' : {
   //   'label' : 'Header',
@@ -103,7 +110,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'quote' : {
     'label' : 'Quote',
@@ -117,7 +125,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : true
   },
   'fact' : {
     'label' : 'Fact',
@@ -131,7 +140,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'responsequiz' : {
     'label' : 'Response Quiz',
@@ -145,7 +155,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : false
   },
   'mcquiz' : {
     'label' : 'Multiple Choice Quiz',
@@ -159,7 +170,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : true
   },
   'tfquiz' : {
     'label' : 'True False Quiz',
@@ -173,7 +185,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : true
   },
   'flashcard' : {
     'label' : 'Flashcard',
@@ -187,7 +200,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : false
   },
   'idea' : {
     'label' : 'New Idea',
@@ -201,7 +215,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'futuretopic' : {
     'label' : 'Future Topic',
@@ -215,7 +230,7 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':false
+    'allow_question':false,
   },
   'concept' : {
     'label' : 'Key Concept',
@@ -229,7 +244,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'definition' : {
     'label' : 'Definition',
@@ -243,7 +259,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : false
   },
   'agreement' : {
     'label' : 'Agreement',
@@ -257,7 +274,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'disagreement' : {
     'label' : 'Disagreement',
@@ -271,7 +289,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   'timeline' : {
     'label' : 'Timeline',
@@ -285,7 +304,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':true,
-    'allow_question':false
+    'allow_question':false,
+    'quiz_auto_grade' : true
   },
   'verify' : {
     'label' : 'Verification',
@@ -299,7 +319,8 @@ interactionMeta = {
     'outline' : true,
     'collection' : '',
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },
   // 'mneumonic' : {
   //   'label' : 'Mneumonics',
@@ -319,7 +340,8 @@ interactionMeta = {
     'secondary_field' : '',
     'outline' : false,
     'quiz':false,
-    'allow_question':true
+    'allow_question':true,
+    'quiz_auto_grade' : false
   },  
 }
 

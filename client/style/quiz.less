@@ -153,13 +153,20 @@
 
 .quiz-header{
   margin-top:15px;
+  &.correct{
+    color: #2dbe60;
+  }
+  &.incorrect{
+    color: #ED1556;
+  }
 }
 
 
 
 .quiz-action-button,
 .quiz-answer-button,
-.quiz-grade-container button{
+.quiz-grade-container button,
+.quiz-next{
   background-color: #fff;
   border: 2px solid #2dbe60;
   color:#555;
@@ -176,6 +183,10 @@
     color: #fff;
     outline:none;
   }
+}
+
+.quiz-auto-grade-container{
+  display:none; 
 }
 
 .quiz-grade-container {
@@ -198,9 +209,6 @@
     }
   }
 }
-
-
-
 
 .quiz-progress{
   height:5px;

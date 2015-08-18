@@ -134,15 +134,21 @@ Template.createQuizSidebar.events({
       toastr.error('Please fill out all questions and answers');
       return;
     }
+
+    // get topics if any were selected - { 'title' : title, '_id' : id }
+    var quizTopics = JSON.parse(Session.get('quiz_topics'));
+
     var quiz = {
       'title': title,
       'questions':questions,
       'description':tplDescription,
       'created': moment().toDate(),
-      'userId': Meteor.userId()
+      'userId': Meteor.userId(),
+      'topics': quizTopics
     }
     Quizes.insert( quiz );
     // redirect and call the toastr.success on the edit page
-    toastr.success('New Quiz has been created', 'Success!');
+    Router.go('listQuizes');
+    // toastr.success('New Quiz has been created', 'Success!');
   },
 });

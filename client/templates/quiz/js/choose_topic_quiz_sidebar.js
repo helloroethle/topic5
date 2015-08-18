@@ -23,6 +23,8 @@ Template.chooseTopicQuizSidebar.events({
       quizTopics.push(topicObject);
     });
     Session.set('quiz_topics', JSON.stringify(quizTopics));
+    toastr.success('Topic saved to quiz', 'Success!');
+    Session.set('show_right_sidebar', false);
   }
 });
 

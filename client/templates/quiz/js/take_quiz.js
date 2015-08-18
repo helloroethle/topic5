@@ -7,6 +7,7 @@ Template.takeQuiz.created = function () {
   Session.set('total_questions', this.data.questions.length);
   Session.set('start_time', moment().toString());
   Session.set('show_right_sidebar', false);
+  Session.set('current_correct', 0);
 };
 
 Template.takeQuiz.rendered = function () {
@@ -41,12 +42,13 @@ Template.takeQuiz.rendered = function () {
 Template.takeQuiz.helpers({
   questionTemplate: function () {
     var index = Session.get('current_question_index');
-    console.log(this.questions[index].meta.quiz_template);
     return this.questions[index].meta.quiz_template;
   },
   questionData: function (){
     var index = Session.get('current_question_index');
-    console.log(this.questions[index]);
+    var data = this.questions[index];
+    Session.set('question_auto_grade', data.meta.quiz_auto_grade);
+    Session.set('current_answer', data.answer);
     return this.questions[index];
   },
   questionIndex: function (){
@@ -65,6 +67,18 @@ Template.takeQuiz.helpers({
   },
   duration: function(){
     return Session.get('duration');
+  },
+  gradeColor: function(){
+    var correct = Session.get('current_correct');
+    if(correct == 0){
+      return '';
+    }
+    else if(correct > 0){
+      return 'correct';
+    }
+    else{
+      return 'incorrect';
+    }
   }
 });
 
@@ -72,6 +86,30 @@ function toggleActionButtons(){
   $('.quiz-answer-button').toggle();
   $('.quiz-grade-container').toggle();
   $('.answer-container').toggle();
+}
+
+function toggleGraded(){
+  $('.quiz-answer-button').toggle();
+  $('.answer-container').toggle();  
+  $('.quiz-auto-grade-container').toggle();
+}
+
+function getUserAnswer(){
+  return Session.get('current_user_answer');
+}
+
+function autoGrade(){
+    // perform attempt at grading
+  var userAnswer = getUserAnswer();
+  console.log(userAnswer);
+  var answer = Session.get('current_answer');
+  console.log(answer);
+  if(userAnswer == answer){
+    markCorrect();
+  }
+  else{
+    markIncorrect();
+  }
 }
 
 function toggleSummary(){
@@ -88,8 +126,6 @@ function finishQuiz(){
   toggleSummary();
 }
 
-
-
 function nextQuestion(){
     var index = Session.get('current_question_index');
     if(Session.get('current_questions_remaining') == 0){
@@ -97,6 +133,7 @@ function nextQuestion(){
     }
     index += 1;
     Session.set('current_question_index', index);
+    Session.set('current_correct', 0);
 }
 
 function prevQuestion(){
@@ -106,6 +143,7 @@ function prevQuestion(){
     }
     index -= 1;
     Session.set('current_question_index', index);
+    Session.set('current_correct', 0);
 }
 
 function updateProgress(){
@@ -119,12 +157,14 @@ function markCorrect(){
   Session.set('current_questions_correct', Session.get('current_questions_correct') + 1);
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('correct');
+  Session.set('current_correct', 1);
 }
 
 function markIncorrect(){
   Session.set('current_questions_incorrect', Session.get('current_questions_incorrect') + 1);
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('incorrect');
+  Session.set('current_correct', -1);
 }
 
 function retakeIncorrect(){
@@ -134,7 +174,7 @@ function retakeIncorrect(){
     Session.set('current_questions_remaining', Session.get('current_questions_incorrect')); 
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
-    $('#quick-jump li.correct').remove();
+    $('#quick-jump li.correct').addClass('inactive');
     $('#quiz-summary').hide();
     $('#quiz-section').show();
 }
@@ -145,7 +185,7 @@ function retakeQuiz(){
     Session.set('current_question_index', 0);
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
-    Session.set('current_questions_remaining', this.questions.length); 
+    Session.set('current_questions_remaining', Session.get('total_questions')); 
     $('#quick-jump li').removeClass();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
@@ -164,12 +204,25 @@ Template.takeQuiz.events({
   'click .quiz-retake-all' : function(e, template){
     retakeQuiz();
   },
+  'click .quiz-return-home' : function(e, template){
+    Router.go('listQuizes');
+  },
   'click .view-comment': function(e, template){
     $("#comments").toggle();
   },
   'click .quiz-answer-button': function (e, template) {
-    toggleActionButtons();
-    Session.set('current_state', 'grade');
+    if(Session.get('question_auto_grade')){
+      autoGrade();
+      toggleGraded();
+    }
+    else{
+      toggleActionButtons();
+      Session.set('current_state', 'grade');
+    }
+  },
+  'click .quiz-next':function(e, template){
+    toggleGraded();
+    nextQuestion();
   },
   'click .quiz-mark-correct':function(e, template){
     markCorrect();
