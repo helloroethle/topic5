@@ -21,11 +21,17 @@ Template.takeQuizSidebar.events({
     $('#quick-jump li').removeClass();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
+    window.remaining = _.range(Session.get('total_questions'));
+    window.answers = [];
   },
   'click #quick-jump li':function(e, template){
     if(Session.get('current_state') == 'grade'){
       toastr.error('Please mark answer as correct or incorrect');
       return;
+    }
+    else if(Session.get('current_state') == 'auto'){
+      Session.set('current_correct', 0);
+      Session.set('current_state', 'answer');
     }
     $('.quiz-answer-button').show();
     $('.quiz-grade-container').hide();

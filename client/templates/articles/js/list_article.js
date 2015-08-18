@@ -7,7 +7,6 @@ Template.listArticle.helpers({
 
     var filterQuery = {}
     var filterSearchQuery = Session.get('filter_search_query');
-    console.log(filterSearchQuery);
     if(filterSearchQuery && filterSearchQuery.length){
       // convert keyword to regular expression
       filterSearchQuery = JSON.parse(filterSearchQuery);
@@ -31,7 +30,6 @@ Template.listArticle.helpers({
         filterSearchQuery.published = dateRangeQuery;
         delete filterSearchQuery["fromDate"];
       }
-      console.log(filterSearchQuery);
       filterQuery = filterSearchQuery;
     }
     // {'archived':false}

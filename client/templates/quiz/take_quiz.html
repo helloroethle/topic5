@@ -4,6 +4,7 @@
   <h2 class='quiz-header {{gradeColor}}'>Question {{questionIndex}})</h2>
     {{> Template.dynamic template=questionTemplate data=questionData}}
 
+{{#if questionUnanswered}}
   <button class='quiz-answer-button'><i class="fa fa-paper-plane-o spacing-right-5"></i> Answer</button>
   <div class="quiz-auto-grade-container clearfix">
     <hr>
@@ -14,6 +15,12 @@
     <button class='quiz-mark-correct'><i class="fa fa-check-circle-o spacing-right-5"></i> Correct</button>
   <button class='quiz-mark-incorrect'><i class="fa fa-times-circle-o spacing-right-5"></i> Incorrect</button>
   </div>
+{{else}}
+  <h5>Your Answer</h5>
+  <p>{{userAnswer}}</p>
+  <h5>Correct Answer</h5>
+  <p>{{questionData.answer}}</p>
+{{/if}}
   <div id="comments">
     <h3>My Comments</h3>
     {{questionData.comments}}
