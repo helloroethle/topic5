@@ -1,3 +1,19 @@
 <template name="detailQuiz">
-  <h5>Detail Quiz</h5>
+    <div class="builder-question-content  preview-template">
+      <h2><input type="text" class='template-title' value="{{title}}" placeholder="Name Your Quiz"></h2>
+      <textarea class='template-description' placeholder='enter brief description' value="{{description}}"></textarea>
+      <ul class='builder-question-list'>
+        {{#each questions}}
+          <li>
+            <div class='option-content' data-key="{{meta.name}}">
+            <i class="fa {{meta.icon}}"></i> {{value.label}}
+            </div>
+            <div class="question-content">
+              {{> Template.dynamic template=meta.quiz_create_template}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+{{> tagModal }}
 </template>

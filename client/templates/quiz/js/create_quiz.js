@@ -13,6 +13,7 @@ Template.createQuiz.rendered = function () {
 Template.createQuiz.created = function () {
   Session.set('is_detail_quiz', true);
   Session.set('show_right_sidebar', false);
+  Session.set('progress', 0);
 };
 
 Template.createQuiz.events({
