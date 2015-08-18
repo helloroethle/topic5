@@ -27,6 +27,10 @@ Template.takeQuizSidebar.events({
       toastr.error('Please mark answer as correct or incorrect');
       return;
     }
+    $('.quiz-answer-button').show();
+    $('.quiz-grade-container').hide();
+    $('.answer-container').hide();
+    $('.quiz-auto-grade-container').hide();
     var index = parseInt($(e.currentTarget).text());
     Session.set('current_question_index', index - 1);
   },

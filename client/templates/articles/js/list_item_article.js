@@ -28,9 +28,9 @@ Template.listItemArticle.helpers({
   }
 });
 
-Template.listItemArticle.rendered = function () {
-  console.log(this);
-};
+// Template.listItemArticle.rendered = function () {
+//   // console.log(this);
+// };
 
 
 Template.listItemArticle.events({

@@ -12,7 +12,7 @@ templateOptionHelpers = {
     'template' : 'templateText',
     'quiz_template' : 'quizText',
     'quiz_create_template' : 'quizCreateText',
-    'quiz_auto_grade' : false
+    'quiz_auto_grade' : true
   },
   'paragraph' : {
     'label' : 'Paragraph',

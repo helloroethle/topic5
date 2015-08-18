@@ -1,3 +1,5 @@
+var remaining = [];
+
 Template.takeQuiz.created = function () {
   Session.set('progress', 0);
   Session.set('current_question_index', 0);
@@ -8,6 +10,7 @@ Template.takeQuiz.created = function () {
   Session.set('start_time', moment().toString());
   Session.set('show_right_sidebar', false);
   Session.set('current_correct', 0);
+  remaining = _.range(this.data.questions.length);
 };
 
 Template.takeQuiz.rendered = function () {
@@ -16,11 +19,19 @@ Template.takeQuiz.rendered = function () {
       if(Session.get('current_state') == 'grade'){
         markIncorrect();
         toggleActionButtons();
-        nextQuestion();
+        smartPrevQuestion();
+        // nextQuestion();
         updateProgress();
         Session.set('current_state', 'answer');
       }
-      else if(Session.get('current_state') == 'answer'){
+      else if(Session.get('current_state') == 'auto'){
+        toggleGraded();
+        smartNextQuestion();
+        updateProgress();
+        Session.set('current_state', 'answer');
+      }
+      // else if(Session.get('current_state') == 'answer'){
+      else{
         prevQuestion();
       }
     }
@@ -28,11 +39,18 @@ Template.takeQuiz.rendered = function () {
       if(Session.get('current_state') == 'grade'){
         markCorrect();
         toggleActionButtons();
-        nextQuestion();
+        // nextQuestion();
+        smartNextQuestion();
         updateProgress();
         Session.set('current_state', 'answer');
       }
-      else if(Session.get('current_state') == 'answer'){
+      else if(Session.get('current_state') == 'auto'){
+        toggleGraded();
+        smartNextQuestion();
+        updateProgress();
+        Session.set('current_state', 'answer');
+      }
+      else{
         nextQuestion();
       }
     }
@@ -82,6 +100,13 @@ Template.takeQuiz.helpers({
   }
 });
 
+function homeState(){
+  $('.quiz-answer-button').show();
+  $('.quiz-grade-container').hide();
+  $('.answer-container').hide();
+  $('.quiz-auto-grade-container').hide();
+}
+
 function toggleActionButtons(){
   $('.quiz-answer-button').toggle();
   $('.quiz-grade-container').toggle();
@@ -94,16 +119,9 @@ function toggleGraded(){
   $('.quiz-auto-grade-container').toggle();
 }
 
-function getUserAnswer(){
-  return Session.get('current_user_answer');
-}
-
 function autoGrade(){
-    // perform attempt at grading
-  var userAnswer = getUserAnswer();
-  console.log(userAnswer);
+  var userAnswer = Session.get('current_user_answer');
   var answer = Session.get('current_answer');
-  console.log(answer);
   if(userAnswer == answer){
     markCorrect();
   }
@@ -122,32 +140,88 @@ function finishQuiz(){
   var start_time = moment(Session.get('start_time'));
   var end_time = moment();
   var duration = moment.duration(end_time.diff(start_time));
-  Session.set('duration', duration.hours() + ':' + duration.minutes() + ':' + duration.seconds());
+  var hours = duration.hours();
+  var minutes = duration.minutes();
+  var seconds = duration.seconds();
+  if(hours == 0){
+    hours = '';
+  }
+  else if (hours   < 10) {
+    hours  = "0" + hours + ':';
+  }
+  else{
+    hours = hours + ':';
+  }
+  if (minutes < 10) {minutes = "0"+minutes;}
+  if (seconds < 10) {seconds = "0"+seconds;}
+  Session.set('duration', hours + minutes + ':' + seconds);
   toggleSummary();
+}
+
+function smartPrevQuestion(){
+  if(Session.get('current_questions_remaining') == 0){
+    finishQuiz();
+  }
+  var index = Session.get('current_question_index');
+  var prevIndex = 0;
+  for(var i = remaining.length - 1; i >= 0; i--){
+    if(remaining[i] < index ){
+      prevIndex = i;
+      break;
+    }
+  }
+  Session.set('current_question_index', remaining[prevIndex]);
+  Session.set('current_correct', 0);
+}
+
+function smartNextQuestion(){
+  console.log('hello');
+  if(Session.get('current_questions_remaining') == 0){
+    finishQuiz();
+  }
+  var index = Session.get('current_question_index');
+  var nextIndex = 0;
+  for(var i = 0; i < remaining.length; i++){
+    if(remaining[i] > index ){
+      nextIndex = i;
+      break;
+    }
+  }
+  Session.set('current_question_index', remaining[nextIndex]);
+  Session.set('current_correct', 0);
 }
 
 function nextQuestion(){
     var index = Session.get('current_question_index');
-    if(Session.get('current_questions_remaining') == 0){
-      finishQuiz();
+    // if(Session.get('current_questions_remaining') == 0){
+    //   finishQuiz();
+    // }
+    if(index >= (Session.get('total_questions') - 1)){
+      index = 0;
     }
-    index += 1;
+    else{
+      index += 1;
+    }
     Session.set('current_question_index', index);
     Session.set('current_correct', 0);
 }
 
 function prevQuestion(){
     var index = Session.get('current_question_index');
-    if(index == 0){
-      return;
+    if(index <= 0){
+      index = ( Session.get('total_questions') - 1 );
     }
-    index -= 1;
+    else{
+      index -= 1;
+    }
     Session.set('current_question_index', index);
     Session.set('current_correct', 0);
 }
 
 function updateProgress(){
-    var index = Session.get('current_question_index');
+    var correctCount = Session.get('current_questions_correct');
+    var incorrectCount = Session.get('current_questions_incorrect');
+    var index = correctCount + incorrectCount;
     var total = Session.get('total_questions');
     var width = (index / total) * 100;
     Session.set('progress', width);
@@ -158,6 +232,14 @@ function markCorrect(){
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('correct');
   Session.set('current_correct', 1);
+  console.log(remaining);
+  var index = Session.get('current_question_index');
+  var deleteIndex = _.indexOf(remaining, index);
+  console.log(deleteIndex);
+  if(deleteIndex > 0){
+    remaining.splice(deleteIndex, 1);  
+  }
+  
 }
 
 function markIncorrect(){
@@ -165,6 +247,13 @@ function markIncorrect(){
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('incorrect');
   Session.set('current_correct', -1);
+  console.log(remaining);
+  var index = Session.get('current_question_index');
+  var deleteIndex = _.indexOf(remaining, index);
+  console.log(deleteIndex);
+  if(deleteIndex > 0){
+    remaining.splice(deleteIndex, 1);  
+  }
 }
 
 function retakeIncorrect(){
@@ -177,6 +266,8 @@ function retakeIncorrect(){
     $('#quick-jump li.correct').addClass('inactive');
     $('#quiz-summary').hide();
     $('#quiz-section').show();
+    homeState();
+    // get incorrect indexes and populate remaining array
 }
 
 function retakeQuiz(){
@@ -189,6 +280,8 @@ function retakeQuiz(){
     $('#quick-jump li').removeClass();
     $('#quiz-summary').hide();
     $('#quiz-section').show();
+    homeState();
+    // populate remaining array with range
 }
 
 Template.takeQuiz.events({
@@ -212,6 +305,7 @@ Template.takeQuiz.events({
   },
   'click .quiz-answer-button': function (e, template) {
     if(Session.get('question_auto_grade')){
+      Session.set('current_state', 'auto');
       autoGrade();
       toggleGraded();
     }
@@ -222,28 +316,33 @@ Template.takeQuiz.events({
   },
   'click .quiz-next':function(e, template){
     toggleGraded();
-    nextQuestion();
+    smartNextQuestion();
+    // nextQuestion(template.questionIndexes);
+    updateProgress();
+    Session.set('current_state', 'answer');
   },
   'click .quiz-mark-correct':function(e, template){
     markCorrect();
     toggleActionButtons();
-    nextQuestion();
+    smartNextQuestion();
+    // nextQuestion(template.questionIndexes);
     updateProgress();
     Session.set('current_state', 'answer');
   },
   'click .quiz-mark-incorrect':function(e, template){
     markIncorrect();
     toggleActionButtons();
-    nextQuestion();
+    smartNextQuestion();
+    // nextQuestion(template.questionIndexes);
     updateProgress();
     Session.set('current_state', 'answer');
   },
-  'click .quiz-prev-question':function(e, template){
-    prevQuestion();
-    updateProgress();
-  },
-  'click .quiz-next-question':function(e, template){
-    nextQuestion();
-    updateProgress();
-  }
+  // 'click .quiz-prev-question':function(e, template){
+  //   prevQuestion();
+  //   updateProgress();
+  // },
+  // 'click .quiz-next-question':function(e, template){
+  //   nextQuestion();
+  //   updateProgress();
+  // }
 });

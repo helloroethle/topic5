@@ -5,17 +5,19 @@
     </div>
     <div class="prompt-answer-container">
       <ul>
-        {{#each addIndex options}}
+        {{#each options}}
           <li>
-            <label for="choice-{{index}}">{{value}}</label>
-            <input type="radio" name="choice-{{index}}" />
+            <i class="fa fa-fw fa-circle-o"></i>
+            <span>{{this}}</span>
           </li>
         {{/each}}
       </ul>
     </div>
     <div class="answer-container">
       <h3>Answer</h3>
-      <p>{{answer}}</p>
+      <span class="fa fa-fw fa-check-circle-o"></span>
+      <span>{{answer}}</span>
+      <!-- <p>{{answer}}</p> -->
     </div>
   </div>
 </template>

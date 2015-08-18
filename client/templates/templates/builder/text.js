@@ -9,6 +9,6 @@ Template.templateText.helpers({
 
 Template.quizText.events({
   'blur input.answer': function (e) {
-    Session.set('current_user_answer', $('input.answer').val());
+    Session.set('current_user_answer', e.currentTarget.value);
   }
 });

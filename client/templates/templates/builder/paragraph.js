@@ -6,3 +6,9 @@ Template.templateParagraph.helpers({
     return '';
   }
 });
+
+// Template.quizParagraph.events({
+//   'blur textarea.answer': function (e) {
+//     console.log(e.currentTarget.value);
+//   }
+// });

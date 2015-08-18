@@ -21,3 +21,33 @@ Template.templateCheckbox.events({
     }
   }
 });
+
+Template.quizCheckbox.events({
+'click .prompt-answer-container li': function (e) {
+    if($(e.currentTarget).find('i').hasClass('fa-square-o')){
+      $(e.currentTarget).find('i').removeClass('fa-square-o');
+      $(e.currentTarget).find('i').addClass('fa-check-square-o');
+    }
+    else{
+      $(e.currentTarget).find('i').removeClass('fa-check-square-o');
+      $(e.currentTarget).find('i').addClass('fa-square-o');
+    }
+    var $selected = $(e.currentTarget).parents('.prompt-answer-container').find('.fa-check-square-o');
+    if($selected.length == 0){
+      Session.set('current_user_answer', '');
+    }
+    else{
+      var answers = [];
+      $selected.each(function(index, item){
+        answers.push($(item).parent('li').find('span').text());
+      });
+      Session.set('current_user_answer', answers.join());
+    }
+  }
+})
+
+Template.quizCheckbox.helpers({
+  answers: function () {
+    return this.answer.split(',');
+  }
+});

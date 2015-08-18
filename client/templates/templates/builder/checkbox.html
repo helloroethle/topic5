@@ -5,17 +5,28 @@
     </div>
     <div class="prompt-answer-container">
       <ul>
-        {{#each addIndex options}}
-          <li>
+        <!-- {{#each addIndex options}} -->
+        {{#each options}}
+        <li>
+          <i class="fa fa-fw fa-square-o"></i>
+          <span>{{this}}</span>
+        </li>
+<!--           <li>
             <label for="choice-{{index}}">{{value}}</label>
-            <input type="checkbox" name="choice-{{index}}" />
-          </li>
+            <input type="checkbox" value='{{value}}' name="choice-{{index}}" />
+          </li> -->
         {{/each}}
       </ul>
     </div>
     <div class="answer-container">
       <h3>Answer</h3>
-      <p>{{answer}}</p>
+      {{#each answers}}
+        <div class="checkbox-item option-item">
+          <span class="chbx fa fa-fw fa-check-square-o"></span>
+          <span>{{this}}</span>
+        </div>
+      {{/each}}
+      <!-- <p>{{answer}}</p> -->
     </div>
   </div>
 </template>
