@@ -1,0 +1,25 @@
+<template name="flashcardLayout">
+  {{> flashcardHeader }}
+  <div id="wrapper" class='flashcard-layout toggled tk-proxima-nova watch-keys {{rightSidebar}}'>
+    <div id="sidebar-wrapper">
+      {{> yield region='sidebar'}}
+    </div>        
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            {{> yield}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="sidebar-wrapper-right">
+      <div id="sidebar-content-right">
+        <div class="sidebar-action-buttons">
+          <button class="close"><i class="fa fa-times-circle-o fa-fw"></i></button>
+        </div>
+        {{> yield region='sidebar-right'}}
+      </div>
+    </div>
+  </div>
+</template>
