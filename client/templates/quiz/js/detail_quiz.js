@@ -23,6 +23,7 @@ Template.detailQuiz.rendered = function () {
 
 Template.detailQuiz.created = function () {
   Session.set('show_right_sidebar', false);
+  Session.set('current_quiz_id', this.data._id);
 };
 
 

@@ -14,14 +14,29 @@ Template.createQuizSidebar.rendered = function () {
 
 Template.createQuizSidebar.created = function () {
   Session.set('preview_mode', false);
+  console.log(this);
+  console.log(this.data);
+  console.log(this._id);
 };
+
+Template.createQuizSidebar.helpers({
+  detailMode: function () {
+    return Session.get('current_quiz_id') ? true : false;
+  }
+});
 
 Template.createQuizSidebar.events({
   'click .builder-option-list li': function (e) {
     $(e.currentTarget).clone().appendTo('.builder-question-list');
   },
   'click .btn-clear':function(e){
-    $('.builder-question-list').empty();
+    if(Session.get('current_quiz_id')){
+      Quizes.remove(Session.get('current_quiz_id'));
+      Router.go('listQuizes');
+    }
+    else{
+      $('.builder-question-list').empty();
+    }
   },
   'click .btn-preview':function(e){
       $('.builder-question-content').toggleClass('preview-template');
@@ -138,17 +153,31 @@ Template.createQuizSidebar.events({
     // get topics if any were selected - { 'title' : title, '_id' : id }
     var quizTopics = JSON.parse(Session.get('quiz_topics'));
 
-    var quiz = {
-      'title': title,
-      'questions':questions,
-      'description':tplDescription,
-      'created': moment().toDate(),
-      'userId': Meteor.userId(),
-      'topics': quizTopics
+    if(Session.get('current_quiz_id')){
+      var quiz = {
+        'title': title,
+        'questions':questions,
+        'description':tplDescription,
+        'updated': moment().toDate(),
+        // 'topics': quizTopics
+      }
+      Quizes.update({'_id': Session.get('current_quiz_id')}, {
+        $set: quiz
+      });
+      Router.go('listQuizes');
+      toastr.success('Quiz has been updated', 'Success!');
     }
-    Quizes.insert( quiz );
-    // redirect and call the toastr.success on the edit page
-    Router.go('listQuizes');
-    // toastr.success('New Quiz has been created', 'Success!');
+    else{
+      var quiz = {
+        'title': title,
+        'questions':questions,
+        'description':tplDescription,
+        'created': moment().toDate(),
+        'userId': Meteor.userId(),
+        'topics': quizTopics
+      }
+      Quizes.insert( quiz );
+      Router.go('listQuizes');
+    }
   },
 });

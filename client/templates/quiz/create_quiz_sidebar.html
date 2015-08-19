@@ -15,8 +15,20 @@
     </ul>
     <div class="action-buttons-container">
       <button class='btn btn-option-list-action btn-preview'>Preview</button>
-      <button class='btn btn-option-list-action btn-save'>Save</button>
-      <button class='btn btn-option-list-action btn-clear'>Clear</button>
+      <button class='btn btn-option-list-action btn-save'>
+        {{#if detailMode}}
+        Update
+        {{else}}
+        Save
+        {{/if}}
+      </button>
+      <button class='btn btn-option-list-action btn-clear'>
+        {{#if detailMode}}
+        Delete
+        {{else}}
+        Clear
+        {{/if}}
+      </button>
     </div>
       
   </div>
