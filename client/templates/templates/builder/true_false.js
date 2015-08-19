@@ -16,3 +16,16 @@ Template.quizTrueFalse.events({
     Session.set('current_user_answer', e.currentTarget.value);
   }
 });
+
+Template.quizCreateTrueFalse.rendered = function () {
+  if(this.data && this.data.question){
+    if(this.data.answer){
+      this.$("input[name=answer]").val([1]); 
+    }
+    else{
+      this.$("input[name=answer]").val([0]); 
+    }
+     
+  }
+  
+};

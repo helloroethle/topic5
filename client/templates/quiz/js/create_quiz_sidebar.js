@@ -14,9 +14,6 @@ Template.createQuizSidebar.rendered = function () {
 
 Template.createQuizSidebar.created = function () {
   Session.set('preview_mode', false);
-  console.log(this);
-  console.log(this.data);
-  console.log(this._id);
 };
 
 Template.createQuizSidebar.helpers({
@@ -69,6 +66,7 @@ Template.createQuizSidebar.events({
       }
   },
   'click .btn-save':function(e){
+    console.log('hello');
     var $questionList = $('.builder-question-list li');
     var title = $('.template-title').val();
     if(!title || title == ''){
@@ -151,7 +149,11 @@ Template.createQuizSidebar.events({
     }
 
     // get topics if any were selected - { 'title' : title, '_id' : id }
-    var quizTopics = JSON.parse(Session.get('quiz_topics'));
+    var quizTopics = '';
+    if(Session.get('quiz_topics')){
+       quizTopics = JSON.parse(Session.get('quiz_topics'));
+    }
+    
 
     if(Session.get('current_quiz_id')){
       var quiz = {
@@ -161,10 +163,13 @@ Template.createQuizSidebar.events({
         'updated': moment().toDate(),
         // 'topics': quizTopics
       }
+      if(quizTopics){
+        quiz.topics = quizTopics;
+      }
       Quizes.update({'_id': Session.get('current_quiz_id')}, {
         $set: quiz
       });
-      Router.go('listQuizes');
+      // Router.go('listQuizes');
       toastr.success('Quiz has been updated', 'Success!');
     }
     else{
@@ -174,7 +179,9 @@ Template.createQuizSidebar.events({
         'description':tplDescription,
         'created': moment().toDate(),
         'userId': Meteor.userId(),
-        'topics': quizTopics
+      }
+      if(quizTopics){
+        quiz.topics = quizTopics;
       }
       Quizes.insert( quiz );
       Router.go('listQuizes');

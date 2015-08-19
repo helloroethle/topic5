@@ -22,6 +22,19 @@ Template.templateCheckbox.events({
   }
 });
 
+Template.quizCreateCheckbox.rendered = function () {
+  if(this.data.answer){
+    var myAnswers = this.data.answer.split(',');
+    var $options = this.$('div.option-item');
+    $options.each(function(index, item){
+      var itemText = $(item).find('.item-checkbox-text').val();
+      if(_.indexOf(myAnswers, itemText) >= 0){
+        $(item).find('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+      }
+    }); 
+  }
+};
+
 Template.quizCheckbox.events({
 'click .prompt-answer-container li': function (e) {
     if($(e.currentTarget).find('i').hasClass('fa-square-o')){

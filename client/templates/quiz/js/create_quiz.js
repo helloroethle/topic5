@@ -14,6 +14,12 @@ Template.createQuiz.created = function () {
   Session.set('is_detail_quiz', true);
   Session.set('show_right_sidebar', false);
   Session.set('progress', 0);
+  if(this.data && this.data._id){
+    Session.set('current_quiz_id', this.data._id);
+  }
+  else{
+    Sesion.set('current_quiz_id', '');
+  }
 };
 
 Template.createQuiz.events({
