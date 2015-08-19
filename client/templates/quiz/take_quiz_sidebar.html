@@ -28,14 +28,16 @@
         <label>Incorrect:</label>
         <span>{{questionsIncorrect}}</span>
       </div> -->
+      <!-- {{#if isRetake}} -->
       <h3 class='quiz-quick-jump-header'>Questions</h3>
       <div class="quiz-quick-jump">
         <ul id="quick-jump" class='clearfix'>
-        {{#each addIndexOne questions}}
-            <li>{{index}}</li>
+        {{#each quickJump}}
+            <li>{{this}}</li>
         {{/each}}
         </ul>
       </div>
+      <!-- {{/if}} -->
     </div>
     <div class="quiz-actions">
       <button class="restart quiz-action-button">

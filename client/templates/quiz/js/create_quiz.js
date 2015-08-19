@@ -1,5 +1,5 @@
 Template.createQuiz.rendered = function () {
-  Sortable.create($('.builder-question-list').get(0), 
+  this.sort = Sortable.create($('.builder-question-list').get(0), 
     {
       group: {
         name : 'builder',
@@ -10,6 +10,10 @@ Template.createQuiz.rendered = function () {
   );
 };
 
+Template.createQuiz.destroyed = function () {
+  this.sort.destroy();
+};
+
 Template.createQuiz.created = function () {
   Session.set('is_detail_quiz', true);
   Session.set('show_right_sidebar', false);
@@ -18,7 +22,7 @@ Template.createQuiz.created = function () {
     Session.set('current_quiz_id', this.data._id);
   }
   else{
-    Sesion.set('current_quiz_id', '');
+    Session.set('current_quiz_id', '');
   }
 };
 

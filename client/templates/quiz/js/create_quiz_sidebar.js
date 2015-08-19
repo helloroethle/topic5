@@ -1,5 +1,5 @@
 Template.createQuizSidebar.rendered = function () {
-  Sortable.create( $('.builder-option-list').get(0), 
+  this.sort = Sortable.create( $('.builder-option-list').get(0), 
     {
       group: {
         name : 'builder',
@@ -10,6 +10,10 @@ Template.createQuizSidebar.rendered = function () {
       sort : false
     }
   );
+};
+
+Template.createQuizSidebar.destroyed = function () {
+  this.sort.destroy();
 };
 
 Template.createQuizSidebar.created = function () {

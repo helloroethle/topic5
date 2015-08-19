@@ -7,6 +7,18 @@ Template.takeQuizSidebar.helpers({
   },
   questionsRemaining: function (){
     return Session.get('current_questions_remaining');
+  },
+  isRetake: function(){
+    return Session.get('retake_count');
+  },
+  quickJump: function(){
+    if(Session.get('retake_count') > 0){
+      return _.map(window.remaining, function(item) { return item + 1; });
+    }
+    else if(Session.get('total_questions') > 0){
+      return _.range(1, Session.get('total_questions') + 1);
+    }
+    return [];
   }
 });
 
@@ -25,12 +37,15 @@ Template.takeQuizSidebar.events({
     window.answers = [];
   },
   'click #quick-jump li':function(e, template){
+    if(Session.get('current_questions_remaining') == 0){
+      return false;
+    }
     if(Session.get('current_state') == 'grade'){
       toastr.error('Please mark answer as correct or incorrect');
       return;
     }
     else if(Session.get('current_state') == 'auto'){
-      Session.set('current_correct', 0);
+      Session.set('is_current_correct', 0);
       Session.set('current_state', 'answer');
     }
     $('.quiz-answer-button').show();

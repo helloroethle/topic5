@@ -1,5 +1,6 @@
 window.remaining = [];
 window.answers = [];
+window.summaries = [];
 
 Template.takeQuiz.created = function () {
   Session.set('progress', 0);
@@ -10,8 +11,14 @@ Template.takeQuiz.created = function () {
   Session.set('total_questions', this.data.questions.length);
   Session.set('start_time', moment().toString());
   Session.set('show_right_sidebar', false);
-  Session.set('current_correct', 0);
+  Session.set('is_current_correct', 0);
+  Session.set('retake_count', 0);
+  Session.set('is_detail_quiz', false);
   window.remaining = _.range(this.data.questions.length);
+};
+
+Template.takeQuiz.destroyed = function () {
+  $("body").off('keydown');
 };
 
 Template.takeQuiz.rendered = function () {
@@ -30,6 +37,9 @@ Template.takeQuiz.rendered = function () {
         smartPrevQuestion();
         updateProgress();
         Session.set('current_state', 'answer');
+      }
+      else if(Session.get('retake_count') > 0){
+        smartPrevQuestion();
       }
       // else if(Session.get('current_state') == 'answer'){
       else{
@@ -51,6 +61,9 @@ Template.takeQuiz.rendered = function () {
         updateProgress();
         Session.set('current_state', 'answer');
       }
+      else if(Session.get('retake_count') > 0){
+        smartNextQuestion();
+      }
       else{
         nextQuestion();
       }
@@ -67,6 +80,9 @@ Template.takeQuiz.helpers({
     else{
       return '';
     }
+  },
+  retakeCountLabel: function(){
+    return Session.get('retake_count') + 1;
   },
   questionData: function (){
     var index = Session.get('current_question_index');
@@ -92,7 +108,7 @@ Template.takeQuiz.helpers({
       return item.index == index;
     });
     if(answerObject){
-      Session.set('current_correct', answerObject.result ? 1 : -1);
+      Session.set('is_current_correct', answerObject.result ? 1 : -1);
       return answerObject.answer;
     }
     return '';
@@ -115,7 +131,7 @@ Template.takeQuiz.helpers({
     return Session.get('duration');
   },
   gradeColor: function(){
-    var correct = Session.get('current_correct');
+    var correct = Session.get('is_current_correct');
     if(correct == 0){
       return '';
     }
@@ -166,6 +182,7 @@ function toggleSummary(){
   console.log('toggle summary');
   $('#quiz-section').toggle();
   $('#quiz-summary').toggle();
+  window.summaries.push(_.sortBy(window.answers, function(answer){ return answer.index; }));
 }
 
 function finishQuiz(){
@@ -206,7 +223,7 @@ function smartPrevQuestion(){
     }
   }
   Session.set('current_question_index', window.remaining[prevIndex]);
-  Session.set('current_correct', 0);
+  Session.set('is_current_correct', 0);
 }
 
 function smartNextQuestion(){
@@ -223,7 +240,7 @@ function smartNextQuestion(){
     }
   }
   Session.set('current_question_index', window.remaining[nextIndex]);
-  Session.set('current_correct', 0);
+  Session.set('is_current_correct', 0);
 }
 
 function nextQuestion(){
@@ -252,7 +269,7 @@ function prevQuestion(){
       index -= 1;
     }
     Session.set('current_question_index', index);
-    Session.set('current_correct', 0);
+    Session.set('is_current_correct', 0);
 }
 
 function updateProgress(){
@@ -270,7 +287,7 @@ function markCorrect(){
   Session.set('current_questions_correct', Session.get('current_questions_correct') + 1);
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('correct');
-  Session.set('current_correct', 1);
+  Session.set('is_current_correct', 1);
   console.log(window.remaining);
   var index = Session.get('current_question_index');
   window.answers.push({
@@ -290,7 +307,7 @@ function markIncorrect(){
   Session.set('current_questions_incorrect', Session.get('current_questions_incorrect') + 1);
   Session.set('current_questions_remaining', Session.get('current_questions_remaining') - 1);
   $('#quick-jump li').eq(Session.get('current_question_index')).removeClass().addClass('incorrect');
-  Session.set('current_correct', -1);
+  Session.set('is_current_correct', -1);
   var index = Session.get('current_question_index');
   window.answers.push({
     'result' : 0,
@@ -304,19 +321,46 @@ function markIncorrect(){
   }
 }
 
-function retakeIncorrect(){
+function retakeIncorrect(template){
+  console.log(template);
+  console.log(template.data);
   console.log('retake incorrect');
     Session.set('progress', 0);
     Session.set('start_time', moment().toString());
-    Session.set('current_question_index', 0);
     Session.set('current_questions_remaining', Session.get('current_questions_incorrect')); 
+    Session.set('total_questions', Session.get('current_questions_incorrect'));
     Session.set('current_questions_correct', 0);
     Session.set('current_questions_incorrect', 0);
+    Session.set('is_current_correct', 0);
+    Session.set('retake_count', Session.get('retake_count') + 1);
     $('#quick-jump li.correct').addClass('inactive');
     $('#quiz-summary').hide();
     $('#quiz-section').show();
     homeState();
     // get incorrect indexes and populate remaining array
+    window.remaining = _.pluck(_.filter(window.answers, function(answer){ return !answer.result; }), 'index');
+    // var incorrectQuestions = [];
+    // for(var i = 0; i < template.data.questions.length; i++){
+    //   if(_.indexOf(window.remaining, i) >= 0){
+    //     incorrectQuestions.push(template.data.questions[i]);
+    //   }
+    // }
+    // template.data.questions = incorrectQuestions;
+
+    // _.each(window.remaining, function(item){
+    //   var deleteIndex = -1;
+    //   for(var i = 0; i < window.answers.length; i++){
+    //     if(window.answers[i].index == item){
+    //       deleteIndex = i;
+    //       break;
+    //     }
+    //   }
+    //   if(deleteIndex >= 0){
+    //     window.answers.splice(deleteIndex, 1);  
+    //   } 
+    window.answers = []; 
+    Session.set('current_question_index', window.remaining[0]);
+    // });
 }
 
 function retakeQuiz(){
@@ -355,7 +399,7 @@ Template.takeQuiz.events({
     }
   },
   'click .quiz-retake-incorrect': function(e, template){
-    retakeIncorrect();
+    retakeIncorrect(template);
   },
   'click .quiz-retake-all' : function(e, template){
     retakeQuiz();
