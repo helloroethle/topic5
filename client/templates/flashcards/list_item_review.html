@@ -1,0 +1,24 @@
+<template name="listItemReview">
+
+
+  <div class="blog-post">
+    <!-- <h2 class="blog-post-title"><a href="{{pathFor 'detailTemplate'}}">{{title}}</a></h2> -->
+    <h2 class="blog-post-title"><a href="{{pathFor 'reviewQuizFlashcards'}}">{{title}}</a></h2>
+    {{#if created}}<p class="blog-post-meta">Created {{prettifyDate created}}</p>{{/if}}
+    <p>{{description}}</p>
+
+    <div class="item-footer">
+<ul class='action-group clearfix'>
+
+<!--           <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Edit Quiz" href="{{pathFor 'detailQuiz'}}" class="edit-quiz"><i class="fa fa-pencil-square-o fa-fw"></i></a></li> -->
+<!--           <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Quiz Overview" href="{{pathFor 'detailQuiz'}}" class="view-quiz"><i class="fa fa-search fa-fw"></i></a></li> -->
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Review" href="{{pathFor 'takeQuiz'}}" class="pick-topic"><i class="fa fa-bolt fa-fw"></i></a></li>
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Assign to Topic" href="#" class="pick-topic"><i class="fa fa-bars fa-fw"></i></a></li>
+<!--           <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Assign to Article" href="#" class="pick-article"><i class="fa fa-history fa-fw"></i></a></li> -->
+          <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete Article" href="#" class="delete"><i class="fa fa-trash-o fa-fw"></i></a></li>
+</ul>
+    </div>
+  </div>
+  <hr>
+
+</template>

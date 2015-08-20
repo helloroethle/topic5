@@ -10,19 +10,8 @@ Template.chooseTemplateArticleSidebar.events({
     }
     e.preventDefault();
   },
-  'click .btn-save-template-assignment': function (e){
+  'click .btn-save-template-pre-assignment': function(e){
     var pre = [];
-    var post = [];
-    $('.post-template-options i.fa-check-square-o').each(function ( index ) {
-      $templateItem = $(this).parent('label');
-      var title = $templateItem.text();
-      var id = $templateItem.attr('data-template-id');
-      var templateObject = {
-        'title' : title,
-        '_id' : id
-      }
-      post.push(templateObject);
-    });
     $('.pre-template-options i.fa-check-square-o').each(function( index ) {
       $templateItem = $(this).parent('label');
       var title = $templateItem.text();
@@ -37,17 +26,31 @@ Template.chooseTemplateArticleSidebar.events({
     Articles.update({'_id': currentArticleId}, {
       $set: {
         preTemplates : pre,
+      }
+    });
+    toastr.success('Before Article Templates Have Been Assigned');
+  },
+  'click .btn-save-template-post-assignment': function (e){
+    var post = [];
+    $('.post-template-options i.fa-check-square-o').each(function ( index ) {
+      $templateItem = $(this).parent('label');
+      var title = $templateItem.text();
+      var id = $templateItem.attr('data-template-id');
+      var templateObject = {
+        'title' : title,
+        '_id' : id
+      }
+      post.push(templateObject);
+    });
+    var currentArticleId = Session.get('current_sidebar_article_id');
+    Articles.update({'_id': currentArticleId}, {
+      $set: {
         postTemplates : post
       }
     });
-    toastr.success('Templates have been assigned');
+    toastr.success('After Article Templates Have Been Assigned');
   }
 });
-
-// Template.chooseTemplateArticleSidebar.created = function () {
-//   console.log('when does this get called');
-//     $('#wrapper').addClass('toggled-right-sidebar');
-// };
 
 Template.chooseTemplateArticleSidebar.helpers({
   myTemplates: function () {

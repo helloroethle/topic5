@@ -21,13 +21,16 @@ Template.articleLayout.helpers({
     if(interactionMeta.allow_question == false){
       return 'hide';
     }
-  }
+  },
 });
 
 Template.articleLayout.rendered = function () {
   renderHighlights(this.data._id);
   Session.set('articleId', this.data._id);
+};
 
+Template.articleLayout.created = function () {
+  Session.set('choose_answer', false);
 };
 
 
@@ -316,6 +319,10 @@ Template.articleLayout.events({
     },
     'click .quiz':function(e){
       $('.question-container').toggleClass('hide');
+      Session.set('choose_answer', true);
+    },
+    'click .choose-answer':function(e){
+      Session.set('choose_answer', !Session.get('choose_answer'));
     },
     // // move to tag_modal template
     // 'click .save-tags' : function(event, template){
@@ -475,6 +482,18 @@ Template.articleLayout.events({
       else{
         input.removeClass('has-text');
       }
+    },
+    'click #sidebar-content .form-control': function(e){
+      if(Session.get('choose_answer')){
+        var key = $(e.currentTarget).attr('data-schema-key');
+        if(key && key != ''){
+          Session.set('current_answer_key', key); 
+          Session.set('choose_answer', false);
+          $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
+          $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-answer');
+        }
+      }
+
     }
 });
 

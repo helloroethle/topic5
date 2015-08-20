@@ -48,3 +48,12 @@ Template.listArticle.events({
 Template.listArticle.created = function () {
   Session.set("show_right_sidebar", true);
 };
+
+Template.listArticle.rendered = function () {
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: "toast-bottom-left",
+    preventDuplicates: true
+  };
+};

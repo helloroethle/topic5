@@ -1,0 +1,13 @@
+<template name="listReview">
+  <div class="list-article main-content">
+    <a href="{{pathFor 'createQuiz'}}" class="add">+</a>
+    <h2 class='title'>My Sets</h2>
+    <div class="topic-list">
+      {{#each quizes}}
+        {{> listItemReview}}
+      {{else}}
+      <h4>There are currently no sets to display.</h4>
+      {{/each}}
+    </div>
+  </div>
+</template>

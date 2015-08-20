@@ -63,6 +63,10 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
           doc.question = $('#sidebar-content .question-container input').val();
           doc.quiz = true;
+          var key = Session.get('current_answer_key');
+          if(key){
+            doc.answer = doc[key];
+          }
         }
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();

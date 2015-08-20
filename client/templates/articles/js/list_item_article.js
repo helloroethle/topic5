@@ -28,13 +28,9 @@ Template.listItemArticle.helpers({
   }
 });
 
-// Template.listItemArticle.rendered = function () {
-//   // console.log(this);
-// };
-
-
 Template.listItemArticle.events({
   'click .delete' : function(e){
+    // show modal for confirmation
       Articles.remove(this._id);
       toastr.success('Article Successfully Deleted');
   },
@@ -53,19 +49,22 @@ Template.listItemArticle.events({
   'click .pick-template' : function(e){
     // show sidebar with jquery
     Session.set('articleSidebarTemplateName', 'chooseTemplateArticleSidebar');
+    Session.set('current_selected_article', this);
     Session.set('current_sidebar_article_id', this._id);
     Session.set("show_right_sidebar", true);
     $("#filter").hide();
     $('#right-overlay').show();
   },
-  'click .pick-topic' : function(e){
+  'click .pick-topic, click .highlighted-topic' : function(e){
     Session.set('articleSidebarTemplateName', 'chooseTopicArticleSidebar');
+    Session.set('current_selected_article', this);
     Session.set('current_sidebar_article_id', this._id);
     Session.set("show_right_sidebar", true);
     $("#filter").hide();
     $('#right-overlay').show();
   },
   'click .tag-modal-trigger':function(e){
+    Session.set('current_selected_article', this);
     Session.set('current_tag_modal_id', this._id);
     $('#tagModal').modal();
   },
