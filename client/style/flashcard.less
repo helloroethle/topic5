@@ -14,13 +14,60 @@
 
 
 #flashcard-review{
-
+  h2{
+    color:#555;
+    text-align:center;
+    padding-top:10px;
+  }
+  .flip-container{
+    position:relative;
+    .controls{
+      width:200px;
+      margin:20px auto;
+    }
+    .arrow-right{
+      width:25px;
+      float:right;
+      font-size:30px;
+      text-align:right;
+    }
+    .arrow-left{
+      width:25px;
+      float:left;
+      font-size:30px;
+      text-align:left;
+    }
+    .review-progress-container{
+      height:10px;
+      width:100%;
+      z-index:1;
+      background-color:#e1e1e1;
+      margin-bottom:10px;
+    }
+    .review-progress{
+      z-index:2;
+      height:10px;
+      background-color:#2dbe60;
+      width:5%;
+      -webkit-transition: all 300ms ease-out 0ms;
+      -moz-transition: all 300ms ease-out 0ms;
+      -o-transition: all 300ms ease-out 0ms;
+      transition: all 300ms ease-out 0ms;
+    }
+    .review-status{
+      width:150px;
+      margin:0px auto;
+      text-align:center;
+      font-size:18px;
+      display:inline-block;
+      line-height:36px;
+    }
     .flip {
       -webkit-perspective: 800;
-       width: 600px;
-       height: 400px;
-        position: relative;
-        margin: 50px auto;
+      width: 600px;
+      height: 400px;
+      position: relative;
+      margin: 25px auto 10px;
     }
     .flip .card.flipped {
       -webkit-transform: rotatex(-180deg);
@@ -58,6 +105,7 @@ border-radius:5px;
 border-radius:5px;
       box-shadow: 1px 1px 0 #cacaca,5px 5px 16px #d4d4d4;
     }
+      }
     // display: flex;
     // justify-content: center;
     // align-items: center;     

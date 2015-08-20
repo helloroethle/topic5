@@ -1,5 +1,4 @@
 <template name="reviewFlashcards">
-  <div class="main-content">
     <div id="flashcard-review">
       <h2>Flashcard Review Main</h2>
 <!--       <div class="flip">
@@ -12,19 +11,34 @@
             </div> 
         </div> 
       </div> -->
-      <div class="flip"> 
-          <div class="card"> 
-              <div class="face front"> 
-                  Front
-              </div> 
-              <div class="face back"> 
-                  Back
-              </div> 
-          </div> 
-      </div> 
+      <div class="flip-container">
+        <div class="flip"> 
+            <div class="card"> 
+                <div class="face front"> 
+                    <h3>{{front_text}}</h3>
+                </div> 
+                <div class="face back"> 
+                    <h3>{{back_text}}</h3>
+                </div> 
+            </div> 
+        </div> 
+        <div class="controls">
+          <div class="review-progress-container">
+            <div class="review-progress"></div>    
+          </div>
+          <span class="arrow-left">
+            <i class="fa fa-caret-left"></i>
+          </span>
+          <span class="review-status">
+            ## of ##
+          </span>
+          <span class="arrow-right">
+            <i class="fa fa-caret-right"></i>
+          </span> 
+        </div>
+      </div>
 
     </div>
-  </div>
 
 </template>
 
