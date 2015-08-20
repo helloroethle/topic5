@@ -24,22 +24,23 @@
         </div> 
         <div class="controls">
           <div class="review-progress-container">
-            <div class="review-progress"></div>    
+            <div class="review-progress" style="width:{{progress}}%"></div>    
           </div>
           <span class="arrow-left">
             <i class="fa fa-caret-left"></i>
           </span>
           <span class="review-status">
-            ## of ##
+            {{current_question}} of {{total_questions}}
           </span>
           <span class="arrow-right">
             <i class="fa fa-caret-right"></i>
           </span> 
+          <div class="keyboard">
+            <i class="fa fa-keyboard-o"></i>
+          </div>
         </div>
       </div>
-
     </div>
-
 </template>
 
 

@@ -1,5 +1,38 @@
 <template name="reviewFlashcardsSidebar">
   <div id="sidebar-content">
-    <h3>Flashcard Sidebar</h3>
+    <div class="quiz-results">
+      <h3>Results</h3>
+    <ul class="list-group summary">
+      <li class="list-group-item">
+        <span class="badge">{{questionsRemaining}}</span>
+        Remaining
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{questionsCorrect}}</span>
+        Correct
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{questionsIncorrect}}</span>
+        Incorrect
+      </li>
+    </ul>
+    </div>
+    <div class="quiz-actions">
+      <button class="auto-play quiz-action-button">
+        <i class="fa fa-fw fa-play spacing-right-5"></i> Auto Play
+      </button>
+      <button class="restart quiz-action-button">
+        <i class="fa fa-fw fa-refresh spacing-right-5"></i> Restart
+      </button>
+      <button class='shuffle quiz-action-button'>
+        <i class="fa fa-fw fa-random spacing-right-5"></i> Shuffle
+      </button>
+      <button class='take-quiz quiz-action-button'>
+        <i class="fa fa-fw fa-bolt spacing-right-5"></i> Take Quiz
+      </button>
+<!--       <button class="edit quiz-action-button">
+        <i class="fa fa-pencil spacing-right-5"></i> Edit This Question
+      </button> -->
+    </div>
   </div>
 </template>
