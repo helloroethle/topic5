@@ -22,6 +22,18 @@ Template.articleLayout.helpers({
       return 'hide';
     }
   },
+  activeChooseAnswer: function (){
+     if(Session.get('choose_answer')){
+        return 'active-icon';
+     }
+     return '';
+  },
+  activeChooseQuestion: function (){
+     if(Session.get('choose_question')){
+        return 'blue-active-icon';
+     }
+     return '';
+  }
 });
 
 Template.articleLayout.rendered = function () {
@@ -31,6 +43,7 @@ Template.articleLayout.rendered = function () {
 
 Template.articleLayout.created = function () {
   Session.set('choose_answer', false);
+  Session.set('choose_question', false);
 };
 
 
@@ -222,6 +235,7 @@ function renderParagraph(paragraph, start, end, index, label){
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
+        Session.set('current_answer_key');
         var alreadyOpen = Session.get('activeCreate');
         $('.article-post').removeClass('add-highlights').removeClass('add-icons');
         $('.add-highlight, .add-icon').removeClass('active');
@@ -319,10 +333,13 @@ Template.articleLayout.events({
     },
     'click .quiz':function(e){
       $('.question-container').toggleClass('hide');
-      Session.set('choose_answer', true);
+      $('.question-container').find('.control-label').toggleClass('selected-question');
     },
     'click .choose-answer':function(e){
       Session.set('choose_answer', !Session.get('choose_answer'));
+    },
+    'click .choose-question':function(e){
+      Session.set('choose_question', !Session.get('choose_question'));
     },
     // // move to tag_modal template
     // 'click .save-tags' : function(event, template){
@@ -491,6 +508,15 @@ Template.articleLayout.events({
           Session.set('choose_answer', false);
           $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
           $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-answer');
+        }
+      }
+      else if(Session.get('choose_question')){
+        var key = $(e.currentTarget).attr('data-schema-key');
+        if(key && key != ''){
+          Session.set('current_question_key', key); 
+          Session.set('choose_question', false);
+          $('#sidebar-content .control-label.selected-answer').removeClass('selected-question');
+          $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-question');
         }
       }
 

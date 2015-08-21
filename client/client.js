@@ -60,12 +60,24 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           }
           doc.agreement_score = $('.rating-bubble.selected').text();
         }
+        if(Session.get('is_quiz')){
+          doc.question = Session.get('default_question');
+          doc.answer = Session.get('default_answer');
+          doc.quiz = true;
+        }
         if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
           doc.question = $('#sidebar-content .question-container input').val();
           doc.quiz = true;
           var key = Session.get('current_answer_key');
           if(key){
             doc.answer = doc[key];
+          }
+          else{
+            var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+            var interactionMeta = getInteractionMeta(interactionKey);
+            if(interactionMeta.allow_question){
+              doc.answer = doc[interactionMeta.answer_field];  
+            }
           }
         }
         if($('.tags-input').val() != ''){
