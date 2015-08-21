@@ -1,18 +1,19 @@
 <template name="chooseTopicQuizSidebar">
   <h5>Assign Topic To Quiz</h5>
   <div class="sidebar-selectable">
-    <div class="save-sidebar-button">
+<!--     <div class="save-sidebar-button">
       <button class='btn-save-topic-assignment'>Save</button>
-    </div>
+    </div> -->
     <div class="search">
       <input type="text" placeholder="search" class='form-control'>
     </div>
     <ul class="sidebar-menu-items choose-topics">
       {{#each myTopics}}
-      <li data-topic-id="{{_id}}">
+        {{> chooseTopicQuizMenuItem}}
+<!--       <li data-topic-id="{{_id}}">
         <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
         <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw fa-square-o"></i> {{title}}</label>
-      </li>
+      </li> -->
       {{/each}}
     </ul>        
   </div>

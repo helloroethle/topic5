@@ -16,6 +16,7 @@ Template.listItemTemplate.events({
     Session.set('right_sidebar_template_name', 'chooseTopicTemplateSidebar');
     Session.set('current_sidebar_template_id', this._id);
     Session.set("show_right_sidebar", true);
+    Session.set('current_selected_item', this);
     // $('#right-overlay').show();
   },
   'click .pick-article':function(e){

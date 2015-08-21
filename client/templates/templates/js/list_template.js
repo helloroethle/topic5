@@ -24,4 +24,11 @@ Template.listTemplate.created = function () {
   Session.set('show_right_sidebar', true);
 };
 
-
+Template.listTemplate.rendered = function () {
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: "toast-bottom-left",
+    preventDuplicates: true
+  };
+};

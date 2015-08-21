@@ -1,0 +1,6 @@
+<template name="chooseTopicTemplateMenuItem">
+  <li data-topic-id="{{_id}}">
+    <input type="checkbox" name="{{_id}}" id="{{_id}}" style="display:none;">
+    <label data-topic-id="{{_id}}" for="{{_id}}"><i class="fa fa-fw {{isSelectedClass}}"></i> {{title}}</label>
+  </li>
+</template>

@@ -27,3 +27,12 @@ Template.listQuizes.created = function () {
   Session.set('right_sidebar_template_name', 'listFilterQuizSidebar');
   Session.set('show_right_sidebar', true);
 };
+
+Template.listQuizes.rendered = function () {
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: "toast-bottom-left",
+    preventDuplicates: true
+  };
+};
