@@ -1,21 +1,33 @@
 <template name="reviewFlashcardsSidebar">
   <div id="sidebar-content">
     <div class="quiz-results">
-      <h3>Results</h3>
-    <ul class="list-group summary">
-      <li class="list-group-item">
-        <span class="badge">{{questionsRemaining}}</span>
-        Remaining
-      </li>
-      <li class="list-group-item">
-        <span class="badge">{{questionsCorrect}}</span>
-        Correct
-      </li>
-      <li class="list-group-item">
-        <span class="badge">{{questionsIncorrect}}</span>
-        Incorrect
-      </li>
-    </ul>
+      <h3>Shortcuts <i style='float:right;' class="fa fa-keyboard-o"></i></h3>
+        <ul class="list-group summary">
+          <li class="list-group-item left-shortcut">
+            <span class="badge"><i class="fa fa-arrow-left"></i></span>
+            Previous
+          </li>
+          <li class="list-group-item right-shortcut">
+            <span class="badge"><i class="fa fa-arrow-right"></i></span>
+            Next
+          </li>
+          <li class="list-group-item spacebar-shortcut">
+            <span class="badge">spacebar</span>
+            Flip
+          </li>
+          <li class="list-group-item p-shortcut">
+            <span class="badge">p</span>
+            Auto Play
+          </li>
+          <li class="list-group-item r-shortcut">
+            <span class="badge">r</span>
+            Restart
+          </li>
+          <li class="list-group-item s-shortcut">
+            <span class="badge">s</span>
+            Shuffle
+          </li>
+        </ul>
     </div>
     <div class="quiz-actions">
       <button class="auto-play quiz-action-button">
