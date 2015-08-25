@@ -10,3 +10,11 @@ Template.listItemReview.events({
   },
 
 })
+
+Template.listItemReview.rendered = function () {
+  this.$('[data-toggle="tooltip"]').tooltip();
+};
+
+Template.listItemReview.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};

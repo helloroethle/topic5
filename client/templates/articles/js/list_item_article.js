@@ -28,6 +28,15 @@ Template.listItemArticle.helpers({
   }
 });
 
+Template.listItemArticle.rendered = function () {
+  this.$('[data-toggle="tooltip"]').tooltip();
+};
+
+Template.listItemArticle.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};
+
+
 Template.listItemArticle.events({
   'click .delete' : function(e){
     // show modal for confirmation

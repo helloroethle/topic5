@@ -19,3 +19,12 @@ Template.listItemTopic.events({
       });
     }
 });
+
+
+Template.listItemTopic.rendered = function () {
+  this.$('[data-toggle="tooltip"]').tooltip();
+};
+
+Template.listItemTopic.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};

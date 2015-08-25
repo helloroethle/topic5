@@ -74,10 +74,16 @@ Template.reviewFlashcards.rendered = function () {
       right();
     }
   }); 
+
+  // this.$('[data-toggle="tooltip"]').tooltip();
+
 };
+
+
 
 Template.reviewFlashcards.destroyed = function () {
   $("body").off('keydown');
+  // this.$('[data-toggle="tooltip"]').tooltip('destroy');
 };
 
 Template.reviewFlashcards.helpers({

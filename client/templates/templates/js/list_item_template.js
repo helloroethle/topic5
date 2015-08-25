@@ -33,3 +33,11 @@ Template.listItemTemplate.helpers({
     return 'fa-heart-o';
   }
 });
+
+Template.listItemTemplate.rendered = function () {
+  this.$('[data-toggle="tooltip"]').tooltip();
+};
+
+Template.listItemTemplate.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};

@@ -1,5 +1,8 @@
 Template.reviewFlashcardsSidebar.destroyed = function () {
   $("body").off('keydown');
+  if(Session.get('autoPlayIntervalId') != 0){
+    autoplay();
+  }
 };
 
 Template.reviewFlashcardsSidebar.rendered = function () {

@@ -39,7 +39,13 @@ Template.articleLayout.helpers({
 Template.articleLayout.rendered = function () {
   renderHighlights(this.data._id);
   Session.set('articleId', this.data._id);
+  this.$('[data-toggle="tooltip"]').tooltip();
 };
+
+Template.articleLayout.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};
+
 
 Template.articleLayout.created = function () {
   Session.set('choose_answer', false);

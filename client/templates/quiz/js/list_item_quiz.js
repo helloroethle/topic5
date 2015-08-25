@@ -12,3 +12,12 @@ Template.listItemQuiz.events({
   },
 
 })
+
+
+Template.listItemQuiz.rendered = function () {
+  this.$('[data-toggle="tooltip"]').tooltip();
+};
+
+Template.listItemQuiz.destroyed = function () {
+  this.$('[data-toggle="tooltip"]').tooltip('destroy');
+};

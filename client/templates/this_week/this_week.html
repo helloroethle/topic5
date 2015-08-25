@@ -35,7 +35,8 @@
           </div>
         </div>
       {{#each currentWeek.topics}}
-        <h3>
+        {{> listItemThisWeek}}
+<!--         <h3>
           <a href="{{pathFor 'detailTopic'}}">{{title}}</a>
           <ul class="list-item-action-group">
             <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Take Quiz" href="{{pathFor 'takeThisWeekTopicQuiz' _thisWeekId=currentWeek._id _id=this._id}}" class="view-quiz"><i class="fa fa-bolt fa-fw"></i></a></li>
@@ -43,7 +44,7 @@
             <li><a data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete" href="#" class="delete"><i class="fa fa-trash-o fa-fw"></i></a></li>
           </ul>
           <span class="number-badge">{{count}}</span>
-        </h3>
+        </h3> -->
       {{/each}}
     </div>
 <!--       <div class="topic-list">
