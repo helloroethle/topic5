@@ -7,12 +7,15 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         console.log("Insert Error:", error);
         } 
         else {
+          // clean up dom manipulation stuff
           $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
           $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
           var iconSelector = '.icon-' + (index - 1);
           this.insertDoc._id = this.docId;
+          // update so change so i do not repeatedly do this stupidness
           var interactionKey = this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
           var interactionObject = {
@@ -25,22 +28,24 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail'),
             'quiz' : interactionMeta.quiz,
-            'userId': Meteor.userId()
+            'userId': Meteor.userId(),
+            // 'highlight':window.highlighter.serialize()
           }
-          if(Session.get('highlighted_text')){
-            interactionObject.paragraph_start = Session.get('paragraph_start');
-            interactionObject.highlight_start = Session.get('highlight_start'); 
-            interactionObject.highlight_length = Session.get('highlighted_text').length;         
-          }
+          // if(Session.get('highlighted_text')){
+          //   interactionObject.paragraph_start = Session.get('paragraph_start');
+          //   interactionObject.highlight_start = Session.get('highlight_start'); 
+          //   interactionObject.highlight_length = Session.get('highlighted_text').length;         
+          // }
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
           Interactions.insert( interactionObject );
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).data('offset', interactionObject.highlight_start).data('length', interactionObject.highlight_length);
-          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1).removeClass('current');
+          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);//.data('offset', interactionObject.highlight_start).data('length', interactionObject.highlight_length);
+          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).removeClass('current');//.data('index', index - 1).removeClass('current');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
+          // TODO THIS NEEDS TO BE REFACTORED - Terrible hack
           Session.set('interactionFilterKeys','hello');
         }
       }

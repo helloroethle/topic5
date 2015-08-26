@@ -9,7 +9,7 @@ Template.listInteractions.rendered = function(){
         Session.set('interactionFilterKeys', '');
       }
       else{
-        console.log('gallery reinitialized');
+        // console.log('gallery reinitialized');
         this.CBPGridGallery._init();
       }
     },this));

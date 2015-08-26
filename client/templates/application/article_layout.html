@@ -20,7 +20,7 @@
           {{#each interactionList }}
           <li>
             <a data-toggle="tooltip" data-placement="right" data-container="body" title="{{value.label}}" href="#">
-              <i data-template="create{{value.template}}" class="fa {{value.icon}}"></i>
+              <i data-template="{{value.create_template}}" data-key="{{name}}" class="fa {{value.icon}}"></i>
             </a>
           </li>
           {{/each}}

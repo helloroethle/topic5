@@ -31,7 +31,6 @@ Template.chooseTopicMenuItem.events({
     var checked = template.checked.get();
     if(checked){
       // remove from article
-      console.log('remove called');
       Articles.update({'_id': template.article._id}, 
       { $pull: { topics: {'_id':template.data._id} } });
 
@@ -40,7 +39,6 @@ Template.chooseTopicMenuItem.events({
     }
     else{
       // add to article
-      console.log('add called');
       Articles.update({'_id': template.article._id}, 
       { $addToSet: { topics: {'title': template.data.title, '_id':template.data._id} } });
 
