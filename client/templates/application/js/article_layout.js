@@ -38,21 +38,13 @@ Template.articleLayout.helpers({
 
 
 Template.articleLayout.rendered = function () {
-  // renderHighlights(this.data._id);
   if(this.data && this.data._id){
     Session.set('articleId', this.data._id);  
     this.$('[data-toggle="tooltip"]').tooltip();
   }
 
 };
-
-var renderHighlights = function(articleId){
-  // var all_interactions = Interactions.find({highlight_length:{"$exists":true}, articleId: articleId}, {sort: {highlight_length: 1}}).fetch();
-  return;
-}
-
 Template.articleLayout.destroyed = function () {
-  // removeAllHighlights();
   this.$('[data-toggle="tooltip"]').tooltip('destroy');
 };
 
@@ -66,19 +58,19 @@ Template.articleLayout.created = function () {
   Session.set('activeCreate', false);
   Session.set('disagree', false);
   Session.set('agree', false);
-  // Session.set('highlight_serialization', '');
-  Session.set('highlight_mode_bonanza', true);
+  Session.set('highlight_mode_bonanza', false);
+  Session.set('manual_highlight_called', false);
+  Session.set('previous_highlighted_text', '');
+  Session.set('highlighted_text', '');
 };
 
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
-        var hello = window.highlighter.highlightSelection("current-highlight", { containerElementId: "article-text" });
-        console.log(hello);
-        Session.set('current_answer_key', '');
-        Session.set('serialized_selection', rangy.serializeSelection());
-        console.log(Session.get('serialized_selection'));
+        // initialize states and classes
         var alreadyOpen = Session.get('activeCreate');
+        Session.set('current_answer_key', '');
+        Session.set('manual_highlight_called', true);
         $('.article-post').removeClass('add-highlights').removeClass('add-icons');
         $('.add-highlight, .add-icon').removeClass('active');
         if(!alreadyOpen){
@@ -87,18 +79,20 @@ Template.articleLayout.events({
         
         // initialize variables
         var text = "";
-        var selectionObject = {};
+        // var selectionObject = {};
         var index = Session.get('highlight_index');
         var className = '.highlight-section-' + index;
         var templateName = $(e.currentTarget).find('i').attr('data-template');
-        Session.set('templateKey', $(e.currentTarget).find('i').attr('data-key'));
+        Session.set('templateName', templateName);
+        var templateKey = $(e.currentTarget).find('i').attr('data-key');
+        Session.set('templateKey', templateKey);
+
         // UGLY - fix so don't have to do  this
-        var buttonTitle = $(e.currentTarget).data('original-title');
-        if(buttonTitle.indexOf('Disagree') > -1){
+        if(templateKey == 'disagreement'){
             Session.set('disagree', true);
             Session.set('agree', false);
         }
-        else if(buttonTitle.indexOf('Agree') > -1){
+        else if(templateKey == 'agreement'){
             Session.set('agree', true);
             Session.set('disagree', false);
         }
@@ -106,69 +100,36 @@ Template.articleLayout.events({
             Session.set('agree', false);
             Session.set('disagree', false);
         }
+        window.hltr.doHighlight();
+        var oldSelectionText = Session.get('previous_highlighted_text');
+        text = Session.get('highlighted_text');
+        // remove old highlight if the user changes the interaction selection
+        if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
+           // clearCurrentHighlight();
+           // set the new active highlighted text into the appropriate form input
+           // should instead store the kay in jQuery data and find the interaction object summary field in the meta object
+           if(templateName.indexOf('timeline') > -1){
+              $('#sidebar-content form .form-control').eq(1).val(text);
+           }
+           else{
+              $('#sidebar-content form .form-control').first().val(text);
+           }
+        }
+        if(text.length > 0){
+          index += 1;
+          Session.set('highlight_index', index);
+        }
 
-        if (window.getSelection() && window.getSelection().toString()) {
-            selectionObject = window.getSelection();
-            // $selectionNode = $(selectionObject.anchorNode);
-            // calculate the highlight start relative to the parent paragraph tag
-            // if selection is taking place within another selection
-            // var previousOffset = $selectionNode.parent().data('offset');
-            // console.log('parent offset');
-            // console.log(previousOffset);
-            // if(!previousOffset){
-            //   // if selection is later than a pervious highlight
-            //   previousOffset = $selectionNode.prev().data('offset');
-            //   if(!previousOffset){
-            //     Session.set('highlight_start', selectionObject.anchorOffset);
-            //   }
-            //   else{
-            //     var previousLength = $selectionNode.prev().data('length');
-            //     Session.set('highlight_start', selectionObject.anchorOffset + previousLength + previousOffset);
-            //   }
-            // }
-            // else{
-            //   Session.set('highlight_start', selectionObject.anchorOffset + previousOffset);
-            // }
-            text = selectionObject.toString();
-            var oldSelectionText = Session.get('highlighted_text');
-            if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
-               clearActiveHighlight(templateName, false);
-               // set the new active highlighted text into the appropriate form input
-               // should instead store the kay in jQuery data and find the interaction object summary field in the meta object
-               if(templateName.indexOf('timeline') > -1){
-                  $('#sidebar-content form .form-control').eq(1).val(text);
-               }
-               else{
-                  $('#sidebar-content form .form-control').first().val(text);
-               }
-            }
-            // see if this can't be turned into an if else instead of two ifs
-            if(!oldSelectionText || oldSelectionText.length == 0 || text != oldSelectionText){
-               highlightSelection(templateName, false);
-               // Session.set('paragraph_start', $(className).first().parents('p').index());
-               // should have used the paragraph start instead of anchorNode from selection object to calculate
-               // distance from the previous highlight offset - anchorNode is from the start of the selection so it can
-               // be lower than the end highlight (focus node)
-               index += 1;
-               Session.set('highlight_index', index);
-            }
-        }
-        // < IE 9 
-        // } else if (document.selection && document.selection.type != "Control") {
-        //     selectionObject = document.selection;
-        //     text = document.selection.createRange().text;
-        // }
-        if(!Session.get('highlighted_text')){
-            Session.set('highlighted_text', text);      
-        }
         $('#wrapper').addClass('toggled').addClass('create');
-        Session.set('templateName', templateName);
+        
         if(alreadyOpen){
           updateBookmarkIcon();
         }
     },
     'click .close, click .btn-template-close':function(e){
-      clearActiveHighlight(Session.get('templateName'),true);
+      // clearActiveHighlight(Session.get('templateName'),true);
+      clearCurrentHighlight();
+      closeSidebar();
       $('.interaction-icon.current').remove();
       $('.article-post').removeClass('add-highlights').removeClass('add-icons');
       Session.set('activeCreate', false);
@@ -259,7 +220,8 @@ Template.articleLayout.events({
       $('.add-highlight').toggleClass('active');
     },
     'mouseup .article-post.add-highlights': function(e){
-      clearActiveHighlight(Session.get('templateName'), false);
+      // clearActiveHighlight(Session.get('templateName'), false);
+      clearCurrentHighlight();
       var text = window.getSelection().toString();
       if(text && text.length > 0){
          highlightSelection('hello', true);
@@ -307,9 +269,12 @@ Template.articleLayout.events({
     },
     'click .highlight-section':function(e){
         $('#wrapper').addClass('toggled');
+        var selectedClass = 'current-selected-highlight';
+        var index = $(e.currentTarget).data('index');
+        $('.' + selectedClass).removeClass(selectedClass);
+        $('.highlight-section-' + index).addClass(selectedClass);
         var resourceId = $(e.currentTarget).data('resource');
         // var classes = $(e.currentTarget).attr("class");
-        var index = $(e.currentTarget).data('index');
         // var currentHighlightSelector = $.grep(classes.split(" "), function(v, i){
         //        return v.indexOf('highlight-section-') === 0;
         //    }).join();
@@ -382,113 +347,37 @@ function updateBookmarkIcon(){
   $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
 }
 
-function clearActiveHighlight(templateName, closeSidebar){
-   if(templateName && templateName.length > 0 && templateName.indexOf('create') > -1){
-     var highlightIndex = Session.get('highlight_index');
-     var classSelector = '.highlight-section-' + (highlightIndex - 1);
-     $(classSelector).each(function(index){
-         var offset = $(this).data('offset');
-         var text = $(this).text();//get span content
-         $(this).replaceWith(text).data('offset', offset);//replace all span with just content
-     });
-   }
-   if(closeSidebar){
-      $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-      Session.set('templateName', '');
-      Session.set('highlighted_text', '');
-   }
+function clearCurrentHighlight(){
+  var $currentHighlight = $('.current-highlight');
+  $currentHighlight.each(function(){
+    window.hltr.removeHighlights(this);
+  });
 }
 
-function highlightSelection(templateName, isActiveHighlight) {
-    var userSelection = window.getSelection().getRangeAt(0);
-    var safeRanges = getSafeRanges(userSelection);
-    for (var i = 0; i < safeRanges.length; i++) {
-        highlightRange(safeRanges[i], templateName, isActiveHighlight);
-    }
+function closeSidebar(){
+    $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+    Session.set('templateName', '');
+    Session.set('highlighted_text', '');
+    $('.current-selected-highlight').removeClass('current-selected-highlight');
 }
 
-function highlightRange(range, templateName, isActiveHighlight) {
-    var index = Session.get('highlight_index');
-    if(isActiveHighlight){
-      index--;
-    }
-    var newNode = document.createElement("span");
-    // var detailsTemplateName = templateName.replace('create', 'detail');
-    var classNames = 'highlight-section highlight-section-' + index;
-    if(Session.get('disagree')){
-        classNames = classNames + ' highlight-disagree';
-    }
-    else if(Session.get('agree')){
-        classNames = classNames + ' highlight-agree';
-    }
-    newNode.setAttribute( "class", classNames );
-    range.surroundContents(newNode);
-}
+// function clearActiveHighlight(templateName, closeSidebar){
+//    if(templateName && templateName.length > 0 && templateName.indexOf('create') > -1){
+//      var highlightIndex = Session.get('highlight_index');
+//      var classSelector = '.highlight-section-' + (highlightIndex - 1);
+//      $(classSelector).each(function(index){
+//          var offset = $(this).data('offset');
+//          var text = $(this).text();//get span content
+//          $(this).replaceWith(text).data('offset', offset);//replace all span with just content
+//      });
+//    }
+//    if(closeSidebar){
+//       $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+//       Session.set('templateName', '');
+//       Session.set('highlighted_text', '');
+//    }
+// }
 
-function getSafeRanges(dangerous) {
-    var a = dangerous.commonAncestorContainer;
-    // Starts -- Work inward from the start, selecting the largest safe range
-    var safe = new Array(0), rs = new Array(0);
-    if (dangerous.startContainer != a){
-      for(var i = dangerous.startContainer; i != a; i = i.parentNode){
-        safe.push(i);
-      }
-    }
-    if (0 < safe.length) for(var i = 0; i < safe.length; i++) {
-        var xs = document.createRange();
-        if (i) {
-            xs.setStartAfter(safe[i-1]);
-            xs.setEndAfter(safe[i].lastChild);
-        }
-        else {
-            xs.setStart(safe[i], dangerous.startOffset);
-            xs.setEndAfter(
-                (safe[i].nodeType == Node.TEXT_NODE)
-                ? safe[i] : safe[i].lastChild
-            );
-        }
-        rs.push(xs);
-    }
-
-    // Ends -- basically the same code reversed
-    var e = new Array(0), re = new Array(0);
-    if (dangerous.endContainer != a)
-        for(var i = dangerous.endContainer; i != a; i = i.parentNode)
-            e.push(i)
-    ;
-    if (0 < e.length) for(var i = 0; i < e.length; i++) {
-        var xe = document.createRange();
-        if (i) {
-            xe.setStartBefore(e[i].firstChild);
-            xe.setEndBefore(e[i-1]);
-        }
-        else {
-            xe.setStartBefore(
-                (e[i].nodeType == Node.TEXT_NODE)
-                ? e[i] : e[i].firstChild
-            );
-            xe.setEnd(e[i], dangerous.endOffset);
-        }
-        re.unshift(xe);
-    }
-
-    // Middle -- the uncaptured middle
-    if ((0 < safe.length) && (0 < e.length)) {
-        var xm = document.createRange();
-        xm.setStartAfter(safe[safe.length - 1]);
-        xm.setEndBefore(e[e.length - 1]);
-    }
-    else {
-        return [dangerous];
-    }
-
-    // Concat
-    rs.push(xm);
-    response = rs.concat(re);    
-
-    // Send to Console
-    return response;
-}
 
 function toggleOverlay() {
    var $container = $('#wrapper'),

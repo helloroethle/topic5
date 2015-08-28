@@ -14,11 +14,9 @@ Template.detailConcept.helpers({
     },
     hasQuestion: function (){
       if(this.question && this.question.length > 0){
-        console.log('has question');
         return '';
       }
       else{
-        console.log('no question');
         return 'hide';
       }
     }

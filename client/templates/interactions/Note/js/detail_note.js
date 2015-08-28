@@ -4,17 +4,19 @@ Template.detailNote.events({
   }
 })
 
+Template.detailNote.destroyed = function () {
+  console.log('note destroyed');
+};
+
 Template.detailNote.helpers({
     makeUniqueID: function () {
       return "detail-form-" + this._id;
     },
     hasQuestion: function (){
       if(this.question && this.question.length > 0){
-        console.log('has question');
         return '';
       }
       else{
-        console.log('no question');
         return 'hide';
       }
     }

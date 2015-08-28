@@ -464,10 +464,12 @@
             createdHighlights,
             normalizedHighlights,
             timestamp;
-
         if(!Session.get('highlight_mode_bonanza')){
             keepRange = true;
         }    
+        if(Session.get('manual_highlight_called')){
+            keepRange = false;
+        }
 
         if (!range || range.collapsed) {
             return;
@@ -649,11 +651,24 @@
         var self = this;
 
         function shouldMerge(current, node) {
+            if(Session.get('highlight_delete_in_process')){
+                return node && node.nodeType === NODE_TYPE.ELEMENT_NODE &&
+                    haveSameColor(current, node) &&
+                    self.isHighlight(node); 
+            }
             return false;
-            // return node && node.nodeType === NODE_TYPE.ELEMENT_NODE &&
-            //     haveSameColor(current, node) &&
-            //     self.isHighlight(node);
         }
+
+        // function shouldMerge(current, node) {
+        //     if(Session.get('manual_highlight_called')){
+        //         console.log('should merge false');
+        //         return false;
+        //     }
+        //     console.log('should merge true');
+        //     return node && node.nodeType === NODE_TYPE.ELEMENT_NODE &&
+        //                     haveSameColor(current, node) &&
+        //                     self.isHighlight(node);
+        // }
 
         highlights.forEach(function (highlight) {
             var prev = highlight.previousSibling,
@@ -947,8 +962,14 @@
      */
     TextHighlighter.createWrapper = function (options) {
         var span = document.createElement('span');
-        span.style.backgroundColor = options.color;
-        span.className = options.highlightedClass;
+        // span.style.backgroundColor = options.color;
+
+        if(Session.get('highlight_mode_bonanza')){
+            span.className = 'free-highlight';
+        }
+        else{
+            span.className = options.highlightedClass;
+        }
         return span;
     };
 

@@ -30,6 +30,11 @@ Template.articleHeader.destroyed = function () {
 Template.articleHeader.events({
   'click .app-back': function () {
     history.back();
+  },
+  'click .delete-highlights': function(){
+    window.hltr.removeHighlights();
+    Articles.update({'_id': Session.get('articleId')},
+    {$set : { highlights : '' } });
   }
 });
 
@@ -39,5 +44,12 @@ Template.articleHeader.helpers({
       return 'fa-heart';
     }
     return 'fa-heart-o';
+  },
+  highlightIcon: function () {
+    if(Session.get('highlight_mode_bonanza')){
+      return 'fa-pencil-square';
+    }
+    return 'fa-pencil-square-o';
   }
+
 });

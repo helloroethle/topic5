@@ -10,6 +10,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           // clean up dom manipulation stuff
           $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
           $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+          $('.current-highlight').removeClass('current-highlight');
 
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + (index - 1);
@@ -41,12 +42,16 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           Interactions.insert( interactionObject );
           Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);//.data('offset', interactionObject.highlight_start).data('length', interactionObject.highlight_length);
-          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).removeClass('current');//.data('index', index - 1).removeClass('current');
+          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);
+          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).removeClass('current');
           Session.set('templateName', '');
           Session.set('highlighted_text', '');
           // TODO THIS NEEDS TO BE REFACTORED - Terrible hack
           Session.set('interactionFilterKeys','hello');
+          // update the higlight serialization 
+          // ideally we would tack this on as a list of strings so that the array could be updated one by one instead of sending the entire serialization string to the server
+          Articles.update({'_id': Session.get('articleId')},
+            {$set : { highlights : window.hltr.serializeHighlights() } });
         }
       }
     },
