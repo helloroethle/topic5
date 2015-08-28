@@ -35,6 +35,7 @@ Template.articleHeader.events({
     window.hltr.removeHighlights();
     Articles.update({'_id': Session.get('articleId')},
     {$set : { highlights : '' } });
+    Session.set('highlight_index', 1);
   }
 });
 

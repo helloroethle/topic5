@@ -62,6 +62,8 @@ Template.articleLayout.created = function () {
   Session.set('manual_highlight_called', false);
   Session.set('previous_highlighted_text', '');
   Session.set('highlighted_text', '');
+  Session.set('highlight_index', 1);
+  Session.set('highlight_delete_in_process', false);
 };
 
 Template.articleLayout.events({
@@ -70,6 +72,7 @@ Template.articleLayout.events({
         // initialize states and classes
         var alreadyOpen = Session.get('activeCreate');
         Session.set('current_answer_key', '');
+        // need to set so text highlighter code will treat as interaction highlight and not free highlight
         Session.set('manual_highlight_called', true);
         $('.article-post').removeClass('add-highlights').removeClass('add-icons');
         $('.add-highlight, .add-icon').removeClass('active');
@@ -79,9 +82,7 @@ Template.articleLayout.events({
         
         // initialize variables
         var text = "";
-        // var selectionObject = {};
         var index = Session.get('highlight_index');
-        var className = '.highlight-section-' + index;
         var templateName = $(e.currentTarget).find('i').attr('data-template');
         Session.set('templateName', templateName);
         var templateKey = $(e.currentTarget).find('i').attr('data-key');
@@ -103,28 +104,22 @@ Template.articleLayout.events({
         window.hltr.doHighlight();
         var oldSelectionText = Session.get('previous_highlighted_text');
         text = Session.get('highlighted_text');
-        // remove old highlight if the user changes the interaction selection
-        if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
-           // clearCurrentHighlight();
-           // set the new active highlighted text into the appropriate form input
-           // should instead store the kay in jQuery data and find the interaction object summary field in the meta object
-           if(templateName.indexOf('timeline') > -1){
-              $('#sidebar-content form .form-control').eq(1).val(text);
-           }
-           else{
-              $('#sidebar-content form .form-control').first().val(text);
-           }
-        }
-        if(text.length > 0){
-          index += 1;
-          Session.set('highlight_index', index);
-        }
+        // set the new active highlighted text into the appropriate form input
+        // move to the templates themselves
+        // if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
+        //    if(templateName.indexOf('timeline') > -1){
+        //       $('#sidebar-content form .form-control').eq(1).val(text);
+        //    }
+        //    else{
+        //       $('#sidebar-content form .form-control').first().val(text);
+        //    }
+        // }
 
-        $('#wrapper').addClass('toggled').addClass('create');
+        $('#wrapper').addClass('toggled');//.addClass('create');
         
-        if(alreadyOpen){
-          updateBookmarkIcon();
-        }
+        // if(alreadyOpen){
+        //   updateBookmarkIcon();
+        // }
     },
     'click .close, click .btn-template-close':function(e){
       // clearActiveHighlight(Session.get('templateName'),true);
@@ -166,26 +161,31 @@ Template.articleLayout.events({
       Articles.update(this._id, { $set: {'favorite': !this.favorite}});
     },
     'click .btn-template-delete':function(e){
-      $('#wrapper').removeClass('toggled').removeClass('full');
+      $('#wrapper').removeClass('toggled');//.removeClass('full');
         Session.set('activeCreate', false);
        Session.set('templateName', '');
        Session.set('highlighted_text', '');
        var index = Session.get('currentIndex');
        var currentHighlightSelector = '.highlight-section-' + index;
+       Session.set('highlight_delete_in_process', true);
       $(currentHighlightSelector).each(function(){
-         var text = $(this).text();//get span content
-         $(this).replaceWith(text);//replace all span with just content
+        window.hltr.removeHighlights(this);
+         // var text = $(this).text();//get span content
+         // $(this).replaceWith(text);//replace all span with just content
       });
+      Session.set('highlight_delete_in_process', false);
       $('.icon-' + index).remove();
       Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
+      Articles.update({'_id': Session.get('articleId')},
+            {$set : { highlights : window.hltr.serializeHighlights() } });
     },
     'click .tag-modal-trigger':function(e){
       Session.set('current_tag_modal_id', this._id);
       $('#tagModal').modal();
     },
-    'click .expand':function(e){
-        $('#wrapper').toggleClass('full');
-    },
+    // 'click .expand':function(e){
+    //     $('#wrapper').toggleClass('full');
+    // },
     'click button.overlay-close, click .show-resources':function(e){
       $('div.overlay-slide-timeline, div.overlay-slide-outline').removeClass('open');
       toggleOverlay();
@@ -214,30 +214,30 @@ Template.articleLayout.events({
         $('#wrapper').toggleClass('noscroll');
       } 
     },
-    'click .add-highlight':function(e){
-      $('.article-post').toggleClass('add-highlights').removeClass('add-icons');
-      $('.add-icon').removeClass('active');
-      $('.add-highlight').toggleClass('active');
-    },
-    'mouseup .article-post.add-highlights': function(e){
-      // clearActiveHighlight(Session.get('templateName'), false);
-      clearCurrentHighlight();
-      var text = window.getSelection().toString();
-      if(text && text.length > 0){
-         highlightSelection('hello', true);
-      }
-      if (window.getSelection) {
-        if (window.getSelection().empty) {  // Chrome
-          window.getSelection().empty();
-        } else if (window.getSelection().removeAllRanges) {  // Firefox
-          window.getSelection().removeAllRanges();
-        }
-      } else if (document.selection) {  // IE?
-        document.selection.empty();
-      }
-      $('.article-post').removeClass('add-highlights');
-      $('.add-highlight').toggleClass('active')
-    },
+    // 'click .add-highlight':function(e){
+    //   $('.article-post').toggleClass('add-highlights').removeClass('add-icons');
+    //   $('.add-icon').removeClass('active');
+    //   $('.add-highlight').toggleClass('active');
+    // },
+    // 'mouseup .article-post.add-highlights': function(e){
+    //   // clearActiveHighlight(Session.get('templateName'), false);
+    //   clearCurrentHighlight();
+    //   var text = window.getSelection().toString();
+    //   if(text && text.length > 0){
+    //      highlightSelection('hello', true);
+    //   }
+    //   if (window.getSelection) {
+    //     if (window.getSelection().empty) {  // Chrome
+    //       window.getSelection().empty();
+    //     } else if (window.getSelection().removeAllRanges) {  // Firefox
+    //       window.getSelection().removeAllRanges();
+    //     }
+    //   } else if (document.selection) {  // IE?
+    //     document.selection.empty();
+    //   }
+    //   $('.article-post').removeClass('add-highlights');
+    //   $('.add-highlight').toggleClass('active')
+    // },
     'click .add-icon':function(e){
       $('.article-post').toggleClass('add-icons').removeClass('add-highlights');
       $('.add-highlight').removeClass('active');
@@ -245,7 +245,7 @@ Template.articleLayout.events({
     },
     'click .article-post.add-icons p':function(e){
       $('.interaction-icon.current').remove();
-      var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+      var interactionKey = Session.get('templateKey');
       var interactionMeta = getInteractionMeta(interactionKey);
       var highlightIndex = Session.get('highlight_index');
       var iconClass = 'icon-' + (highlightIndex - 1);
@@ -257,9 +257,6 @@ Template.articleLayout.events({
         var resourceId = $(e.currentTarget).data('resource');
         var index = $(e.currentTarget).data('index');
         var templateName = $(e.currentTarget).data('template');
-        // var currentIconSelector = $.grep(classes.split(" "), function(v, i){
-        //        return v.indexOf('icon-') === 0;
-        //    }).join();
         Session.set('currentIndex', index);
         if(resourceId){
           Session.set('templateName', templateName);
@@ -268,9 +265,15 @@ Template.articleLayout.events({
         }
     },
     'click .highlight-section':function(e){
+        console.log('hello highlight section click');
         $('#wrapper').addClass('toggled');
         var selectedClass = 'current-selected-highlight';
         var index = $(e.currentTarget).data('index');
+        var overall_index = Session.get('highlight_index');
+        if(index == overall_index){
+          return;
+        }
+        
         $('.' + selectedClass).removeClass(selectedClass);
         $('.highlight-section-' + index).addClass(selectedClass);
         var resourceId = $(e.currentTarget).data('resource');
@@ -336,22 +339,24 @@ Template.articleLayout.events({
     }
 });
 
-function updateBookmarkIcon(){
-  var $icon = $('.interaction-icon.current');
-  var $paragraph = $icon.parent('p');
-  $icon.remove();
-  var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
-  var interactionMeta = getInteractionMeta(interactionKey);
-  var highlightIndex = Session.get('highlight_index');
-  var iconClass = 'icon-' + (highlightIndex - 1);
-  $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
-}
+// function updateBookmarkIcon(){
+//   var $icon = $('.interaction-icon.current');
+//   var $paragraph = $icon.parent('p');
+//   $icon.remove();
+//   var interactionKey = Session.get('templateKey');
+//   var interactionMeta = getInteractionMeta(interactionKey);
+//   var highlightIndex = Session.get('highlight_index');
+//   var iconClass = 'icon-' + (highlightIndex - 1);
+//   $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+// }
 
 function clearCurrentHighlight(){
   var $currentHighlight = $('.current-highlight');
+  Session.set('highlight_delete_in_process', true);
   $currentHighlight.each(function(){
     window.hltr.removeHighlights(this);
   });
+  Session.set('highlight_delete_in_process', false);
 }
 
 function closeSidebar(){

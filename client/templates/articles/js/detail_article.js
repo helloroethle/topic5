@@ -6,7 +6,7 @@ Template.detailArticle.helpers({
 });
 
 Template.detailArticle.created = function () {
-  Session.set('highlight_index',0);
+  // Session.set('highlight_index',0);
 };
 
 Template.detailArticle.rendered = function () {
@@ -21,6 +21,15 @@ Template.detailArticle.rendered = function () {
           Session.set('manual_highlight_called', false);
           Session.set('previous_highlighted_text', Session.get('highlighted_text'));
           Session.set('highlighted_text', range.toString());
+          // cleanup previous highlight since the user never saved it and left the sidebar open
+          if(!Session.equals('highlighted_text', Session.get('previous_highlighted_text'))){
+            console.log('delete previous current says hello');
+            var $currentHighlight = $('.current-highlight');
+            $currentHighlight.each(function(){
+              window.hltr.removeHighlights(this);
+            });
+          }
+
           if(range.toString().length > 0){
             return true;  
           }
@@ -40,14 +49,11 @@ Template.detailArticle.rendered = function () {
         else{
           var index = Session.get('highlight_index');
           var highlight_section_class = 'highlight-section-' + index;
-          // var $currentHighlight = $('.current-highlight');
-          // $currentHighlight.each(function(){
-          //   window.hltr.removeHighlights(this);
-          // });
           _.each(highlights, function(item){
             // check first if the section already has been highlighted
             if(item.className.indexOf('highlight-section-') == -1){
               $(item).addClass(highlight_section_class);
+              $(item).attr('data-index', index);
             }
             //.addClass('current-highlight');
             if(Session.get('disagree')){

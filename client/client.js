@@ -7,24 +7,26 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
         console.log("Insert Error:", error);
         } 
         else {
+          console.log('hello client');
           // clean up dom manipulation stuff
-          $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
+          $('#wrapper').removeClass('toggled');//.removeClass('full').removeClass('create');
           $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+          // clean up current highlight and move it to a solidified state
           $('.current-highlight').removeClass('current-highlight');
 
           var index = Session.get('highlight_index');
-          var classSelector = '.highlight-section-' + (index - 1);
-          var iconSelector = '.icon-' + (index - 1);
+          var classSelector = '.highlight-section-' + index;
+          var iconSelector = '.icon-' + index;
           this.insertDoc._id = this.docId;
           // update so change so i do not repeatedly do this stupidness
-          var interactionKey = this.formId.replace('create', '').toLowerCase();
+          var interactionKey = Session.get('templateKey'); //this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
           var interactionObject = {
             'articleId' : Session.get('articleId'),
             'resourceId' : this.docId, 
             'key' : interactionKey,
             'meta': interactionMeta,
-            'order': (index - 1),
+            'order': index,
             'outline': true,
             'show' : true,
             'detailTemplate' : this.formId.replace('create', 'detail'),
@@ -32,20 +34,18 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'userId': Meteor.userId(),
             // 'highlight':window.highlighter.serialize()
           }
-          // if(Session.get('highlighted_text')){
-          //   interactionObject.paragraph_start = Session.get('paragraph_start');
-          //   interactionObject.highlight_start = Session.get('highlight_start'); 
-          //   interactionObject.highlight_length = Session.get('highlighted_text').length;         
-          // }
+
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
           Interactions.insert( interactionObject );
-          Session.set(this.docId, this.insertDoc);
+          // Session.set(this.docId, this.insertDoc);
           var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
-          $(classSelector).data('resource', this.docId).data('template', detailsTemplateName).data('index', index - 1);
-          $(iconSelector).data('resource', this.docId).data('template', detailsTemplateName).removeClass('current');
+          $(classSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName);//.attr('data-index', index);
+          $(iconSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName).removeClass('current');
           Session.set('templateName', '');
+          Session.set('templateKey', '');
           Session.set('highlighted_text', '');
+          Session.set('highlight_index', (index + 1));
           // TODO THIS NEEDS TO BE REFACTORED - Terrible hack
           Session.set('interactionFilterKeys','hello');
           // update the higlight serialization 
