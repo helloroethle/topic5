@@ -17,10 +17,13 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           var index = Session.get('highlight_index');
           var classSelector = '.highlight-section-' + index;
           var iconSelector = '.icon-' + index;
+          var iconParagraph = $('#article-text p').index($(iconSelector).first().parents('p'))
+          var iconClasses = $(iconSelector)[0].classList.toString();
           this.insertDoc._id = this.docId;
           // update so change so i do not repeatedly do this stupidness
           var interactionKey = Session.get('templateKey'); //this.formId.replace('create', '').toLowerCase();
           var interactionMeta = getInteractionMeta(interactionKey);
+          var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           var interactionObject = {
             'articleId' : Session.get('articleId'),
             'resourceId' : this.docId, 
@@ -34,12 +37,17 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             'userId': Meteor.userId(),
             // 'highlight':window.highlighter.serialize()
           }
+          var iconObject = {
+            'index' : iconParagraph,
+            'class' : iconClasses,
+            'resource' : this.docId,
+            'template' : detailsTemplateName
+          }
 
           interactionObject = _.extend(interactionObject, this.insertDoc);
           delete interactionObject['_id'];
           Interactions.insert( interactionObject );
           // Session.set(this.docId, this.insertDoc);
-          var detailsTemplateName = Session.get('templateName').replace('create', 'detail');
           $(classSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName);//.attr('data-index', index);
           $(iconSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName).removeClass('current');
           Session.set('templateName', '');
@@ -52,6 +60,10 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           // ideally we would tack this on as a list of strings so that the array could be updated one by one instead of sending the entire serialization string to the server
           Articles.update({'_id': Session.get('articleId')},
             {$set : { highlights : window.hltr.serializeHighlights() } });
+
+          // add to article icon array
+          Articles.update({'_id': Session.get('articleId')}, 
+            { $addToSet: { icons:  iconObject} });
         }
       }
     },
@@ -137,6 +149,7 @@ AutoForm.addHooks(['createArticle'], {
           }
           else {
             $('#wrapper').removeClass('toggled');
+            $('.current-selected-highlight').removeClass('current-selected-highlight');
             Session.set('templateName', '');
             // var interaction = Interactions.findOne({resourceId: this.docId});
             var interactionUpdate = this.updateDoc;

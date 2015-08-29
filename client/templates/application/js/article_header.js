@@ -32,10 +32,20 @@ Template.articleHeader.events({
     history.back();
   },
   'click .delete-highlights': function(){
-    window.hltr.removeHighlights();
+    if(Session.get('free_highlights_selected') > 0){
+      $('.selected-free').each(function(){
+        window.hltr.removeHighlights(this);
+      })
+    }
+    else{
+      $('.free-highlight').each(function(){
+        window.hltr.removeHighlights(this);
+      })
+    }
     Articles.update({'_id': Session.get('articleId')},
     {$set : { highlights : '' } });
-    Session.set('highlight_index', 1);
+    // Session.set('highlight_index', 1);
+    Session.set('free_highlights_selected', 0);
   }
 });
 
@@ -51,6 +61,18 @@ Template.articleHeader.helpers({
       return 'fa-pencil-square';
     }
     return 'fa-pencil-square-o';
+  },
+  deleteIcon: function () {
+    if(Session.get('free_highlights_selected')){
+      return 'fa-trash'
+    }
+    return 'fa-trash-o';
+  },
+  selectedNotes: function (){
+    if(Session.get('free_highlights_selected') > 0){
+      return Session.get('free_highlights_selected');
+    }
+    return '';
   }
 
 });

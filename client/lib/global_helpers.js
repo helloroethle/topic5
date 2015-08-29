@@ -153,7 +153,7 @@ interactionMeta = {
     'quiz_auto_grade' : false
   },
   'responsequiz' : {
-    'label' : 'Response Quiz',
+    'label' : 'General Question',
     'icon' : 'fa-bullhorn',
     'template' : 'ResponseQuiz',
     'create_template' : 'createResponseQuiz',
@@ -197,21 +197,21 @@ interactionMeta = {
     'allow_question':false,
     'quiz_auto_grade' : true
   },
-  'flashcard' : {
-    'label' : 'Flashcard',
-    'icon' : 'fa-list-alt',
-    'template' : 'FlashCard',
-    'create_template' : 'createFlashCard',
-    'quiz_template' : 'quizFlashCard',
-    'display_fields' : [],
-    'summary_field' : 'front_text',
-    'secondary_field' : 'back_text',
-    'outline' : true,
-    'collection' : '',
-    'quiz':true,
-    'allow_question':false,
-    'quiz_auto_grade' : false
-  },
+  // 'flashcard' : {
+  //   'label' : 'Flashcard',
+  //   'icon' : 'fa-list-alt',
+  //   'template' : 'FlashCard',
+  //   'create_template' : 'createFlashCard',
+  //   'quiz_template' : 'quizFlashCard',
+  //   'display_fields' : [],
+  //   'summary_field' : 'front_text',
+  //   'secondary_field' : 'back_text',
+  //   'outline' : true,
+  //   'collection' : '',
+  //   'quiz':true,
+  //   'allow_question':false,
+  //   'quiz_auto_grade' : false
+  // },
   'idea' : {
     'label' : 'New Idea',
     'icon' : 'fa-info-circle',

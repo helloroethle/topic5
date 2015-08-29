@@ -76,4 +76,12 @@ Template.detailArticle.rendered = function () {
     window.hltr.removeHighlights();
     window.hltr.deserializeHighlights(this.data.highlights);
   }
+
+  if(this.data && this.data.icons && this.data.icons.length > 0){
+    _.each(this.data.icons, function(item){
+      var p = $('#article-text p')[item.index];
+      $(p).append(' <i data-template="' + item.template + '" data-resource="' + item.resource + '" class="interaction-icon current fa ' + item.class + '"></i> ');
+    });
+  }
+
 };
