@@ -402,6 +402,7 @@ function closeSidebar(){
     Session.set('templateName', '');
     Session.set('highlighted_text', '');
     $('.current-selected-highlight').removeClass('current-selected-highlight');
+    Session.set('manual_highlight_called', false);
 }
 
 // function clearActiveHighlight(templateName, closeSidebar){
