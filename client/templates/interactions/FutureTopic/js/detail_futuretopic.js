@@ -11,5 +11,13 @@ Template.detailFutureTopic.rendered = function(){
 Template.detailFutureTopic.helpers({
     makeUniqueID: function () {
       return "detail-form-" + this._id;
+    },
+    hasTags: function (){
+      if(this.tags && this.tags.length > 0){
+        return '';
+      }
+      else{
+        return 'hide';
+      }
     }
 });

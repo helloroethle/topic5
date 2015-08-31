@@ -7,6 +7,14 @@ Template.detailArticle.helpers({
 
 Template.detailArticle.created = function () {
   // Session.set('highlight_index',0);
+  if(this.data.highlightIndex > 0){
+    console.log('set highlight index');
+    Session.set('highlight_index', this.data.highlightIndex);
+    console.log(this.data.highlightIndex);
+  }
+  else{
+    Session.set('highlight_index', 1);
+  }
 };
 
 Template.detailArticle.rendered = function () {
@@ -23,7 +31,6 @@ Template.detailArticle.rendered = function () {
           Session.set('highlighted_text', range.toString());
           // cleanup previous highlight since the user never saved it and left the sidebar open
           if(!Session.equals('highlighted_text', Session.get('previous_highlighted_text'))){
-            console.log('delete previous current says hello');
             var $currentHighlight = $('.current-highlight');
             $currentHighlight.each(function(){
               window.hltr.removeHighlights(this);
@@ -54,13 +61,13 @@ Template.detailArticle.rendered = function () {
             if(item.className.indexOf('highlight-section-') == -1){
               $(item).addClass(highlight_section_class);
               $(item).attr('data-index', index);
-            }
-            //.addClass('current-highlight');
-            if(Session.get('disagree')){
-                $(item).addClass('highlight-disagree');
-            }
-            else if(Session.get('agree')){
-                $(item).addClass('highlight-agree');
+              //.addClass('current-highlight');
+              if(Session.get('disagree')){
+                  $(item).addClass('highlight-disagree');
+              }
+              else if(Session.get('agree')){
+                  $(item).addClass('highlight-agree');
+              }              
             }
           });
         }
@@ -80,7 +87,7 @@ Template.detailArticle.rendered = function () {
   if(this.data && this.data.icons && this.data.icons.length > 0){
     _.each(this.data.icons, function(item){
       var p = $('#article-text p')[item.index];
-      $(p).append(' <i data-template="' + item.template + '" data-resource="' + item.resource + '" class="interaction-icon current fa ' + item.class + '"></i> ');
+      $(p).append(' <i data-template="' + item.template + '" data-key="' + item.key + '" data-resource="' + item.resource + '" class="interaction-icon fa ' + item.class + '"></i> ');
     });
   }
 

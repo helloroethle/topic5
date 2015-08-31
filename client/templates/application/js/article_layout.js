@@ -19,27 +19,28 @@ Template.articleLayout.helpers({
     var interactionKey = Session.get('templateKey');
     var interactionMeta = getInteractionMeta(interactionKey);
     if(!interactionMeta || interactionMeta.allow_question == false){
-      return 'hide';
+      return false;
     }
+    return true;
   },
   showAnswer: function(){
     if(Session.equals('is_quiz_question', true)){
-      return '';
+      return true;
     }
-    return 'hide';
+    return false;
   },
   activeChooseAnswer: function (){
      if(Session.get('choose_answer')){
-        return 'active-icon';
+        return '';
      }
-     return '';
+     return 'active-icon';
   },
-  // activeChooseQuestion: function (){
-  //    if(Session.get('choose_question')){
-  //       return 'blue-active-icon';
-  //    }
-  //    return '';
-  // }
+  activeQuestion: function (){
+    if(Session.equals('is_quiz_question', true)){
+      return 'blue-active-icon';
+    }
+    return '';
+  }
 });
 
 
@@ -88,7 +89,6 @@ Template.articleLayout.events({
         if(!alreadyOpen){
           Session.set('activeCreate', true);
         }
-        
         // initialize variables
         var text = "";
         var index = Session.get('highlight_index');
@@ -96,7 +96,6 @@ Template.articleLayout.events({
         Session.set('templateName', templateName);
         var templateKey = $(e.currentTarget).find('i').attr('data-key');
         Session.set('templateKey', templateKey);
-
         // UGLY - fix so don't have to do  this
         if(templateKey == 'disagreement'){
             Session.set('disagree', true);
@@ -123,19 +122,18 @@ Template.articleLayout.events({
         //       $('#sidebar-content form .form-control').first().val(text);
         //    }
         // }
-
         $('#wrapper').addClass('toggled');//.addClass('create');
         
-        // if(alreadyOpen){
-        //   updateBookmarkIcon();
-        // }
+        if(alreadyOpen){
+          updateBookmarkIcon();
+        }
     },
     'click .close, click .btn-template-close':function(e){
       // clearActiveHighlight(Session.get('templateName'),true);
       clearCurrentHighlight();
       closeSidebar();
       $('.interaction-icon.current').remove();
-      $('.article-post').removeClass('add-highlights').removeClass('add-icons');
+      $('.article-post').removeClass('add-icons');
       Session.set('activeCreate', false);
     },
     'click .tag-trigger':function(e){
@@ -146,21 +144,21 @@ Template.articleLayout.events({
     },
     'click .quiz':function(e){
       $('.question-container').toggleClass('hide');
-      $('.question-container').find('.control-label').toggleClass('selected-question');
-      Session.set('choose_answer', !Session.get('choose_answer'));
+      // select the default answer field. 
+      Session.set('choose_answer', false);
+      var interactionKey = Session.get('templateKey');
+      var interactionMeta = getInteractionMeta(interactionKey);
+      var key = interactionMeta.answer_field;
+      $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
+      $('#sidebar-content [name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+      Session.set('current_answer_key', key); 
       Session.set('is_quiz_question', !Session.get('is_quiz_question'));
     },
     'click .choose-answer':function(e){
       Session.set('choose_answer', !Session.get('choose_answer'));
     },
-    'click .choose-question':function(e){
-      Session.set('choose_question', !Session.get('choose_question'));
-    },
-    // // move to tag_modal template
-    // 'click .save-tags' : function(event, template){
-    //     allTags = $('.article-tags-input').val().split(',');
-    //     Articles.update(this._id, { $set: {'tags': allTags}});
-    //     $('#tagModal').modal('hide');
+    // 'click .choose-question':function(e){
+    //   Session.set('choose_question', !Session.get('choose_question'));
     // },
     'click .show-love' : function(event, template){
       if(this.favorite){
@@ -173,17 +171,18 @@ Template.articleLayout.events({
     },
     'click .btn-template-delete':function(e){
       $('#wrapper').removeClass('toggled');//.removeClass('full');
-        Session.set('activeCreate', false);
-       Session.set('templateName', '');
-       Session.set('highlighted_text', '');
-       var index = Session.get('currentIndex');
-       var currentHighlightSelector = '.highlight-section-' + index;
-       var resource = $(currentHighlightSelector).data('resource');
-       Session.set('highlight_delete_in_process', true);
+      Session.set('activeCreate', false);
+      Session.set('templateName', '');
+      Session.set('templateKey', '');
+      Session.set('highlighted_text', '');
+      var index = Session.get('currentIndex');
+      var iconSelector = '.icon-' + index;
+      $(iconSelector).remove();
+      var currentHighlightSelector = '.highlight-section-' + index;
+      var resource = $(currentHighlightSelector).data('resource');
+      Session.set('highlight_delete_in_process', true);
       $(currentHighlightSelector).each(function(){
         window.hltr.removeHighlights(this);
-         // var text = $(this).text();//get span content
-         // $(this).replaceWith(text);//replace all span with just content
       });
       Session.set('highlight_delete_in_process', false);
       $('.interaction-icon[data-resource=' + this._id + ']').remove();
@@ -267,16 +266,17 @@ Template.articleLayout.events({
     //   $('.add-highlight').toggleClass('active')
     // },
     'click .add-icon':function(e){
-      $('.article-post').toggleClass('add-icons').removeClass('add-highlights');
-      $('.add-highlight').removeClass('active');
+      $('.article-post').toggleClass('add-icons');
       $('.add-icon').toggleClass('active');
     },
     'click .article-post.add-icons p':function(e){
+      console.log('hello add icon call');
       $('.interaction-icon.current').remove();
       var interactionKey = Session.get('templateKey');
       var interactionMeta = getInteractionMeta(interactionKey);
-      var highlightIndex = Session.get('highlight_index');
+      var highlightIndex = Session.get('currentIndex');
       var iconClass = 'icon-' + highlightIndex;
+      $('.' + iconClass).remove();
       $(e.currentTarget).append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
       $('.article-post').removeClass('add-icons');
       $('.add-icon').removeClass('active');
@@ -285,7 +285,9 @@ Template.articleLayout.events({
         var resourceId = $(e.currentTarget).data('resource');
         var index = $(e.currentTarget).data('index');
         var templateName = $(e.currentTarget).data('template');
+        var templateKey = $(e.currentTarget).data('key');
         Session.set('currentIndex', index);
+        Session.set('templateKey', templateKey);
         if(resourceId){
           Session.set('templateName', templateName);
           Session.set('currentResourceId', resourceId);
@@ -320,6 +322,7 @@ Template.articleLayout.events({
         //        return v.indexOf('highlight-section-') === 0;
         //    }).join();
         Session.set('currentIndex', index);
+        Session.set('templateKey', $(e.currentTarget).data('key'));
         if(resourceId){
            // check to make sure it isn't the current open document
            var index = Session.get('highlight_index');
@@ -345,15 +348,15 @@ Template.articleLayout.events({
     // 'focus #sidebar-content input':function(e){
     //   $(e.currentTarget).addClass('input--filled');
     // },
-    'blur #sidebar-content textarea, blur #sidebar-content input':function(e){
-      var input = $(e.currentTarget);
-      if(input.val()){
-        input.addClass('has-text');
-      }
-      else{
-        input.removeClass('has-text');
-      }
-    },
+    // 'blur #sidebar-content textarea, blur #sidebar-content input':function(e){
+    //   var input = $(e.currentTarget);
+    //   if(input.val()){
+    //     input.addClass('has-text');
+    //   }
+    //   else{
+    //     input.removeClass('has-text');
+    //   }
+    // },
     'click #sidebar-content .form-control': function(e){
       if(Session.get('choose_answer')){
         var key = $(e.currentTarget).attr('data-schema-key');
@@ -364,29 +367,28 @@ Template.articleLayout.events({
           $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-answer');
         }
       }
-      else if(Session.get('choose_question')){
-        var key = $(e.currentTarget).attr('data-schema-key');
-        if(key && key != ''){
-          Session.set('current_question_key', key); 
-          Session.set('choose_question', false);
-          $('#sidebar-content .control-label.selected-answer').removeClass('selected-question');
-          $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-question');
-        }
-      }
-
+      // else if(Session.get('choose_question')){
+      //   var key = $(e.currentTarget).attr('data-schema-key');
+      //   if(key && key != ''){
+      //     Session.set('current_question_key', key); 
+      //     Session.set('choose_question', false);
+      //     $('#sidebar-content .control-label.selected-answer').removeClass('selected-question');
+      //     $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-question');
+      //   }
+      // }
     }
 });
 
-// function updateBookmarkIcon(){
-//   var $icon = $('.interaction-icon.current');
-//   var $paragraph = $icon.parent('p');
-//   $icon.remove();
-//   var interactionKey = Session.get('templateKey');
-//   var interactionMeta = getInteractionMeta(interactionKey);
-//   var highlightIndex = Session.get('highlight_index');
-//   var iconClass = 'icon-' + (highlightIndex - 1);
-//   $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
-// }
+function updateBookmarkIcon(){
+  var $icon = $('.interaction-icon.current');
+  var $paragraph = $icon.parent('p');
+  $icon.remove();
+  var interactionKey = Session.get('templateKey');
+  var interactionMeta = getInteractionMeta(interactionKey);
+  var highlightIndex = Session.get('highlight_index');
+  var iconClass = 'icon-' + highlightIndex;
+  $paragraph.append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+}
 
 function clearCurrentHighlight(){
   var $currentHighlight = $('.current-highlight');

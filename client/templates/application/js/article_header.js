@@ -43,7 +43,7 @@ Template.articleHeader.events({
       })
     }
     Articles.update({'_id': Session.get('articleId')},
-    {$set : { highlights : '' } });
+    {$set : { highlights : window.hltr.serializeHighlights() } });
     // Session.set('highlight_index', 1);
     Session.set('free_highlights_selected', 0);
   }

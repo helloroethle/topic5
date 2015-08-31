@@ -19,6 +19,15 @@ Template.detailNote.helpers({
       else{
         return 'hide';
       }
+    },
+    hasTags: function (){
+      console.log(this.tags);
+      if(this.tags && this.tags.length > 0){
+        return '';
+      }
+      else{
+        return 'hide';
+      }
     }
 });
 

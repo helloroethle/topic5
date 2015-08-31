@@ -6,11 +6,13 @@
         <div id="sidebar-content">
           <div class="sidebar-action-buttons">
             <!-- <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Select Question Field" class='choose-question {{activeChooseQuestion}} {{showQuiz}}'><i class="fa fa-asterisk fa-fw"></i></button> -->
-            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Select Answer Field" class='choose-answer {{activeChooseAnswer}} {{showAnswer}}' draggable="true"><i class="fa-check-circle-o fa fa-fw"></i></button>
-            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Make into Quiz Question" class='quiz {{showQuiz}}'><i class="fa fa-question fa-fw"></i></button>
-            <!-- <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Expand Sidebar" class='expand'><i class="fa fa-arrows-h fa-fw"></i></button> -->
+            {{#if showAnswer}}
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Change Answer Field" class='choose-answer {{activeChooseAnswer}}' draggable="true"><i class="fa-check-circle-o fa fa-fw"></i></button>
+            {{/if}}
+            {{#if showQuiz}}
+            <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Make into Quiz Question" class='{{activeQuestion}} quiz'><i class="fa fa-question fa-fw"></i></button>
+            {{/if}}
             <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Icon" class='add-icon'><i class="fa fa-bookmark fa-fw"></i></button>
-            <!-- <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Highlight" class='add-highlight'><i class="fa fa-pencil-square fa-fw"></i></button> -->
             <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Add Tags" class="tags tag-trigger"> <i class="fa fa-tags fa-fw"></i> </button>
             <button data-toggle="tooltip" data-placement="bottom" data-container="body" title="Close Sidebar" class="close"><i class="fa fa-times-circle-o fa-fw"></i></button>
           </div>

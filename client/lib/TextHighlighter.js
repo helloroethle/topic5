@@ -901,8 +901,6 @@
             highlight = dom(hlNode).wrap(dom().fromHTML(hl.wrapper)[0]);
             highlights.push(highlight);
         }
-        console.log(hlDescriptors.length);
-        Session.set('highlight_index', hlDescriptors.length + 1);
 
         hlDescriptors.forEach(function (hlDescriptor) {
             try {

@@ -37,19 +37,21 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           }
           var iconSelector = '.icon-' + index;
           if($(iconSelector).length > 0){
+            $(iconSelector).removeClass('current');
             var iconParagraph = $('#article-text p').index($(iconSelector).first().parents('p'))
             var iconClasses = $(iconSelector)[0].classList.toString();
             var iconObject = {
               'index' : iconParagraph,
               'class' : iconClasses,
               'resource' : this.docId,
-              'template' : detailsTemplateName
+              'template' : detailsTemplateName,
+              'key' : interactionKey
             }
             // add to article icon array
             Articles.update({'_id': Session.get('articleId')}, 
               { $addToSet: { icons:  iconObject} });
 
-            $(iconSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName).removeClass('current');
+            $(iconSelector).attr('data-resource', this.docId).attr('data-key', interactionKey).attr('data-template', detailsTemplateName);
           }
 
 
@@ -57,7 +59,7 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           delete interactionObject['_id'];
           Interactions.insert( interactionObject );
           // Session.set(this.docId, this.insertDoc);
-          $(classSelector).attr('data-resource', this.docId).attr('data-template', detailsTemplateName);//.attr('data-index', index);
+          $(classSelector).attr('data-resource', this.docId).attr('data-key', Session.get('templateKey')).attr('data-template', detailsTemplateName);//.attr('data-index', index);
           Session.set('templateName', '');
           Session.set('templateKey', '');
           Session.set('highlighted_text', '');
@@ -67,7 +69,10 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           // update the higlight serialization 
           // ideally we would tack this on as a list of strings so that the array could be updated one by one instead of sending the entire serialization string to the server
           Articles.update({'_id': Session.get('articleId')},
-            {$set : { highlights : window.hltr.serializeHighlights() } });
+            {
+              $inc: {  "highlightIndex": 1 },
+              $set : { highlights : window.hltr.serializeHighlights() } 
+            });
         }
       }
     },
@@ -147,6 +152,7 @@ AutoForm.addHooks(['createArticle'], {
   AutoForm.addHooks(null, {
     after: {
       update: function(error, result) {
+        console.log('updated');
         if(this.formId.indexOf("detail") > -1){
           if(error){
             console.log("Update Error:", error);
@@ -154,7 +160,11 @@ AutoForm.addHooks(['createArticle'], {
           else {
             $('#wrapper').removeClass('toggled');
             $('.current-selected-highlight').removeClass('current-selected-highlight');
+            var templateName = Session.get('templateName').replace('create', 'detail');
+            var templateKey = Session.get('templateKey');
+            var index = Session.get('currentIndex');
             Session.set('templateName', '');
+            Session.set('templateKey', '');
             // var interaction = Interactions.findOne({resourceId: this.docId});
             var interactionUpdate = this.updateDoc;
             console.log(this.updateDoc);
@@ -165,6 +175,29 @@ AutoForm.addHooks(['createArticle'], {
             if(interactionObject && interactionObject._id){
               console.log(Interactions.update({'_id': interactionObject._id}, interactionUpdate ));
             }
+
+            // process any icon update
+            var iconSelector = '.icon-' + index;
+            if($(iconSelector).length > 0){
+              $(iconSelector).removeClass('current');
+              var iconParagraph = $('#article-text p').index($(iconSelector).first().parents('p'))
+              var iconClasses = $(iconSelector)[0].classList.toString();
+              var iconObject = {
+                'index' : iconParagraph,
+                'class' : iconClasses,
+                'resource' : this.docId,
+                'template' : templateName,
+                'key' : templateKey
+              }
+              // add to article icon array
+              Articles.update({'_id': Session.get('articleId')}, 
+                  { $pull: { icons: {'resource':this.docId} } });
+              Articles.update({'_id': Session.get('articleId')}, 
+                { $addToSet: { icons:  iconObject} });
+              $(iconSelector).attr('data-resource', this.docId).attr('data-key', templateKey).attr('data-template', templateName);
+            }
+
+
             // console.log(Interactions.update({'resourceId': this.docId}, {$set: interactionUpdate}));
             // Session.set(this.docId, this.updateDoc);
           }
@@ -174,14 +207,16 @@ AutoForm.addHooks(['createArticle'], {
     },
     before: {
       insert: function(doc){
+        console.log('hello reaching this point');
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();
         }
         return doc; 
       },
       update: function(doc){
+        console.log('hello reaching this update point');
         if($('.tags-input').val() != ''){
-          doc.tags = $('.tags-input').val();
+          doc.$set.tags = $('.tags-input').val();
         }
         return doc; 
       }

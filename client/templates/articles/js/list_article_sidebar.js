@@ -123,10 +123,11 @@ Template.listArticleSidebar.created = function () {
     var self = this;
     self.my_tags = new ReactiveVar();
     Meteor.call('getTags', function (err, value) {
-        if (err)
-            console.log(err);
+        if (err){
+          console.log(err);
+        }
         else {
-            self.my_tags.set(value);
+          self.my_tags.set(value);
         }     
     });
 };

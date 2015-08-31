@@ -20,5 +20,13 @@ Template.detailReaction.helpers({
       else{
         return 'hide';
       }
+    },
+    hasTags: function (){
+      if(this.tags && this.tags.length > 0){
+        return '';
+      }
+      else{
+        return 'hide';
+      }
     }
 });
