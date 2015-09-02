@@ -279,8 +279,8 @@ interactionMeta = {
     'answer_field' : 'definition',
     'outline' : true,
     'collection' : '',
-    'quiz':true,
-    'allow_question':false,
+    'quiz':false,
+    'allow_question':true,
     'quiz_auto_grade' : false
   },
   'agreement' : {

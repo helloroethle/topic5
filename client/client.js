@@ -225,7 +225,13 @@ AutoForm.addHooks(['createArticle'], {
       },
       update: function(doc){
         console.log('update quiz update updated');
-        if(this.currentDoc.quiz == true && Session.equals('is_quiz_question', false)){
+        if(Session.get('templateName') == 'detailMCQuiz' && Session.get('mc_answer')){
+          doc.$set.answer = Session.get('mc_answer');
+        }
+        else if(Session.get('templateName') == 'detailResponseQuiz'){
+          return doc;
+        }
+        else if(this.currentDoc.quiz == true && Session.equals('is_quiz_question', false)){
           doc.$set.answer = '';
           doc.$set.key = '';
           doc.$set.question = '';

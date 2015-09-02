@@ -48,9 +48,19 @@ Template.articleLayout.rendered = function () {
     this.$('[data-toggle="tooltip"]').tooltip();
   }
 
+  $("body").keydown(function(e) {
+    if(e.keyCode == 37) { // left
+      prev();
+    }
+    else if(e.keyCode == 39) { // right
+      next();
+    }
+  });
+
 };
 Template.articleLayout.destroyed = function () {
   this.$('[data-toggle="tooltip"]').tooltip('destroy');
+  $("body").off('keydown');
 };
 
 
@@ -68,6 +78,7 @@ Template.articleLayout.created = function () {
   Session.set('highlighted_text', '');
   Session.set('highlight_delete_in_process', false);
   Session.set('free_highlights_selected', 0);
+  Session.set('keyboard_nav_index', 0);
 };
 
 Template.articleLayout.events({
@@ -356,5 +367,64 @@ function toggleOverlay() {
         $container.addClass('noscroll');
       }
    }
+}
+
+var prev = function(){
+  console.log('prev called');
+  var navIndex = Session.get('keyboard_nav_index') - 1;
+  if(navIndex < 0){
+    return false;
+  }
+  var $allHighlights = $('.highlight-section');
+  var $currentHighlight = $allHighlights.eq(navIndex);
+  while(navIndex > 0 && $currentHighlight.data('index') == $allHighlights.eq(navIndex - 1).data('index')){
+    navIndex--;
+  }
+  var currentIndex = $currentHighlight.data('index');
+  $('#wrapper').addClass('toggled');
+  var selectedClass = 'current-selected-highlight';
+  $('.' + selectedClass).removeClass(selectedClass);
+  var $highlightSelector = $('.highlight-section-' + currentIndex);
+  Session.set('keyboard_nav_index', navIndex);
+  if($highlightSelector.length > 0 && $highlightSelector.data('resource')){
+    $highlightSelector.addClass(selectedClass);
+    Session.set('templateKey', $highlightSelector.data('key'));
+    Session.set('templateName', $highlightSelector.data('template'));
+    Session.set('currentResourceId', $highlightSelector.data('resource'));
+    scroll($currentHighlight);
+  }
+}
+
+var next = function(){
+  console.log('next called');
+  var navIndex = Session.get('keyboard_nav_index') + 1;
+  var $allHighlights = $('.highlight-section');
+  if(navIndex > $allHighlights.length){
+    return false;
+  }
+  var $currentHighlight = $allHighlights.eq(navIndex);
+  var currentIndex = $currentHighlight.data('index');
+
+  while(navIndex < $allHighlights.length && $currentHighlight.data('index') == $allHighlights.eq(navIndex + 1).data('index')){
+    navIndex++;
+  }
+  $('#wrapper').addClass('toggled');
+  var selectedClass = 'current-selected-highlight';
+  $('.' + selectedClass).removeClass(selectedClass);
+  var $highlightSelector = $('.highlight-section-' + currentIndex);
+  Session.set('keyboard_nav_index', navIndex);
+  if($highlightSelector.length > 0 && $highlightSelector.data('resource')){
+    $highlightSelector.addClass(selectedClass);
+    Session.set('templateKey', $highlightSelector.data('key'));
+    Session.set('templateName', $highlightSelector.data('template'));
+    Session.set('currentResourceId', $highlightSelector.data('resource'));
+    scroll($highlightSelector);
+  }
+}
+
+function scroll($selector){
+   $('html, body').animate({
+        scrollTop: $selector.offset().top - 70
+    }, 200);
 }
 

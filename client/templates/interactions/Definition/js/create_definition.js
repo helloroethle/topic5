@@ -23,11 +23,3 @@ Template.createDefinition.rendered = function(){
   }
   $('.tags-input').tagsinput();
 }
-
-Template.createDefinition.events({
-  'click .btn-template-save': function (e, template) {
-    Session.set('is_quiz', true);
-    Session.set('default_answer', template.$('textarea[name=definition]').val());
-    Session.set('default_question', template.$('input[name=term]').val());
-  }
-});
