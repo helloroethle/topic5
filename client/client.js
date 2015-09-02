@@ -224,20 +224,27 @@ AutoForm.addHooks(['createArticle'], {
         return doc; 
       },
       update: function(doc){
-        if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
+        console.log('update quiz update updated');
+        if(this.currentDoc.quiz == true && Session.equals('is_quiz_question', false)){
+          doc.$set.answer = '';
+          doc.$set.key = '';
+          doc.$set.question = '';
+          doc.$set.quiz = false;
+        }
+        else if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
           doc.$set.question = $('#sidebar-content .question-container input').val();
           $('#sidebar-content .question-container input').val('');
           doc.$set.quiz = true;
           var key = Session.get('current_answer_key');
           if(key){
-            doc.$set.answer = doc[key];
+            doc.$set.answer = this.currentDoc[key];
             doc.$set.key = key;
           }
           else{
             var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
             var interactionMeta = getInteractionMeta(interactionKey);
             if(interactionMeta.allow_question){
-              doc.$set.answer = doc[interactionMeta.answer_field];  
+              doc.$set.answer = this.currentDoc[interactionMeta.answer_field];  
               doc.$set.key = interactionMeta.answer_field;
             }
           }

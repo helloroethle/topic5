@@ -101,30 +101,42 @@ Template.articleLayout.events({
       Session.set('highlight_mode_bonanza', !Session.get('highlight_mode_bonanza'));
     },
     'click .quiz':function(e, template){
+      // set the default answer key 
+      console.log('start of quiz question display process');
+      var interactionKey = Session.get('templateKey');
+      var interactionMeta = getInteractionMeta(interactionKey);
+      var defaultKey = interactionMeta.answer_field;
+      console.log(defaultKey);
       Session.set('choose_answer', false);
       $('.question-container').toggleClass('hide');
-      $('.question-container input').val('');
-      // two states - create and detail 
-      // two states within that - has question & does not
-      if(Session.equals('is_quiz_question', true)){
-        // hiding question field
-      }
-      else{
-        // showing question field
-        template.$('.control-label.selected-answer').removeClass('selected-answer');
-        var key = '';
-        var answer_key = Session.get('current_answer_key');
-        if(checkExists(answer_key)){
-
+      if(Session.equals('activeCreate', true)){
+        $('.question-container input').val('');
+        // in create insert mode
+        if(Session.equals('is_quiz_question', true)){
+          // remove selected answer field - green
+          Session.set('current_answer_key', '');
+          template.$('.control-label.selected-answer').removeClass('selected-answer');
         }
         else{
-          // prep the default answer field. 
-          var interactionKey = Session.get('templateKey');
-          var interactionMeta = getInteractionMeta(interactionKey);
-          key = interactionMeta.answer_field;  
-          Session.set('current_answer_key', key);   
+          // set default answer and highlight answer label
+          template.$('[name=' + defaultKey + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+          Session.set('current_answer_key', defaultKey); 
         }
-        $('#sidebar-content [name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+      }
+      else{
+        // in detail update mode
+          if(Session.equals('is_quiz_question', true)){
+            template.$('.control-label.selected-answer').removeClass('selected-answer');
+          }
+          else{
+            // will be showing question field and setting saved answer
+            var key = Session.get('current_answer_key');
+            if(checkExists(key) == false){
+              key = defaultKey;
+              Session.set('current_answer_key', key);
+            }
+            template.$('[name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+          }
       }  
       Session.set('is_quiz_question', !Session.get('is_quiz_question'));
     },

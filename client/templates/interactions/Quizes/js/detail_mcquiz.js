@@ -1,6 +1,7 @@
 Template.detailMCQuiz.rendered = function(){
   $('.tags-input').tagsinput();
   this.autorun(function () {
+    Session.set('current_answer_key', '');
     var resourceId = Session.get('currentResourceId');
     var template = this.templateInstance();
     if(template.data.answer){
