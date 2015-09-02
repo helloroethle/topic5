@@ -5,7 +5,6 @@ Template.articleLayout.helpers({
   whichData: function(){
     var resourceId = Session.get('currentResourceId');
     var interactionObject = Interactions.findOne({'resourceId': resourceId});
-  
     if(resourceId && interactionObject){
       interactionObject._id = interactionObject.resourceId;
       return interactionObject;
@@ -58,82 +57,42 @@ Template.articleLayout.destroyed = function () {
 Template.articleLayout.created = function () {
   Session.set('choose_answer', false);
   Session.set('choose_question', false);
+  Session.set('is_quiz_question', false);
   Session.set('templateName', '');
   Session.set('templateKey', '');
   Session.set('current_answer_key', '');
   Session.set('activeCreate', false);
-  Session.set('disagree', false);
-  Session.set('agree', false);
   Session.set('highlight_mode_bonanza', false);
   Session.set('manual_highlight_called', false);
   Session.set('previous_highlighted_text', '');
   Session.set('highlighted_text', '');
-  Session.set('highlight_index', 1);
   Session.set('highlight_delete_in_process', false);
   Session.set('free_highlights_selected', 0);
-  Session.set('is_quiz_question', false);
 };
 
 Template.articleLayout.events({
     'click #sidebar-nav li a': function(e) {
         e.preventDefault();
         // initialize states and classes
-        var alreadyOpen = Session.get('activeCreate');
-        Session.set('current_answer_key', '');
+        if(Session.equals('activeCreate', true)){ updateBookmarkIcon(); }
+        else{ Session.set('activeCreate', true); }
         Session.set('is_quiz_question', false);
-        // need to set so text highlighter code will treat as interaction highlight and not free highlight
+        // need to set so text highlighter plugin code will treat as interaction highlight and not free highlight
         Session.set('manual_highlight_called', true);
-        $('.article-post').removeClass('add-highlights').removeClass('add-icons');
-        $('.add-highlight, .add-icon').removeClass('active');
-        if(!alreadyOpen){
-          Session.set('activeCreate', true);
-        }
-        // initialize variables
-        var text = "";
-        var index = Session.get('highlight_index');
+        $('.article-post').removeClass('add-icons');
+        $('.add-icon').removeClass('active');
         var templateName = $(e.currentTarget).find('i').attr('data-template');
-        Session.set('templateName', templateName);
         var templateKey = $(e.currentTarget).find('i').attr('data-key');
+        var interactionMeta = getInteractionMeta(templateKey);
+        Session.set('templateName', templateName);
         Session.set('templateKey', templateKey);
-        // UGLY - fix so don't have to do  this
-        if(templateKey == 'disagreement'){
-            Session.set('disagree', true);
-            Session.set('agree', false);
-        }
-        else if(templateKey == 'agreement'){
-            Session.set('agree', true);
-            Session.set('disagree', false);
-        }
-        else{
-            Session.set('agree', false);
-            Session.set('disagree', false);
-        }
+        Session.set('currentIndex', Session.get('highlight_index'));
         window.hltr.doHighlight();
-        var oldSelectionText = Session.get('previous_highlighted_text');
-        text = Session.get('highlighted_text');
-        // set the new active highlighted text into the appropriate form input
-        // move to the templates themselves
-        // if(oldSelectionText && oldSelectionText.length > 0 && text != oldSelectionText){
-        //    if(templateName.indexOf('timeline') > -1){
-        //       $('#sidebar-content form .form-control').eq(1).val(text);
-        //    }
-        //    else{
-        //       $('#sidebar-content form .form-control').first().val(text);
-        //    }
-        // }
-        $('#wrapper').addClass('toggled');//.addClass('create');
-        
-        if(alreadyOpen){
-          updateBookmarkIcon();
-        }
+        $('#wrapper').addClass('toggled');
     },
     'click .close, click .btn-template-close':function(e){
-      // clearActiveHighlight(Session.get('templateName'),true);
       clearCurrentHighlight();
       closeSidebar();
-      $('.interaction-icon.current').remove();
-      $('.article-post').removeClass('add-icons');
-      Session.set('activeCreate', false);
     },
     'click .tag-trigger':function(e){
       $('.tag-container').toggleClass('hide');
@@ -141,68 +100,64 @@ Template.articleLayout.events({
     'click .highlight_bonanza':function(e){
       Session.set('highlight_mode_bonanza', !Session.get('highlight_mode_bonanza'));
     },
-    'click .quiz':function(e){
+    'click .quiz':function(e, template){
+      Session.set('choose_answer', false);
       $('.question-container').toggleClass('hide');
       $('.question-container input').val('');
-      // prep the default answer field. 
-      Session.set('choose_answer', false);
-      var interactionKey = Session.get('templateKey');
-      var interactionMeta = getInteractionMeta(interactionKey);
-      var key = interactionMeta.answer_field;
-      // select the default answer
-      $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
-      $('#sidebar-content [name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
-      Session.set('current_answer_key', key); 
+      // two states - create and detail 
+      // two states within that - has question & does not
+      if(Session.equals('is_quiz_question', true)){
+        // hiding question field
+      }
+      else{
+        // showing question field
+        template.$('.control-label.selected-answer').removeClass('selected-answer');
+        var key = '';
+        var answer_key = Session.get('current_answer_key');
+        if(checkExists(answer_key)){
+
+        }
+        else{
+          // prep the default answer field. 
+          var interactionKey = Session.get('templateKey');
+          var interactionMeta = getInteractionMeta(interactionKey);
+          key = interactionMeta.answer_field;  
+          Session.set('current_answer_key', key);   
+        }
+        $('#sidebar-content [name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+      }  
       Session.set('is_quiz_question', !Session.get('is_quiz_question'));
     },
     'click .choose-answer':function(e){
       Session.set('choose_answer', !Session.get('choose_answer'));
     },
-    // 'click .choose-question':function(e){
-    //   Session.set('choose_question', !Session.get('choose_question'));
-    // },
     'click .show-love' : function(event, template){
-      if(this.favorite){
-        $('.show-love i').removeClass('fa-heart').addClass('fa-heart-o');
-      }
-      else{
-        $('.show-love i').removeClass('fa-heart-o').addClass('fa-heart');
-      }
+      if(this.favorite) { replaceClass('.show-love i', 'fa-heart', 'fa-heart-o'); }
+      else{ replaceClass('.show-love i', 'fa-heart-o', 'fa-heart'); }
       Articles.update(this._id, { $set: {'favorite': !this.favorite}});
     },
     'click .btn-template-delete':function(e){
-      console.log('button delete');
-      $('#wrapper').removeClass('toggled');//.removeClass('full');
-      Session.set('activeCreate', false);
-      Session.set('templateName', '');
-      Session.set('templateKey', '');
-      Session.set('highlighted_text', '');
+      // close sidebar first to give visual look of quick response
+      // should show error toastr if error occurs
       var index = Session.get('currentIndex');
       var iconSelector = '.icon-' + index;
       $(iconSelector).remove();
       var currentHighlightSelector = '.highlight-section-' + index;
-      var resource = $(currentHighlightSelector).data('resource');
-      Session.set('highlight_delete_in_process', true);
-      $(currentHighlightSelector).each(function(){
-        window.hltr.removeHighlights(this);
-      });
-      Session.set('highlight_delete_in_process', false);
-      // $('.interaction-icon[data-resource=' + this._id + ']').remove();
+      removeClassHighlights(currentHighlightSelector);
       // this._id is the resource id in this context
       Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
       Articles.update({'_id': Session.get('articleId')},
-            {$set : { highlights : window.hltr.serializeHighlights() } });
-      // remove from article
-      Articles.update({'_id': Session.get('articleId')}, 
-      { $pull: { icons: {'resource':this._id} } });
+          {
+            $set : { highlights : window.hltr.serializeHighlights() },
+            $pull: { icons: {'resource':this._id} }
+          }
+      );
+      closeSidebar();
     },
     'click .tag-modal-trigger':function(e){
       Session.set('current_tag_modal_id', this._id);
       $('#tagModal').modal();
     },
-    // 'click .expand':function(e){
-    //     $('#wrapper').toggleClass('full');
-    // },
     'click button.overlay-close, click .show-resources':function(e){
       $('div.overlay-slide-timeline, div.overlay-slide-outline').removeClass('open');
       toggleOverlay();
@@ -243,56 +198,40 @@ Template.articleLayout.events({
           $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-answer');
         }  
     },
-    // 'click .add-highlight':function(e){
-    //   $('.article-post').toggleClass('add-highlights').removeClass('add-icons');
-    //   $('.add-icon').removeClass('active');
-    //   $('.add-highlight').toggleClass('active');
-    // },
-    // 'mouseup .article-post.add-highlights': function(e){
-    //   // clearActiveHighlight(Session.get('templateName'), false);
-    //   clearCurrentHighlight();
-    //   var text = window.getSelection().toString();
-    //   if(text && text.length > 0){
-    //      highlightSelection('hello', true);
-    //   }
-    //   if (window.getSelection) {
-    //     if (window.getSelection().empty) {  // Chrome
-    //       window.getSelection().empty();
-    //     } else if (window.getSelection().removeAllRanges) {  // Firefox
-    //       window.getSelection().removeAllRanges();
-    //     }
-    //   } else if (document.selection) {  // IE?
-    //     document.selection.empty();
-    //   }
-    //   $('.article-post').removeClass('add-highlights');
-    //   $('.add-highlight').toggleClass('active')
-    // },
     'click .add-icon':function(e){
       $('.article-post').toggleClass('add-icons');
       $('.add-icon').toggleClass('active');
     },
     'click .article-post.add-icons p':function(e){
-      console.log('hello add icon call');
-      $('.interaction-icon.current').remove();
+      console.log('debug this yo');
       var interactionKey = Session.get('templateKey');
       var interactionMeta = getInteractionMeta(interactionKey);
-      var highlightIndex = Session.get('currentIndex');
-      var iconClass = 'icon-' + highlightIndex;
-      $('.' + iconClass).remove();
-      $(e.currentTarget).append(' <i class="interaction-icon current fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+      var iconClass = 'icon-' + Session.get('currentIndex');
+      if(Session.equals('activeCreate', true)){
+        $('.interaction-icon.current').remove();
+        $(e.currentTarget).append(' <i class="interaction-icon fa current ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+      }
+      else{
+        // just append to the new paragraph 
+        if($('.' + iconClass).length > 0){
+          $('.' + iconClass).appendTo(e.currentTarget);  
+        }
+        else{
+          $(e.currentTarget).append(' <i class="interaction-icon fa ' + interactionMeta.icon + ' ' + iconClass + '"></i> ');
+        }
+      }
+      // reset add icon state to default
       $('.article-post').removeClass('add-icons');
       $('.add-icon').removeClass('active');
+      // should update the article icon array instead of having to click save on the interaction sidebar
     },
     'click .interaction-icon':function(e){
-      console.log('hello interaction icon');
+        console.log('debug interaction icon');
         var resourceId = $(e.currentTarget).data('resource');
-        var index = $(e.currentTarget).data('index');
-        var templateName = $(e.currentTarget).data('template');
-        var templateKey = $(e.currentTarget).data('key');
-        Session.set('currentIndex', index);
-        Session.set('templateKey', templateKey);
         if(resourceId){
-          Session.set('templateName', templateName);
+          Session.set('currentIndex', $(e.currentTarget).data('index'));
+          Session.set('templateKey', $(e.currentTarget).data('key'));
+          Session.set('templateName', $(e.currentTarget).data('template'));
           Session.set('currentResourceId', resourceId);
           $('#wrapper').addClass('toggled');
         }
@@ -305,80 +244,33 @@ Template.articleLayout.events({
         Session.set('free_highlights_selected', Session.get('free_highlights_selected') + 1);
       }
       var timestamp = $(e.currentTarget).data('timestamp');
-      $('.free-highlight[data-timestamp=' + timestamp + ']').toggleClass('selected-free')
+      $('.free-highlight[data-timestamp=' + timestamp + ']').toggleClass('selected-free');
     },
     'click .highlight-section':function(e){
-        console.log('hello highlight section click');
+        var currentIndex = $(e.currentTarget).data('index');
+        var overallIndex = Session.get('highlight_index');
+        if(currentIndex == overallIndex){
+          return false;
+        }
         $('#wrapper').addClass('toggled');
         var selectedClass = 'current-selected-highlight';
-        var index = $(e.currentTarget).data('index');
-        var overall_index = Session.get('highlight_index');
-        if(index == overall_index){
-          return;
-        }
-
         $('.' + selectedClass).removeClass(selectedClass);
-        $('.highlight-section-' + index).addClass(selectedClass);
-        var resourceId = $(e.currentTarget).data('resource');
-        // var classes = $(e.currentTarget).attr("class");
-        // var currentHighlightSelector = $.grep(classes.split(" "), function(v, i){
-        //        return v.indexOf('highlight-section-') === 0;
-        //    }).join();
-        Session.set('currentIndex', index);
+        $('.highlight-section-' + currentIndex).addClass(selectedClass);
+        Session.set('currentIndex', currentIndex);
         Session.set('templateKey', $(e.currentTarget).data('key'));
-        if(resourceId){
-           // check to make sure it isn't the current open document
-           var index = Session.get('highlight_index');
-           var className = 'highlight-section-' + index;
-           if( !$(e.currentTarget).hasClass(className) ){
-               var templateName = $(e.currentTarget).data('template');
-               Session.set('templateName', templateName);
-           }
-           Session.set('currentResourceId', resourceId);
-        }
+        Session.set('templateName', $(e.currentTarget).data('template'));
+        Session.set('currentResourceId', $(e.currentTarget).data('resource'));
     },
-    // 'click a.toggle-nav': function(e){
-    //   e.preventDefault();
-    //   console.log('clicked');
-    //   $('#wrapper').toggleClass('toggled');
-    //   if($('#wrapper').hasClass('toggled')){
-    //     $(e.currentTarget).find('i').removeClass().addClass('fa fa-angle-right');
-    //   }
-    //   else{
-    //     $(e.currentTarget).find('i').removeClass().addClass('fa fa-angle-left');
-    //   }
-    // },
-    // 'focus #sidebar-content input':function(e){
-    //   $(e.currentTarget).addClass('input--filled');
-    // },
-    // 'blur #sidebar-content textarea, blur #sidebar-content input':function(e){
-    //   var input = $(e.currentTarget);
-    //   if(input.val()){
-    //     input.addClass('has-text');
-    //   }
-    //   else{
-    //     input.removeClass('has-text');
-    //   }
-    // },
     'click #sidebar-content .form-control': function(e){
-      if(Session.get('choose_answer')){
+      if(Session.equals('choose_answer', true)){
         var key = $(e.currentTarget).attr('data-schema-key');
-        if(key && key != ''){
+        if(checkExists(key)){
           Session.set('current_answer_key', key); 
           Session.set('choose_answer', false);
           $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
           $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-answer');
         }
       }
-      // else if(Session.get('choose_question')){
-      //   var key = $(e.currentTarget).attr('data-schema-key');
-      //   if(key && key != ''){
-      //     Session.set('current_question_key', key); 
-      //     Session.set('choose_question', false);
-      //     $('#sidebar-content .control-label.selected-answer').removeClass('selected-question');
-      //     $(e.currentTarget).parents('.form-group').find('.control-label').addClass('selected-question');
-      //   }
-      // }
     }
 });
 
@@ -394,39 +286,48 @@ function updateBookmarkIcon(){
 }
 
 function clearCurrentHighlight(){
-  var $currentHighlight = $('.current-highlight');
+  removeClassHighlights('.current-highlight');
+}
+
+function closeSidebar(){
+    $('#wrapper').removeClass('toggled');
+    Session.set('templateName', '');
+    Session.set('templateKey', '');
+    Session.set('current_answer_key', '');
+    Session.set('currentIndex', '')
+    Session.set('highlighted_text', '');
+    Session.set('activeCreate', false);
+    $('.interaction-icon.current').remove();
+    $('.article-post').removeClass('add-icons');
+    $('.current-selected-highlight').removeClass('current-selected-highlight');
+    Session.set('manual_highlight_called', false);
+}
+
+function checkExists(field){
+  if(field && field.length > 0){
+    return true;
+  }
+  return false;
+}
+
+function removeClassHighlights(selector){
+  if(selector.indexOf('.') == -1){
+    selector = '.' + selector;
+  }
   Session.set('highlight_delete_in_process', true);
-  $currentHighlight.each(function(){
+  $(selector).each(function(){
     window.hltr.removeHighlights(this);
   });
   Session.set('highlight_delete_in_process', false);
 }
 
-function closeSidebar(){
-    $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-    Session.set('templateName', '');
-    Session.set('highlighted_text', '');
-    $('.current-selected-highlight').removeClass('current-selected-highlight');
-    Session.set('manual_highlight_called', false);
+function replaceClass(selector, remove, add){
+  // should clean parameters
+  if(selector.indexOf('.') == -1){
+    selector = '.' + selector;
+  }
+  $(selector).removeClass(remove).addClass(add);
 }
-
-// function clearActiveHighlight(templateName, closeSidebar){
-//    if(templateName && templateName.length > 0 && templateName.indexOf('create') > -1){
-//      var highlightIndex = Session.get('highlight_index');
-//      var classSelector = '.highlight-section-' + (highlightIndex - 1);
-//      $(classSelector).each(function(index){
-//          var offset = $(this).data('offset');
-//          var text = $(this).text();//get span content
-//          $(this).replaceWith(text).data('offset', offset);//replace all span with just content
-//      });
-//    }
-//    if(closeSidebar){
-//       $('#wrapper').removeClass('toggled').removeClass('full').removeClass('create');
-//       Session.set('templateName', '');
-//       Session.set('highlighted_text', '');
-//    }
-// }
-
 
 function toggleOverlay() {
    var $container = $('#wrapper'),

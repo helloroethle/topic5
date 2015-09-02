@@ -178,34 +178,34 @@ AutoForm.addHooks(['createArticle'], {
             Session.set('templateKey', '');
             // var interaction = Interactions.findOne({resourceId: this.docId});
             var interactionUpdate = this.updateDoc;
-            console.log(this.updateDoc);
             delete interactionUpdate['_id'];
             delete interactionUpdate['resourceId'];
             var interactionObject = Interactions.findOne({'resourceId': this.docId});
-            console.log(interactionUpdate);
             if(interactionObject && interactionObject._id){
-              console.log(Interactions.update({'_id': interactionObject._id}, interactionUpdate ));
+              Interactions.update({'_id': interactionObject._id}, interactionUpdate );
             }
 
             // process any icon update
+            console.log('this is icon update section');
             var iconSelector = '.icon-' + index;
             if($(iconSelector).length > 0){
+              $(iconSelector).attr('data-resource', this.docId).attr('data-key', templateKey).attr('data-template', templateName).attr('data-index', index);
               $(iconSelector).removeClass('current');
               var iconParagraph = $('#article-text p').index($(iconSelector).first().parents('p'))
               var iconClasses = $(iconSelector)[0].classList.toString();
               var iconObject = {
-                'index' : iconParagraph,
+                'paragraph_index' : iconParagraph,
                 'class' : iconClasses,
                 'resource' : this.docId,
                 'template' : templateName,
-                'key' : templateKey
+                'key' : templateKey,
+                'highlight_index' : index
               }
               // add to article icon array
               Articles.update({'_id': Session.get('articleId')}, 
                   { $pull: { icons: {'resource':this.docId} } });
               Articles.update({'_id': Session.get('articleId')}, 
                 { $addToSet: { icons:  iconObject} });
-              $(iconSelector).attr('data-resource', this.docId).attr('data-key', templateKey).attr('data-template', templateName).attr('data-index', index);
             }
 
 

@@ -17,7 +17,6 @@ Template.detailNote.helpers({
       }
     },
     hasTags: function (){
-      console.log(this.tags);
       if(this.tags && this.tags.length > 0){
         return '';
       }
@@ -34,8 +33,9 @@ Template.detailNote.rendered = function(){
     var resourceId = Session.get('currentResourceId');
     var template = this.templateInstance();
     if(template.data.answer && template.data.answer.length > 0 && template.data.key && template.data.key.length > 0){
-        Session.set('is_quiz_question', true);
+        Session.set('is_quiz_question', true); 
         var key = template.data.key;
+        Session.set('current_answer_key', key);
         template.$('.control-label.selected-answer').removeClass('selected-answer');
         template.$('[name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
     }
