@@ -26,14 +26,14 @@ Template.createMCQuiz.rendered = function(){
 
 Template.createMCQuiz.events({
   'click .mc-answer-choice':function(e){
-    Session.set('mc_answer', ($(e.currentTarget).parents('li').index() + 1));
+    Session.set('mc_answer', $(e.currentTarget).parents('.mc-question-input-wrapper').find('input.form-control').attr('data-schema-key'));
   },
   'click .autoform-remove-item':function(e){
-    var deleteIndex = $(e.currentTarget).parents('li').index() + 1;
-    var answerIndex = Session.get('mc_answer');
-    if(deleteIndex == answerIndex){
-      console.log('answer deleted');
-      Session.set('mc_answer', null);
+    console.log('choice removed');
+    var deleteKey = $(e.currentTarget).parents('.mc-question-input-wrapper').find('input.form-control').attr('data-schema-key');
+    var answerKey = Session.get('mc_answer');
+    if(deleteKey == answerKey){
+      Session.set('mc_answer', '');
     }
   }
 })

@@ -1,6 +1,5 @@
 Template.articleLayout.helpers({
   whichOne: function () {
-    // note that we return a string - per http://docs.meteor.com/#template_dynamic
     return Session.get('templateName');
   },
   whichData: function(){
@@ -144,11 +143,13 @@ Template.articleLayout.events({
     },
     'click .quiz':function(e){
       $('.question-container').toggleClass('hide');
-      // select the default answer field. 
+      $('.question-container input').val('');
+      // prep the default answer field. 
       Session.set('choose_answer', false);
       var interactionKey = Session.get('templateKey');
       var interactionMeta = getInteractionMeta(interactionKey);
       var key = interactionMeta.answer_field;
+      // select the default answer
       $('#sidebar-content .control-label.selected-answer').removeClass('selected-answer');
       $('#sidebar-content [name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
       Session.set('current_answer_key', key); 
@@ -170,6 +171,7 @@ Template.articleLayout.events({
       Articles.update(this._id, { $set: {'favorite': !this.favorite}});
     },
     'click .btn-template-delete':function(e){
+      console.log('button delete');
       $('#wrapper').removeClass('toggled');//.removeClass('full');
       Session.set('activeCreate', false);
       Session.set('templateName', '');
@@ -185,7 +187,7 @@ Template.articleLayout.events({
         window.hltr.removeHighlights(this);
       });
       Session.set('highlight_delete_in_process', false);
-      $('.interaction-icon[data-resource=' + this._id + ']').remove();
+      // $('.interaction-icon[data-resource=' + this._id + ']').remove();
       // this._id is the resource id in this context
       Interactions.remove(Interactions.findOne({resourceId:this._id})._id);
       Articles.update({'_id': Session.get('articleId')},
@@ -282,6 +284,7 @@ Template.articleLayout.events({
       $('.add-icon').removeClass('active');
     },
     'click .interaction-icon':function(e){
+      console.log('hello interaction icon');
         var resourceId = $(e.currentTarget).data('resource');
         var index = $(e.currentTarget).data('index');
         var templateName = $(e.currentTarget).data('template');

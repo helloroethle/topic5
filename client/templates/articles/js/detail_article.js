@@ -86,8 +86,8 @@ Template.detailArticle.rendered = function () {
 
   if(this.data && this.data.icons && this.data.icons.length > 0){
     _.each(this.data.icons, function(item){
-      var p = $('#article-text p')[item.index];
-      $(p).append(' <i data-template="' + item.template + '" data-key="' + item.key + '" data-resource="' + item.resource + '" class="interaction-icon fa ' + item.class + '"></i> ');
+      var p = $('#article-text p')[item.paragraph_index];
+      $(p).append(' <i data-index="' + item.highlight_index + '" data-template="' + item.template + '" data-key="' + item.key + '" data-resource="' + item.resource + '" class="interaction-icon fa ' + item.class + '"></i> ');
     });
   }
 

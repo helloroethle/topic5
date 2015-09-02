@@ -1,24 +1,17 @@
-Template.detailMCQuiz.events({
-  'click .btn-template-delete': function(e) {
-      MCQuizes.remove(this._id);
-  }
-})
-
 Template.detailMCQuiz.rendered = function(){
   $('.tags-input').tagsinput();
+  this.autorun(function () {
+    var resourceId = Session.get('currentResourceId');
+    var template = this.templateInstance();
+    if(template.data.answer){
+      template.$('input[name="' + template.data.answer + '"]').parents('.mc-question-input-wrapper').find('.mc-answer-choice').prop('checked', true);  
+    }
+  });
 }
 
 Template.detailMCQuiz.helpers({
     makeUniqueID: function () {
       return "detail-form-" + this._id;
-    },
-    hasQuestion: function (){
-      if(this.question && this.question.length > 0){
-        return '';
-      }
-      else{
-        return 'hide';
-      }
     },
     hasTags: function (){
       if(this.tags && this.tags.length > 0){
@@ -28,4 +21,17 @@ Template.detailMCQuiz.helpers({
         return 'hide';
       }
     }
+});
+
+Template.detailMCQuiz.events({
+  'click .mc-answer-choice':function(e){
+    Session.set('mc_answer', $(e.currentTarget).parents('.mc-question-input-wrapper').find('input.form-control').attr('data-schema-key'));
+  },
+  'click .autoform-remove-item':function(e){
+    var deleteKey = $(e.currentTarget).parents('.mc-question-input-wrapper').find('input.form-control').attr('data-schema-key');
+    var answerKey = Session.get('mc_answer');
+    if(deleteKey == answerKey){
+      Session.set('mc_answer', '');
+    }
+  }
 });

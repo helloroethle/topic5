@@ -4,10 +4,6 @@ Template.detailNote.events({
   }
 })
 
-Template.detailNote.destroyed = function () {
-  console.log('note destroyed');
-};
-
 Template.detailNote.helpers({
     makeUniqueID: function () {
       return "detail-form-" + this._id;
@@ -34,4 +30,18 @@ Template.detailNote.helpers({
 
 Template.detailNote.rendered = function(){
   $('.tags-input').tagsinput();
+  this.autorun(function () {
+    var resourceId = Session.get('currentResourceId');
+    var template = this.templateInstance();
+    if(template.data.answer && template.data.answer.length > 0 && template.data.key && template.data.key.length > 0){
+        Session.set('is_quiz_question', true);
+        var key = template.data.key;
+        template.$('.control-label.selected-answer').removeClass('selected-answer');
+        template.$('[name=' + key + ']').parents('.form-group').find('.control-label').addClass('selected-answer');
+    }
+    else{
+      Session.set('is_quiz_question', false);
+    }
+  });
+
 }

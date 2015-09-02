@@ -41,17 +41,18 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
             var iconParagraph = $('#article-text p').index($(iconSelector).first().parents('p'))
             var iconClasses = $(iconSelector)[0].classList.toString();
             var iconObject = {
-              'index' : iconParagraph,
+              'paragraph_index' : iconParagraph,
               'class' : iconClasses,
               'resource' : this.docId,
               'template' : detailsTemplateName,
-              'key' : interactionKey
+              'key' : interactionKey,
+              'highlight_index' : index
             }
             // add to article icon array
             Articles.update({'_id': Session.get('articleId')}, 
               { $addToSet: { icons:  iconObject} });
 
-            $(iconSelector).attr('data-resource', this.docId).attr('data-key', interactionKey).attr('data-template', detailsTemplateName);
+            $(iconSelector).attr('data-resource', this.docId).attr('data-key', interactionKey).attr('data-template', detailsTemplateName).attr('data-index', index);
           }
 
 
@@ -78,11 +79,9 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
     },
     before: {
       insert: function(doc){
+        console.log('hello insert');
         doc.userid = Meteor.userId();
-        if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
-          doc.answer = Session.get('mc_answer')
-        }
-        if(Session.get('templateName') == 'createTimeline'){
+        if(Session.get('templateName') == 'createReaction'){
           if(Session.get('agree')){
             doc.agreement = true;
           }
@@ -91,23 +90,35 @@ AutoForm.addHooks(['createQuote', 'createCategory', 'createDefinition', 'createF
           }
           doc.agreement_score = $('.rating-bubble.selected').text();
         }
-        if(Session.get('is_quiz')){
+
+        if(Session.equals('templateName', 'createTFQuiz') || Session.equals('templateName', 'createResponseQuiz')){
+          doc.quiz = true;
+        }
+        else if(Session.get('templateName') == 'createMCQuiz' && Session.get('mc_answer')){
+          doc.answer = Session.get('mc_answer')
+          doc.quiz = true;
+        }
+        else if(Session.get('is_quiz')){
           doc.question = Session.get('default_question');
           doc.answer = Session.get('default_answer');
           doc.quiz = true;
         }
+
         if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
           doc.question = $('#sidebar-content .question-container input').val();
+          $('#sidebar-content .question-container input').val('');
           doc.quiz = true;
           var key = Session.get('current_answer_key');
           if(key){
             doc.answer = doc[key];
+            doc.key = key;
           }
           else{
             var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
             var interactionMeta = getInteractionMeta(interactionKey);
             if(interactionMeta.allow_question){
               doc.answer = doc[interactionMeta.answer_field];  
+              doc.key = interactionMeta.answer_field;
             }
           }
         }
@@ -194,7 +205,7 @@ AutoForm.addHooks(['createArticle'], {
                   { $pull: { icons: {'resource':this.docId} } });
               Articles.update({'_id': Session.get('articleId')}, 
                 { $addToSet: { icons:  iconObject} });
-              $(iconSelector).attr('data-resource', this.docId).attr('data-key', templateKey).attr('data-template', templateName);
+              $(iconSelector).attr('data-resource', this.docId).attr('data-key', templateKey).attr('data-template', templateName).attr('data-index', index);
             }
 
 
@@ -207,14 +218,33 @@ AutoForm.addHooks(['createArticle'], {
     },
     before: {
       insert: function(doc){
-        console.log('hello reaching this point');
         if($('.tags-input').val() != ''){
           doc.tags = $('.tags-input').val();
         }
         return doc; 
       },
       update: function(doc){
-        console.log('hello reaching this update point');
+        if($('#sidebar-content .question-container input').length > 0 && $('#sidebar-content .question-container input').val() != ''){
+          doc.$set.question = $('#sidebar-content .question-container input').val();
+          $('#sidebar-content .question-container input').val('');
+          doc.$set.quiz = true;
+          var key = Session.get('current_answer_key');
+          if(key){
+            doc.$set.answer = doc[key];
+            doc.$set.key = key;
+          }
+          else{
+            var interactionKey = Session.get('templateName').replace('create', '').toLowerCase();
+            var interactionMeta = getInteractionMeta(interactionKey);
+            if(interactionMeta.allow_question){
+              doc.$set.answer = doc[interactionMeta.answer_field];  
+              doc.$set.key = interactionMeta.answer_field;
+            }
+          }
+        }
+        if(Session.get('templateName') == 'detailMCQuiz' && Session.get('mc_answer')){
+          doc.$set.answer = Session.get('mc_answer');
+        }
         if($('.tags-input').val() != ''){
           doc.$set.tags = $('.tags-input').val();
         }
