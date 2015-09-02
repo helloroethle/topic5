@@ -55,6 +55,12 @@ Template.articleLayout.rendered = function () {
     else if(e.keyCode == 39) { // right
       next();
     }
+    else if(e.keyCode == 27){ // esc
+      if($('#wrapper').hasClass('toggled')){
+        clearCurrentHighlight();
+        closeSidebar();
+      }
+    }
   });
 
 };
